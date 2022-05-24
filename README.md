@@ -6,7 +6,7 @@ This is an 8th Light apprenticeship project.
 ## Run project
 The following steps will allow you to run the server in your terminal.
 1. Clone repository `git clone git@github.com:fi-ya/http-server.git`
-2. Check to see if you have the correct version of Java (18.0.1.1) installed `java --version`
+2. Check to see if you have the correct version of Java (17) installed `java --version`
    - Choose to open build/run the server socket either with an IDE or in the terminal (CLI) using the following steps:
      - IntelliJ/VS Code: open `src/main/java/org.httpserver/Main` and pressing green `play` button next to `Main()` or click `Ctrl + Shift + R`.
      - Terminal: cd into project folder and run the command `./gradlew run`
@@ -32,5 +32,5 @@ A user should be able to interact with the HTTP server as follows:
 - The server should accept and return streams of data rather than raw strings.
 - Although not strictly speaking necessary, the HTTP server is a good time to introduce statically typed languages like Java, C#, or Swift.
 - The HTTP server should be covered by a robust suite of unit tests.
-- The HTTP server should pass all of the tests covered in 01_getting_started in the [HTTP Server Spec]9https://github.com/8thlight/http_server_spec).
+- The HTTP server should pass all of the tests covered in 01_getting_started in the [HTTP Server Spec](https://github.com/8thlight/http_server_spec).
 <p align="right">(<a href="#top">back to top</a>)</p>
