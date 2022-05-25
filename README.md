@@ -1,3 +1,4 @@
+[![fi-ya](https://circleci.com/gh/fi-ya/http-server.svg?style=shield)](https://circleci.com/docs/)
 # HTTP Server
 This is an 8th Light apprenticeship project.
 ## Project requirements
