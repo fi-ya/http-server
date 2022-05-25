@@ -12,7 +12,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ServerWrapper {
-    private static boolean clientSocketStatus = false;
     private int clientConnectionCounter;
     private ServerSocket serverSocket;
     private Socket clientSocket;
@@ -52,39 +51,6 @@ public class ServerWrapper {
         return clientSocket;
     }
 
-    public boolean handleClientSocketStatus(boolean status){
-        return clientSocketStatus = true;
-    }
 
-//    public BufferedReader createClientReader(Socket clientSocket) throws IOException{
-//        return new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-//    }
-//
-//    public PrintWriter createClientWriter(Socket clientSocket) throws IOException{
-//        return new PrintWriter(clientSocket.getOutputStream(), true);
-//    }
-//
-//    private void createClientSocketInputOutputStream(Socket clientSocket, ServerLogger serverLogger) throws IOException{
-//        try (var clientInput = createClientReader(clientSocket);
-//             var clientOutput = createClientWriter(clientSocket);
-//        ) {
-//            serverLogger.listeningForClientInput();
-//            clientOutput.println("Server is awaiting your request \n--------------------------------" );
-//
-//
-//        } catch(IOException ioException){
-//            ioException.printStackTrace();
-//            System.out.println("Input & Output stream not created");
-//        }
-//        handleClientSocketStatus(true);
-//    }
 
-//    @Override
-//    public void run() {
-//        try {
-//            createClientSocketInputOutputStream(clientSocket, serverLogger);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 }

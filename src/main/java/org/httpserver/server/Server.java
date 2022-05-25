@@ -10,13 +10,9 @@ import java.util.concurrent.Executors;
 
 public class Server {
     private final int portNumber;
-//    ServerWrapper serverWrapper;
-//    private final ServerLogger serverLogger;
 
     public Server(int portNumber){
         this.portNumber = portNumber;
-//      this.serverWrapper = serverWrapper;
-//      this.serverLogger = serverLogger;
     }
     public void start() throws IOException {
         StdOutServerLogger serverLogger = new StdOutServerLogger();
@@ -30,7 +26,7 @@ public class Server {
             ClientHandler clientHandler = new ClientHandler(clientSocket);
 //            ExecutorService executorService = Executors.newSingleThreadExecutor();
 //            executorService.execute(clientHandler);
-            clientHandler.createClientSocketInputOutputStream(serverLogger);
+            clientHandler.createClientSocketInputOutputStream(clientSocket, serverLogger);
             // parse getClientInput
             // -> newResquestParser - in req class
             // -> newResponseBuilder - in res class
