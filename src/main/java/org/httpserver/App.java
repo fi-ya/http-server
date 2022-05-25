@@ -8,9 +8,7 @@ import java.io.IOException;
 
 public class App {
     public static void main(String[] args) throws IOException {
-        StdOutServerLogger serverLogger = new StdOutServerLogger();
-        ServerWrapper serverWrapper = new ServerWrapper();
-        var server = new Server(serverLogger, 8080, serverWrapper);
+        var server = new Server(8080);
         server.start();
     }
 

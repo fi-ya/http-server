@@ -1,5 +1,7 @@
 package org.httpserver.server;
 
+import org.httpserver.client.ClientHandler;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,7 +11,7 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ServerWrapper implements ServerWrapperInterface, Runnable {
+public class ServerWrapper {
     private static boolean clientSocketStatus = false;
     private int clientConnectionCounter;
     private ServerSocket serverSocket;
@@ -41,16 +43,12 @@ public class ServerWrapper implements ServerWrapperInterface, Runnable {
             serverLogger.successfulConnection(clientSocket.getPort());
             clientConnectionCounter++;
             serverLogger.numberOfClientsConnected(clientConnectionCounter);
-
-            if(clientSocketStatus){
-                clientSocketStatus = false;
-//                ExecutorService executorService = Executors.newSingleThreadExecutor();
-//                executorService.shutdownNow();
-            }
         } catch(IOException ioException){
             ioException.printStackTrace();
             serverLogger.failedConnection();
         }
+        // ExecutorService executorService = Executors.newSingleThreadExecutor();
+//                executorService.shutdownNow();
         return clientSocket;
     }
 
@@ -58,35 +56,35 @@ public class ServerWrapper implements ServerWrapperInterface, Runnable {
         return clientSocketStatus = true;
     }
 
-    public BufferedReader createClientReader(Socket clientSocket) throws IOException{
-        return new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-    }
+//    public BufferedReader createClientReader(Socket clientSocket) throws IOException{
+//        return new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+//    }
+//
+//    public PrintWriter createClientWriter(Socket clientSocket) throws IOException{
+//        return new PrintWriter(clientSocket.getOutputStream(), true);
+//    }
+//
+//    private void createClientSocketInputOutputStream(Socket clientSocket, ServerLogger serverLogger) throws IOException{
+//        try (var clientInput = createClientReader(clientSocket);
+//             var clientOutput = createClientWriter(clientSocket);
+//        ) {
+//            serverLogger.listeningForClientInput();
+//            clientOutput.println("Server is awaiting your request \n--------------------------------" );
+//
+//
+//        } catch(IOException ioException){
+//            ioException.printStackTrace();
+//            System.out.println("Input & Output stream not created");
+//        }
+//        handleClientSocketStatus(true);
+//    }
 
-    public PrintWriter createClientWriter(Socket clientSocket) throws IOException{
-        return new PrintWriter(clientSocket.getOutputStream(), true);
-    }
-
-    private void createClientSocketInputOutputStream(Socket clientSocket, ServerLogger serverLogger) throws IOException{
-        try (var clientInput = createClientReader(clientSocket);
-             var clientOutput = createClientWriter(clientSocket);
-        ) {
-            serverLogger.listeningForClientInput();
-            clientOutput.println("Server is awaiting your request \n--------------------------------" );
-
-
-        } catch(IOException ioException){
-            ioException.printStackTrace();
-            System.out.println("Input & Output stream not created");
-        }
-        handleClientSocketStatus(true);
-    }
-
-    @Override
-    public void run() {
-        try {
-            createClientSocketInputOutputStream(clientSocket, serverLogger);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    @Override
+//    public void run() {
+//        try {
+//            createClientSocketInputOutputStream(clientSocket, serverLogger);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 }
