@@ -2,9 +2,11 @@ package org.httpserver.server;
 
 import org.httpserver.client.ClientHandler;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.Buffer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -26,7 +28,8 @@ public class Server {
             ClientHandler clientHandler = new ClientHandler(clientSocket, serverLogger);
 //            ExecutorService executorService = Executors.newSingleThreadExecutor();
 //            executorService.execute(clientHandler);
-             clientHandler.createClientSocketInputOutputStream(clientSocket, serverLogger);
+             BufferedReader clientRequestReader = clientHandler.createClientSocketInputStream();
+             String clientRequest = clientHandler.getClientRequest(clientRequestReader);
             // parse getClientInput
             // -> newResquestParser - in req class
             // -> newResponseBuilder - in res class
