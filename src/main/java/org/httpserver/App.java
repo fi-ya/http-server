@@ -1,8 +1,6 @@
 package org.httpserver;
 
 import org.httpserver.server.Server;
-import org.httpserver.server.ServerWrapper;
-import org.httpserver.server.StdOutServerLogger;
 
 import java.io.IOException;
 

@@ -23,10 +23,10 @@ public class Server {
         while(!serverSocket.isClosed()){
             Socket clientSocket = serverWrapper.createClientSocket(serverSocket, serverLogger);
             serverWrapper.handleClientSocket(clientSocket, serverLogger);
-            ClientHandler clientHandler = new ClientHandler(clientSocket);
+            ClientHandler clientHandler = new ClientHandler(clientSocket, serverLogger);
 //            ExecutorService executorService = Executors.newSingleThreadExecutor();
 //            executorService.execute(clientHandler);
-            clientHandler.createClientSocketInputOutputStream(clientSocket, serverLogger);
+             clientHandler.createClientSocketInputOutputStream(clientSocket, serverLogger);
             // parse getClientInput
             // -> newResquestParser - in req class
             // -> newResponseBuilder - in res class

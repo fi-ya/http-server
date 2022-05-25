@@ -1,32 +1,30 @@
 package org.httpserver.client;
 
-import org.httpserver.server.ServerWrapper;
 import org.httpserver.server.StdOutServerLogger;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.stubbing.answers.ReturnsElementsOf;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class ClientHandlerTest {
 
     @Test
     void incomingClientRequestReadCorrectly() throws IOException {
-        StdOutServerLogger mockServerLogger = mock(StdOutServerLogger.class);
+        StdOutServerLogger serverLogger = new StdOutServerLogger();
         Socket mockClientSocket = mock(Socket.class);
-        ClientHandler clientHandler = new ClientHandler(mockClientSocket);
+        ClientHandler clientHandler = new ClientHandler(mockClientSocket, serverLogger);
 
-        BufferedReader mockClientInput = mock(BufferedReader.class);
-        when(mockClientInput.readLine()).thenReturn("GET /simple_get HTTP/1.1");
-        clientHandler.getClientRequest(mockClientInput);
+        BufferedReader mockClientRequestReader = mock(BufferedReader.class);
+        when(mockClientRequestReader.readLine()).thenReturn("GET /simple_get HTTP/1.1");
+        clientHandler.getClientRequest(mockClientRequestReader);
 
-        assertEquals("GET /simple_get HTTP/1.1", mockClientInput.readLine());
+        assertEquals("GET /simple_get HTTP/1.1", mockClientRequestReader.readLine());
+//        assertEquals("GET /simple_get HTTP/1.1", clientHandler.getClientRequest());
     }
 
 }
