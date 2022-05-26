@@ -19,19 +19,18 @@ public class RequestHandler {
     }
 
     public void parseClientRequest(){
-//        String clientRequest = "GET / HTTP/1.1";
         String[] arrOfSplitResponseStr = clientRequest.split(" ");
         this.httpMethod = arrOfSplitResponseStr[0];
         this.requestTarget = arrOfSplitResponseStr[1];
         this.httpVersion = arrOfSplitResponseStr[2];
-        System.out.println("parse:" + this.httpVersion );
+//        System.out.println("parse:" + this.httpVersion );
     }
 
     public String responseBuilder(){
         statusCode = "200 OK";
         responseText = "";
         String responseStatusLine = httpVersion + space + statusCode + space + responseText + CRLF;
-        System.out.println("response:" + responseStatusLine);
+//        System.out.println("response:" + responseStatusLine);
         return responseStatusLine;
     }
 }

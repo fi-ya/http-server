@@ -13,6 +13,10 @@ public class ClientHandler {
     private final Socket clientSocket;
     private final ServerLogger serverLogger;
 
+    private int clientConnectionCounter;
+    BufferedReader clientRequestReader;
+    PrintWriter clientResponseWriter;
+
     public ClientHandler(Socket clientSocket, ServerLogger serverLogger){
         this.clientSocket = clientSocket;
         this.serverLogger = serverLogger;
@@ -24,11 +28,12 @@ public class ClientHandler {
     }
 
     public BufferedReader createClientSocketInputStream() {
-        BufferedReader clientRequestReader = null;
         try {
+            clientConnectionCounter++;
+            serverLogger.printNumberOfClientsConnected(clientConnectionCounter);
             clientRequestReader = createClientRequestReader();
-            System.out.println("input stream log; " + clientRequestReader);
-            serverLogger.listeningForClientInput();
+//            System.out.println("input stream log; " + clientRequestReader);
+            serverLogger.printReadingClientRequest();
         } catch (IOException ioException) {
             ioException.printStackTrace();
             System.out.println("[-] Error client input stream not created");
@@ -42,12 +47,13 @@ public class ClientHandler {
 
     public String getClientRequest(BufferedReader clientRequestReader) throws IOException {
         String clientRequestLine = clientRequestReader.readLine();
-        System.out.println("Client Request: " + clientRequestLine);
+//        System.out.println("Client Request: " + clientRequestLine);
         return clientRequestLine;
     }
 
     public void processSendResponse(String response) throws IOException {
-        PrintWriter clientResponseWriter = createClientResponseWriter();
+        clientResponseWriter = createClientResponseWriter();
+        serverLogger.printSendingClientResponse();
         sendResponse(response, clientResponseWriter);
     }
 
@@ -58,5 +64,14 @@ public class ClientHandler {
     public void sendResponse(String response, PrintWriter clientResponseWriter) {
         clientResponseWriter.write(response);
         clientResponseWriter.close();
+    }
+
+    public void closeClientConnection() throws IOException {
+        clientRequestReader.close();
+        clientResponseWriter.close();
+        clientSocket.close();
+        serverLogger.printClosedClientConnection(clientSocket.getPort());
+        clientConnectionCounter--;
+        serverLogger.printNumberOfClientsConnected(clientConnectionCounter);
     }
 }

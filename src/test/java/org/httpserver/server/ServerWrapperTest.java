@@ -42,7 +42,7 @@ class ServerWrapperTest {
     }
 
     @Test
-    void clientSocketFailedToConnectToServerSocket() throws IOException {
+    void clientSocketFailedToConnectToClientSocket() throws IOException {
         StdOutServerLogger mockServerLogger = mock(StdOutServerLogger.class);
         ServerWrapper serverWrapper = new ServerWrapper(mockServerLogger);
         ServerSocket mockServerSocket = mock(ServerSocket.class);
@@ -50,6 +50,6 @@ class ServerWrapperTest {
         when(mockServerSocket.accept()).thenThrow(IOException.class);
         serverWrapper.createClientSocket(mockServerSocket);
 
-        verify(mockServerLogger, times(1)).failedConnection();
+        verify(mockServerLogger, times(1)).printFailedClientSocketConnection();
     }
 }

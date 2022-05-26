@@ -10,7 +10,7 @@ The following steps will allow you to run the server in your terminal.
 1. Clone repository `git clone git@github.com:fi-ya/http-server.git`
 2. Check to see if you have the correct version of Java (17) installed `java --version`
    - Choose to open build/run the server socket either with an IDE or in the terminal (CLI) using the following steps:
-     - IntelliJ/VS Code: open `src/main/java/org.httpserver/Main` and pressing green `play` button next to `Main()` or click `Ctrl + Shift + R`.
+     - IntelliJ/VS Code: open `src/main/java/org.httpserver/App` and pressing green `play` button next to `main()` or click `Ctrl + Shift + R`.
      - Terminal: cd into project folder and run the command `./gradlew run`
 <p align="right">(<a href="#top">back to top</a>)</p>
 

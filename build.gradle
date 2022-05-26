@@ -17,7 +17,7 @@ dependencies {
 }
 
 application {
-    mainClass = 'org.httpserver.Main'
+    mainClass = 'org.httpserver.App'
 }
 
 test {

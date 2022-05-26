@@ -6,7 +6,6 @@ import java.net.Socket;
 
 public class ServerWrapper {
     private final ServerLogger serverLogger;
-    private int clientConnectionCounter;
 
     public ServerWrapper(ServerLogger serverLogger){
         this.serverLogger = serverLogger;
@@ -19,7 +18,7 @@ public class ServerWrapper {
             serverLogger.listeningForClientRequest(portNumber);
         } catch (IOException ioException){
             ioException.printStackTrace();
-            serverLogger.failedToCreateServerSocket(portNumber);
+            serverLogger.printFailedToCreateServerSocket(portNumber);
             System.exit(1);
         }
         return serverSocket;
@@ -29,12 +28,10 @@ public class ServerWrapper {
         Socket clientSocket = null;
         try{
             clientSocket = serverSocket.accept();
-            serverLogger.successfulConnection(clientSocket.getPort());
-            clientConnectionCounter++;
-            serverLogger.numberOfClientsConnected(clientConnectionCounter);
+            serverLogger.printConnectedClientSocket(clientSocket.getPort());
         } catch(IOException ioException){
             ioException.printStackTrace();
-            serverLogger.failedConnection();
+            serverLogger.printFailedClientSocketConnection();
         }
         return clientSocket;
     }

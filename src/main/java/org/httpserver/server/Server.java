@@ -31,7 +31,7 @@ public class Server {
             String response = requestHandler.responseBuilder();
 
             clientHandler.processSendResponse(response);
-
+            clientHandler.closeClientConnection();
         }
     }
 
