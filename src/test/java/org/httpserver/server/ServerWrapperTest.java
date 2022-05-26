@@ -12,10 +12,10 @@ import static org.mockito.Mockito.*;
 class ServerWrapperTest {
 
     @Test
-    void serverSocketOpensConnectionOnPort8080() throws IOException {
+    void serverSocketOpensConnectionOnPort5000() throws IOException {
         StdOutServerLogger serverLogger = new StdOutServerLogger();
         ServerWrapper serverWrapper = new ServerWrapper(serverLogger);
-        ServerSocket newServerSocket =  serverWrapper.createServerSocket(8080);
+        ServerSocket newServerSocket =  serverWrapper.createServerSocket(5000);
         assertNotNull(newServerSocket);
     }
 

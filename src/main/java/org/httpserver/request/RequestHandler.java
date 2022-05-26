@@ -2,6 +2,7 @@ package org.httpserver.request;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class RequestHandler {
     private final String clientRequest;
@@ -11,7 +12,10 @@ public class RequestHandler {
     String CRLF = "\r\n";
     String space = " ";
     String statusCode;
-    String responseText;
+    String statusText;
+    String responseStatusLine;
+    String responseBody;
+    String response;
 
 
     public RequestHandler(String clientRequest){
@@ -23,14 +27,22 @@ public class RequestHandler {
         this.httpMethod = arrOfSplitResponseStr[0];
         this.requestTarget = arrOfSplitResponseStr[1];
         this.httpVersion = arrOfSplitResponseStr[2];
-//        System.out.println("parse:" + this.httpVersion );
     }
 
     public String responseBuilder(){
-        statusCode = "200 OK";
-        responseText = "";
-        String responseStatusLine = httpVersion + space + statusCode + space + responseText + CRLF;
-//        System.out.println("response:" + responseStatusLine);
-        return responseStatusLine;
+        statusCode = "200";
+        statusText = "OK";
+        responseStatusLine = httpVersion + space + statusCode + space + statusText + CRLF;
+
+        if(Objects.equals(requestTarget, "/simple_get")){
+            responseBody = "";
+        } else {
+            if (Objects.equals(requestTarget, "/simple_get_with_body")) {
+                responseBody = "Hello world";
+            }
+        }
+
+        response = responseStatusLine + CRLF + responseBody;
+        return response;
     }
 }

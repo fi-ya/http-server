@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class App {
     public static void main(String[] args) throws IOException {
-        var server = new Server(8080);
+        var server = new Server(5000);
         server.start();
     }
 

@@ -68,7 +68,6 @@ public class ClientHandler {
 
     public void closeClientConnection() throws IOException {
         clientRequestReader.close();
-        clientResponseWriter.close();
         clientSocket.close();
         serverLogger.printClosedClientConnection(clientSocket.getPort());
         clientConnectionCounter--;
