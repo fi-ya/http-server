@@ -12,6 +12,7 @@ The following steps will allow you to run the server in your terminal.
    - Choose to open build/run the server socket either with an IDE or in the terminal (CLI) using the following steps:
      - IntelliJ/VS Code: open `src/main/java/org.httpserver/App` and pressing green `play` button next to `main()` or click `Ctrl + Shift + R`.
      - Terminal: cd into project folder and run the command `./gradlew run`
+3. Send client request using netcat by running `nc localhost 5000` followed by the client request, ie. `GET /simple_get HTTP/1.1` and wait for server response.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Run tests
