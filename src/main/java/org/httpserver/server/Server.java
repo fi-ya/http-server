@@ -24,15 +24,14 @@ public class Server {
             ClientHandler clientHandler = new ClientHandler(clientSocket, serverLogger);
 
             String clientRequest = clientHandler.processRequest();
-            // parse getClientInput
+
             RequestHandler requestHandler = new RequestHandler(clientRequest);
-            // -> newResquestParser - in req class
             requestHandler.parseClientRequest();
-            // -> newResponseBuilder - in res class
+
             String response = requestHandler.responseBuilder();
-            // -> send to PrintWriter
-            clientHandler.sendResponse(response);
-            // -> clientSocket.close
+
+            clientHandler.processSendResponse(response);
+
         }
     }
 
