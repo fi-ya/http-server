@@ -3,7 +3,6 @@ package org.httpserver.server;
 import org.httpserver.client.ClientHandler;
 import org.httpserver.request.RequestHandler;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -24,7 +23,7 @@ public class Server {
             Socket clientSocket = serverWrapper.createClientSocket(serverSocket);
             ClientHandler clientHandler = new ClientHandler(clientSocket, serverLogger);
 
-            String clientRequest = processRequest(clientHandler);
+            String clientRequest = clientHandler.processRequest();
             // parse getClientInput
             RequestHandler requestHandler = new RequestHandler(clientRequest);
             // -> newResquestParser - in req class
@@ -35,12 +34,6 @@ public class Server {
             clientHandler.sendResponse(response);
             // -> clientSocket.close
         }
-    }
-
-    private String processRequest(ClientHandler clientHandler) throws IOException {
-        BufferedReader clientRequestReader = clientHandler.createClientSocketInputStream();
-        String clientRequest = clientHandler.getClientRequest(clientRequestReader);
-        return clientRequest;
     }
 
 

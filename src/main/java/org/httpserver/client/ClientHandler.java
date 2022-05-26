@@ -62,4 +62,10 @@ public class ClientHandler {
     private PrintWriter createClientResponseWriter() throws IOException{
         return new PrintWriter(clientSocket.getOutputStream(), true);
     }
+
+    public String processRequest() throws IOException {
+        BufferedReader clientRequestReader = createClientSocketInputStream();
+        String clientRequest = getClientRequest(clientRequestReader);
+        return clientRequest;
+    }
 }
