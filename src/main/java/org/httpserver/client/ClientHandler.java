@@ -32,7 +32,6 @@ public class ClientHandler {
             clientConnectionCounter++;
             serverLogger.printNumberOfClientsConnected(clientConnectionCounter);
             clientRequestReader = createClientRequestReader();
-//            System.out.println("input stream log; " + clientRequestReader);
             serverLogger.printReadingClientRequest();
         } catch (IOException ioException) {
             ioException.printStackTrace();
@@ -46,9 +45,7 @@ public class ClientHandler {
     }
 
     public String getClientRequest(BufferedReader clientRequestReader) throws IOException {
-        String clientRequestLine = clientRequestReader.readLine();
-//        System.out.println("Client Request: " + clientRequestLine);
-        return clientRequestLine;
+        return clientRequestReader.readLine();
     }
 
     public void processSendResponse(String response) throws IOException {

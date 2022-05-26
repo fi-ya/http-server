@@ -1,7 +1,5 @@
 package org.httpserver.request;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class RequestHandler {
@@ -41,7 +39,6 @@ public class RequestHandler {
                 responseBody = "Hello world";
             }
         }
-
         response = responseStatusLine + CRLF + responseBody;
         return response;
     }
