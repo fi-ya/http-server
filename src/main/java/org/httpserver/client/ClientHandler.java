@@ -12,6 +12,8 @@ public class ClientHandler {
 
     private final Socket clientSocket;
     private final ServerLogger serverLogger;
+//    BufferedReader clientRequestReader;
+    PrintWriter clientResponseWriter;
 
 
     public ClientHandler(Socket clientSocket, ServerLogger serverLogger){
@@ -19,12 +21,14 @@ public class ClientHandler {
         this.serverLogger = serverLogger;
     }
 
-    public BufferedReader createClientSocketInputStream(){
+    public BufferedReader createClientSocketInputStream() {
         BufferedReader clientRequestReader = null;
         try {
             clientRequestReader = createClientRequestReader();
+            this.clientResponseWriter = createClientResponseWriter();
+            System.out.println("input stream log; " + clientRequestReader);
             serverLogger.listeningForClientInput();
-        } catch(IOException ioException){
+        } catch (IOException ioException) {
             ioException.printStackTrace();
             System.out.println("[-] Error client input stream not created");
         }
@@ -36,20 +40,26 @@ public class ClientHandler {
     }
 
     public String getClientRequest(BufferedReader clientRequestReader) throws IOException {
+        System.out.println("client req log; " + clientRequestReader);
+        System.out.println("client req readline log; " + clientRequestReader.readLine());
         String clientRequestLine = clientRequestReader.readLine();
         System.out.println("Client Request: " + clientRequestLine);
         return clientRequestLine;
     }
 
-//    public void sendServerResponse() throws IOException{
-//        try (var clientOutput = createClientWriter(clientSocket);) {
-//
+    public void sendResponse(String response){
+        this.clientResponseWriter.write(response);
+    }
+
+//    public void createClientOutputStream() throws IOException{
+//        try {
+//            var clientOutput = createClientResponseWriter(clientSocket);
 //        } catch(IOException ioException){
 //            ioException.printStackTrace();
 //            System.out.println("[-] Error client output stream not created");
 //        }
 //    }
-//    private PrintWriter createClientResponseWriter(Socket clientSocket) throws IOException{
-//        return new PrintWriter(clientSocket.getOutputStream(), true);
-//    }
+    private PrintWriter createClientResponseWriter() throws IOException{
+        return new PrintWriter(clientSocket.getOutputStream(), true);
+    }
 }
