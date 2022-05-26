@@ -48,7 +48,7 @@ public class ClientHandler {
     }
 
     public void sendResponse(String response){
-        this.clientResponseWriter.write(response);
+        clientResponseWriter.println(response);
     }
 
 //    public void createClientOutputStream() throws IOException{
