@@ -16,8 +16,10 @@ public class RequestHandler {
     String statusCode;
     String statusText;
     String responseStatusLine;
+    String responseHeaders;
     String responseBody;
     String response;
+
     LinkedHashMap headersMap;
 
 
@@ -56,26 +58,30 @@ public class RequestHandler {
         }
         headersMap = this.headersMap;
     }
-
-//    private void parseRequestHeaders(String clientRequest){
-//        System.out.println("client"+clientRequest);
-//    }
-
-    public String responseBuilder(){
+    public String responseBuilder() {
         statusCode = "200";
         statusText = "OK";
         responseStatusLine = httpVersion + SP + statusCode + SP + statusText + CRLF;
+        responseHeaders = "" + CRLF ;
 
         if (Objects.equals(httpMethod, "GET") || Objects.equals(httpMethod, "HEAD")) {
-            if (Objects.equals(requestTarget, "/simple_get")|| Objects.equals(requestTarget, "/head_request")) {
+            if (Objects.equals(requestTarget, "/simple_get") || Objects.equals(requestTarget, "/head_request")) {
                 responseBody = "";
             } else {
                 if (Objects.equals(requestTarget, "/simple_get_with_body")) {
                     responseBody = "Hello world";
                 }
             }
+            response = responseStatusLine + CRLF + responseBody;
+        } else if (Objects.equals(httpMethod, "OPTIONS")) {
+            if (Objects.equals(requestTarget, "/method_options")) {
+                responseHeaders = "Allow: GET, HEAD, OPTIONS" + CRLF ;
+            } else {
+                responseHeaders = "Allow: GET, HEAD, OPTIONS, PUT, POST" + CRLF ;
+            }
+            responseBody = "";
+            response = responseStatusLine + responseHeaders + CRLF + responseBody;
         }
-        response = responseStatusLine + CRLF + responseBody;
         return response;
     }
 }
