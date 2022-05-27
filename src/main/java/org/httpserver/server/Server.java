@@ -18,20 +18,20 @@ public class Server {
     }
     public void start() throws IOException {
         StdOutServerLogger serverLogger = new StdOutServerLogger();
+
         ServerWrapper serverWrapper = new ServerWrapper(serverLogger);
         ServerSocket serverSocket = serverWrapper.createServerSocket(portNumber);
 
         while(!serverSocket.isClosed()) {
 
             Socket clientSocket = serverWrapper.createClientSocket(serverSocket);
+
             ClientHandler clientHandler = new ClientHandler(clientSocket, serverLogger);
-
             BufferedReader clientRequestReader = clientHandler.createClientInputStreamReader();
-            RequestHandler requestHandler = new RequestHandler(clientRequestReader);
 
+            RequestHandler requestHandler = new RequestHandler(clientRequestReader);
             requestHandler.parseClientRequest();
             String response = requestHandler.responseBuilder();
-
             clientHandler.processSendResponse(response);
             clientHandler.closeClientConnection();
         }

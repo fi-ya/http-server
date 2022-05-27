@@ -13,6 +13,7 @@ public class RequestHandler {
     String httpVersion ;
     String CRLF = "\r\n";
     String SP = " ";
+    String requestMessageBody;
     String statusCode;
     String statusText;
     String responseStatusLine;
@@ -20,7 +21,6 @@ public class RequestHandler {
     String responseBody;
     String response;
 
-    LinkedHashMap headersMap;
 
 
     public RequestHandler(BufferedReader clientRequestReader){
@@ -29,7 +29,9 @@ public class RequestHandler {
 
     public void parseClientRequest() throws IOException {
         parseClientRequestLine();
-        parseClientRequestHeaders();
+        LinkedHashMap requestHeaders = parseClientRequestHeaders();
+        String contentLengthValue = getContentLengthHeaderValue(requestHeaders);
+        parseClientRequestMessageBody(contentLengthValue);
     }
     public void parseClientRequestLine() throws IOException {
         String clientRequestLine = readClientRequestLine();
@@ -43,21 +45,42 @@ public class RequestHandler {
         return clientRequestReader.readLine();
     }
 
-    private void parseClientRequestHeaders() throws IOException {
-        LinkedHashMap <String, String> headersMap = new LinkedHashMap<>();
+    private LinkedHashMap parseClientRequestHeaders() throws IOException {
+        LinkedHashMap<String, String> headersMap = new LinkedHashMap<>();
         String line;
         while((line = clientRequestReader.readLine()) != null) {
             if (line.equals("")) {
                 break;
             } else {
-                String[] splitHeader = line.split(" ", 2);
+                String[] splitHeader = line.split(": ", 2);
                 String headerKey = splitHeader[0];
                 String headerValue = splitHeader[1];
                 headersMap.put(headerKey, headerValue);
             }
         }
-        headersMap = this.headersMap;
+        return headersMap;
     }
+
+    private String getContentLengthHeaderValue(LinkedHashMap requestHeadersMap) {
+        return requestHeadersMap.isEmpty() ? null : (String) requestHeadersMap.get("Content-Length");
+    }
+
+    private void parseClientRequestMessageBody(String contentLengthValue) throws IOException {
+        System.out.println("contentLengthValue "+contentLengthValue);
+        if (contentLengthValue == null){
+            requestMessageBody = null;
+        } else{
+            int contentLengthInt = Integer.parseInt(contentLengthValue);
+            System.out.println("length "+contentLengthInt);
+            StringBuilder requestMessageBody = new StringBuilder();
+            for(int i = 0; i< contentLengthInt; i++){
+                requestMessageBody.append(clientRequestReader.readLine());
+                System.out.println("mes body"+ requestMessageBody);
+            }
+//            System.out.println("mes body"+ requestMessageBody.toString().trim());
+        }
+    }
+//    GET /simple_get HTTP/1.1\r\nContent-Length: 3\r\nhii
     public String responseBuilder() {
         statusCode = "200";
         statusText = "OK";

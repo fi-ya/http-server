@@ -9,22 +9,11 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 class ClientHandlerTest {
 
-    @Test
-    void incomingClientRequestReadCorrectly() throws IOException {
-        StdOutServerLogger serverLogger = new StdOutServerLogger();
-        Socket mockClientSocket = mock(Socket.class);
-        ClientHandler clientHandler = new ClientHandler(mockClientSocket, serverLogger);
-
-        BufferedReader mockClientRequestReader = mock(BufferedReader.class);
-        when(mockClientRequestReader.readLine()).thenReturn("GET /simple_get HTTP/1.1");
-        clientHandler.getClientRequest(mockClientRequestReader);
-
-        assertEquals("GET /simple_get HTTP/1.1", mockClientRequestReader.readLine());
-    }
 
     @Test
     void sendClientResponseReadCorrectlyAndCloses() throws IOException {
