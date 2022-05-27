@@ -22,7 +22,7 @@ You can find all tests in `src/test/java` and run the test suite using either of
 
 ### Running acceptance tests
 - Start the HTTP server on port 5000, by following the `Run project` steps above.
-- Once your server is running, `cd` into http_server_spec directory and run the acceptance test suite in the terminal with:
+- Once your server is running, `cd` into http_server_spec directory `src/test/http_server_spec` and run the acceptance test suite in the terminal with:
   - To run full test suite run `rake test`
   - To run the tests from a specific section of the features: 
     - `rake test:f1 # Run all of the tests in 01_getting_started`
