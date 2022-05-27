@@ -3,9 +3,12 @@ package org.httpserver.server;
 import org.httpserver.client.ClientHandler;
 import org.httpserver.request.RequestHandler;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.LinkedHashMap;
 
 public class Server {
     private final int portNumber;
@@ -23,11 +26,10 @@ public class Server {
             Socket clientSocket = serverWrapper.createClientSocket(serverSocket);
             ClientHandler clientHandler = new ClientHandler(clientSocket, serverLogger);
 
-            String clientRequest = clientHandler.processRequest();
+            BufferedReader clientRequestReader = clientHandler.createClientInputStreamReader();
+            RequestHandler requestHandler = new RequestHandler(clientRequestReader);
 
-            RequestHandler requestHandler = new RequestHandler(clientRequest);
             requestHandler.parseClientRequest();
-
             String response = requestHandler.responseBuilder();
 
             clientHandler.processSendResponse(response);
