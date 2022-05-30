@@ -13,16 +13,17 @@ import java.util.LinkedHashMap;
 public class Server {
     private final int portNumber;
 
-    public Server(int portNumber){
+    public Server(int portNumber) {
         this.portNumber = portNumber;
     }
+
     public void start() throws IOException {
         StdOutServerLogger serverLogger = new StdOutServerLogger();
 
         ServerWrapper serverWrapper = new ServerWrapper(serverLogger);
         ServerSocket serverSocket = serverWrapper.createServerSocket(portNumber);
 
-        while(!serverSocket.isClosed()) {
+        while (!serverSocket.isClosed()) {
 
             Socket clientSocket = serverWrapper.createClientSocket(serverSocket);
 

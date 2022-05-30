@@ -10,7 +10,7 @@ public class RequestHandler {
     private final BufferedReader clientRequestReader;
     String httpMethod;
     String requestTarget;
-    String httpVersion ;
+    String httpVersion;
     String CRLF = "\r\n";
     String SP = " ";
     String requestMessageBody;
@@ -22,8 +22,7 @@ public class RequestHandler {
     String response;
 
 
-
-    public RequestHandler(BufferedReader clientRequestReader){
+    public RequestHandler(BufferedReader clientRequestReader) {
         this.clientRequestReader = clientRequestReader;
     }
 
@@ -33,6 +32,7 @@ public class RequestHandler {
         String contentLengthValue = getContentLengthHeaderValue(requestHeaders);
         parseClientRequestMessageBody(contentLengthValue);
     }
+
     public void parseClientRequestLine() throws IOException {
         String clientRequestLine = readClientRequestLine();
         String[] arrOfSplitRequestLineStr = clientRequestLine.split(" ", 3);
@@ -48,7 +48,7 @@ public class RequestHandler {
     private LinkedHashMap parseClientRequestHeaders() throws IOException {
         LinkedHashMap<String, String> headersMap = new LinkedHashMap<>();
         String line;
-        while((line = clientRequestReader.readLine()) != null) {
+        while ((line = clientRequestReader.readLine()) != null) {
             if (line.equals("")) {
                 break;
             } else {
@@ -66,26 +66,27 @@ public class RequestHandler {
     }
 
     private void parseClientRequestMessageBody(String contentLengthValue) throws IOException {
-        System.out.println("contentLengthValue "+contentLengthValue);
-        if (contentLengthValue == null){
+        System.out.println("contentLengthValue " + contentLengthValue);
+        if (contentLengthValue == null) {
             requestMessageBody = null;
-        } else{
+        } else {
             int contentLengthInt = Integer.parseInt(contentLengthValue);
-            System.out.println("length "+contentLengthInt);
+            System.out.println("length " + contentLengthInt);
             StringBuilder requestMessageBody = new StringBuilder();
-            for(int i = 0; i< contentLengthInt; i++){
+            for (int i = 0; i < contentLengthInt; i++) {
                 requestMessageBody.append(clientRequestReader.readLine());
-                System.out.println("mes body"+ requestMessageBody);
+                System.out.println("mes body" + requestMessageBody);
             }
 //            System.out.println("mes body"+ requestMessageBody.toString().trim());
         }
     }
-//    GET /simple_get HTTP/1.1\r\nContent-Length: 3\r\nhii
+
+    //    GET /simple_get HTTP/1.1\r\nContent-Length: 3\r\nhii
     public String responseBuilder() {
         statusCode = "200";
         statusText = "OK";
         responseStatusLine = httpVersion + SP + statusCode + SP + statusText + CRLF;
-        responseHeaders = "" + CRLF ;
+        responseHeaders = "" + CRLF;
 
         if (Objects.equals(httpMethod, "GET") || Objects.equals(httpMethod, "HEAD")) {
             if (Objects.equals(requestTarget, "/simple_get") || Objects.equals(requestTarget, "/head_request")) {
@@ -98,9 +99,9 @@ public class RequestHandler {
             response = responseStatusLine + CRLF + responseBody;
         } else if (Objects.equals(httpMethod, "OPTIONS")) {
             if (Objects.equals(requestTarget, "/method_options")) {
-                responseHeaders = "Allow: GET, HEAD, OPTIONS" + CRLF ;
+                responseHeaders = "Allow: GET, HEAD, OPTIONS" + CRLF;
             } else {
-                responseHeaders = "Allow: GET, HEAD, OPTIONS, PUT, POST" + CRLF ;
+                responseHeaders = "Allow: GET, HEAD, OPTIONS, PUT, POST" + CRLF;
             }
             responseBody = "";
             response = responseStatusLine + responseHeaders + CRLF + responseBody;

@@ -15,7 +15,7 @@ class ServerWrapperTest {
     void serverSocketOpensConnectionOnPort5000() throws IOException {
         StdOutServerLogger serverLogger = new StdOutServerLogger();
         ServerWrapper serverWrapper = new ServerWrapper(serverLogger);
-        ServerSocket newServerSocket =  serverWrapper.createServerSocket(5000);
+        ServerSocket newServerSocket = serverWrapper.createServerSocket(5000);
         assertNotNull(newServerSocket);
     }
 
