@@ -5,10 +5,8 @@ import org.httpserver.request.RequestHandler;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.LinkedHashMap;
 
 public class Server {
     private final int portNumber;

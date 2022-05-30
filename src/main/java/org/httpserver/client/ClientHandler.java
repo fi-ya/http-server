@@ -4,7 +4,6 @@ import org.httpserver.server.ServerLogger;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.LinkedHashMap;
 
 public class ClientHandler {
 
@@ -15,7 +14,7 @@ public class ClientHandler {
     BufferedReader clientRequestReader;
     PrintWriter clientResponseWriter;
 
-    public ClientHandler(Socket clientSocket, ServerLogger serverLogger){
+    public ClientHandler(Socket clientSocket, ServerLogger serverLogger) {
         this.clientSocket = clientSocket;
         this.serverLogger = serverLogger;
     }
@@ -36,6 +35,7 @@ public class ClientHandler {
     private BufferedReader createClientRequestReader() throws IOException {
         return new BufferedReader(new InputStreamReader(clientRequestInputStream()));
     }
+
     private InputStream clientRequestInputStream() throws IOException {
         return clientSocket.getInputStream();
     }
@@ -46,7 +46,7 @@ public class ClientHandler {
         sendResponse(response, clientResponseWriter);
     }
 
-    private PrintWriter createClientResponseWriter() throws IOException{
+    private PrintWriter createClientResponseWriter() throws IOException {
         return new PrintWriter(clientSocket.getOutputStream(), true);
     }
 

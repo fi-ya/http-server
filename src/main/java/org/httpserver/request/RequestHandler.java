@@ -2,7 +2,6 @@ package org.httpserver.request;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
@@ -11,7 +10,6 @@ public class RequestHandler {
     String httpMethod;
     String requestTarget;
     String httpVersion;
-
 
 
     public RequestHandler(BufferedReader clientRequestReader) {
@@ -30,15 +28,15 @@ public class RequestHandler {
     public void parseClientRequestLine() throws IOException {
         String clientRequestLine;
 
-        if ((clientRequestLine = readClientRequestLine()) !=null) {
-                String[] arrOfSplitRequestLineStr = clientRequestLine.split(" ", 3);
-                this.httpMethod = arrOfSplitRequestLineStr[0];
-                this.requestTarget = arrOfSplitRequestLineStr[1];
-                this.httpVersion = arrOfSplitRequestLineStr[2];
-       }
+        if ((clientRequestLine = readClientRequestLine()) != null) {
+            String[] arrOfSplitRequestLineStr = clientRequestLine.split(" ", 3);
+            this.httpMethod = arrOfSplitRequestLineStr[0];
+            this.requestTarget = arrOfSplitRequestLineStr[1];
+            this.httpVersion = arrOfSplitRequestLineStr[2];
+        }
     }
 
-    public String readClientRequestLine() throws IOException {
+    private String readClientRequestLine() throws IOException {
         return clientRequestReader.readLine();
     }
 
@@ -68,14 +66,13 @@ public class RequestHandler {
 
         if (contentLengthValue == null) {
             return null;
-        }
-        else {
+        } else {
             int contentLengthInt = Integer.parseInt(contentLengthValue);
 
             StringBuilder requestMessageBodyStrObj = new StringBuilder();
             for (int i = 0; i < contentLengthInt; i++) {
                 requestMessageBodyStrObj.append((char) clientRequestReader.read());
-                requestBody =  requestMessageBodyStrObj.toString();
+                requestBody = requestMessageBodyStrObj.toString();
             }
         }
         return requestBody;
@@ -92,7 +89,7 @@ public class RequestHandler {
         String responseHeaders = "" + CRLF;
         String response = "";
 
-        if (Objects.equals(httpMethod, "GET") && Objects.equals(requestTarget, "/head_request")){
+        if (Objects.equals(httpMethod, "GET") && Objects.equals(requestTarget, "/head_request")) {
             statusCode = "405";
             statusText = "Method Not Allowed";
             responseStatusLine = httpVersion + SP + statusCode + SP + statusText + CRLF;
@@ -108,20 +105,20 @@ public class RequestHandler {
             } else if (Objects.equals(requestTarget, "/simple_get_with_body")) {
                 responseBody = "Hello world";
                 response = responseStatusLine + CRLF + responseBody;
-            } else if ( Objects.equals(requestTarget, "/redirect")) {
+            } else if (Objects.equals(requestTarget, "/redirect")) {
                 statusCode = "301";
                 statusText = "Moved Permanently";
                 responseStatusLine = httpVersion + SP + statusCode + SP + statusText + CRLF;
                 responseHeaders = "Location: http://127.0.0.1:5000/simple_get" + CRLF;
                 responseBody = "";
                 response = responseStatusLine + responseHeaders + CRLF + responseBody;
-            } else{
+            } else {
                 statusCode = "404";
                 statusText = "Not Found";
                 responseStatusLine = httpVersion + SP + statusCode + SP + statusText + CRLF;
                 response = responseStatusLine + CRLF;
             }
-           return response;
+            return response;
         }
 
         if (Objects.equals(httpMethod, "OPTIONS")) {
