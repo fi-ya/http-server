@@ -2,6 +2,7 @@ package org.httpserver.request;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
@@ -24,11 +25,14 @@ public class RequestHandler {
     }
 
     public void parseClientRequestLine() throws IOException {
-        String clientRequestLine = readClientRequestLine();
-        String[] arrOfSplitRequestLineStr = clientRequestLine.split(" ", 3);
-        this.httpMethod = arrOfSplitRequestLineStr[0];
-        this.requestTarget = arrOfSplitRequestLineStr[1];
-        this.httpVersion = arrOfSplitRequestLineStr[2];
+        String clientRequestLine;
+        if ((clientRequestLine = readClientRequestLine()) !=null) {
+                String[] arrOfSplitRequestLineStr = clientRequestLine.split(" ", 3);
+                System.out.println("arrOfSplitRequestLineStr:"+ Arrays.toString(arrOfSplitRequestLineStr));
+                this.httpMethod = arrOfSplitRequestLineStr[0];
+                this.requestTarget = arrOfSplitRequestLineStr[1];
+                this.httpVersion = arrOfSplitRequestLineStr[2];
+       }
     }
 
     public String readClientRequestLine() throws IOException {
@@ -48,6 +52,7 @@ public class RequestHandler {
                 headersMap.put(headerKey, headerValue);
             }
         }
+        System.out.println("headersmap+"+headersMap);
         return headersMap;
     }
 
