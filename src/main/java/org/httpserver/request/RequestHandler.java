@@ -2,7 +2,6 @@ package org.httpserver.request;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
@@ -11,15 +10,6 @@ public class RequestHandler {
     String httpMethod;
     String requestTarget;
     String httpVersion;
-    String CRLF = "\r\n";
-    String SP = " ";
-    String requestMessageBody;
-    String statusCode;
-    String statusText;
-    String responseStatusLine;
-    String responseHeaders;
-    String responseBody;
-    String response;
 
 
     public RequestHandler(BufferedReader clientRequestReader) {
@@ -68,25 +58,29 @@ public class RequestHandler {
     private void parseClientRequestMessageBody(String contentLengthValue) throws IOException {
         System.out.println("contentLengthValue " + contentLengthValue);
         if (contentLengthValue == null) {
-            requestMessageBody = null;
+            String requestMessageBody = null;
         } else {
             int contentLengthInt = Integer.parseInt(contentLengthValue);
             System.out.println("length " + contentLengthInt);
             StringBuilder requestMessageBody = new StringBuilder();
-            for (int i = 0; i < contentLengthInt; i++) {
-                requestMessageBody.append(clientRequestReader.readLine());
-                System.out.println("mes body" + requestMessageBody);
-            }
+//            for (int i = 0; i < contentLengthInt; i++) {
+//                requestMessageBody.append(clientRequestReader.readLine());
+//                System.out.println("mes body" + requestMessageBody);
+//            }
 //            System.out.println("mes body"+ requestMessageBody.toString().trim());
         }
     }
 
     //    GET /simple_get HTTP/1.1\r\nContent-Length: 3\r\nhii
     public String responseBuilder() {
-        statusCode = "200";
-        statusText = "OK";
-        responseStatusLine = httpVersion + SP + statusCode + SP + statusText + CRLF;
-        responseHeaders = "" + CRLF;
+        String statusCode = "200";
+        String statusText = "OK";
+        String SP = " ";
+        String CRLF = "\r\n";
+        String responseBody = "";
+        String responseStatusLine = httpVersion + SP + statusCode + SP + statusText + CRLF;
+        String responseHeaders = "" + CRLF;
+        String response = "";
 
         if (Objects.equals(httpMethod, "GET") || Objects.equals(httpMethod, "HEAD")) {
             if (Objects.equals(requestTarget, "/simple_get") || Objects.equals(requestTarget, "/head_request")) {
