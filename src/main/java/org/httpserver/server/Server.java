@@ -31,8 +31,7 @@ public class Server {
             BufferedReader clientRequestReader = clientHandler.createClientInputStreamReader();
 
             RequestHandler requestHandler = new RequestHandler(clientRequestReader);
-            requestHandler.parseClientRequest();
-            String response = requestHandler.responseBuilder();
+            String response = requestHandler.processClientRequest();
             clientHandler.processSendResponse(response);
             clientHandler.closeClientConnection();
         }

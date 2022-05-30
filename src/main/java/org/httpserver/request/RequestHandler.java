@@ -11,24 +11,27 @@ public class RequestHandler {
     String httpMethod;
     String requestTarget;
     String httpVersion;
-    String requestBody;
+
 
 
     public RequestHandler(BufferedReader clientRequestReader) {
         this.clientRequestReader = clientRequestReader;
     }
 
-    public void parseClientRequest() throws IOException {
+    public String processClientRequest() throws IOException {
         parseClientRequestLine();
         LinkedHashMap requestHeaders = parseClientRequestHeaders();
         String contentLengthValue = getContentLengthHeaderValue(requestHeaders);
+        String requestBody = parseClientRequestMessageBody(contentLengthValue);
+
+        return responseBuilder(requestBody);
     }
 
     public void parseClientRequestLine() throws IOException {
         String clientRequestLine;
+
         if ((clientRequestLine = readClientRequestLine()) !=null) {
                 String[] arrOfSplitRequestLineStr = clientRequestLine.split(" ", 3);
-                System.out.println("arrOfSplitRequestLineStr:"+ Arrays.toString(arrOfSplitRequestLineStr));
                 this.httpMethod = arrOfSplitRequestLineStr[0];
                 this.requestTarget = arrOfSplitRequestLineStr[1];
                 this.httpVersion = arrOfSplitRequestLineStr[2];
@@ -41,18 +44,18 @@ public class RequestHandler {
 
     private LinkedHashMap parseClientRequestHeaders() throws IOException {
         LinkedHashMap<String, String> headersMap = new LinkedHashMap<>();
-        String line;
-        while ((line = clientRequestReader.readLine()) != null) {
-            if (line.equals("")) {
+        String headerLine;
+
+        while ((headerLine = clientRequestReader.readLine()) != null) {
+            if (headerLine.equals("")) {
                 break;
             } else {
-                String[] splitHeader = line.split(": ", 2);
+                String[] splitHeader = headerLine.split(": ", 2);
                 String headerKey = splitHeader[0];
                 String headerValue = splitHeader[1];
                 headersMap.put(headerKey, headerValue);
             }
         }
-        System.out.println("headersmap+"+headersMap);
         return headersMap;
     }
 
@@ -60,8 +63,26 @@ public class RequestHandler {
         return requestHeadersMap.isEmpty() ? null : (String) requestHeadersMap.get("Content-Length");
     }
 
+    private String parseClientRequestMessageBody(String contentLengthValue) throws IOException {
+        String requestBody = null;
 
-    public String responseBuilder() {
+        if (contentLengthValue == null) {
+            return null;
+        }
+        else {
+            int contentLengthInt = Integer.parseInt(contentLengthValue);
+
+            StringBuilder requestMessageBodyStrObj = new StringBuilder();
+            for (int i = 0; i < contentLengthInt; i++) {
+                requestMessageBodyStrObj.append((char) clientRequestReader.read());
+                requestBody =  requestMessageBodyStrObj.toString();
+            }
+        }
+        return requestBody;
+    }
+
+
+    public String responseBuilder(String requestBody) {
         String statusCode = "200";
         String statusText = "OK";
         String SP = " ";
@@ -84,7 +105,6 @@ public class RequestHandler {
         if (Objects.equals(httpMethod, "GET") || Objects.equals(httpMethod, "HEAD")) {
             if (Objects.equals(requestTarget, "/simple_get") || Objects.equals(requestTarget, "/head_request")) {
                 response = responseStatusLine + CRLF + responseBody;
-
             } else if (Objects.equals(requestTarget, "/simple_get_with_body")) {
                 responseBody = "Hello world";
                 response = responseStatusLine + CRLF + responseBody;
@@ -113,6 +133,12 @@ public class RequestHandler {
             responseBody = "";
             response = responseStatusLine + responseHeaders + CRLF + responseBody;
         }
+
+        if (Objects.equals(httpMethod, "POST") && Objects.equals(requestTarget, "/echo_body")) {
+            responseBody = requestBody;
+            response = responseStatusLine + responseHeaders + responseBody;
+        }
+
         return response;
     }
 }
