@@ -6,40 +6,34 @@ public class RequestHandler {
     private final String clientRequest;
     String httpMethod;
     String requestTarget;
-    String httpVersion ;
-    String CRLF = "\r\n";
-    String space = " ";
-    String statusCode;
-    String statusText;
-    String responseStatusLine;
-    String responseBody;
-    String response;
+    String httpVersion;
 
 
-    public RequestHandler(String clientRequest){
+    public RequestHandler(String clientRequest) {
         this.clientRequest = clientRequest;
     }
 
-    public void parseClientRequest(){
+    public void parseClientRequest() {
         String[] arrOfSplitResponseStr = clientRequest.split(" ");
         this.httpMethod = arrOfSplitResponseStr[0];
         this.requestTarget = arrOfSplitResponseStr[1];
         this.httpVersion = arrOfSplitResponseStr[2];
     }
 
-    public String responseBuilder(){
-        statusCode = "200";
-        statusText = "OK";
-        responseStatusLine = httpVersion + space + statusCode + space + statusText + CRLF;
+    public String responseBuilder() {
+        String statusCode = "200";
+        String statusText = "OK";
+        String SP = " ";
+        String CRLF = "\r\n";
+        String responseBody;
 
-        if(Objects.equals(requestTarget, "/simple_get")){
+        String responseStatusLine = httpVersion + SP + statusCode + SP + statusText + CRLF;
+
+        if (Objects.equals(requestTarget, "/simple_get")) {
             responseBody = "";
         } else {
-            if (Objects.equals(requestTarget, "/simple_get_with_body")) {
-                responseBody = "Hello world";
-            }
+            responseBody = "Hello world";
         }
-        response = responseStatusLine + CRLF + responseBody;
-        return response;
+        return responseStatusLine + CRLF + responseBody;
     }
 }

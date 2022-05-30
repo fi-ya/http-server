@@ -18,8 +18,8 @@ class ClientHandlerTest {
         StdOutServerLogger serverLogger = new StdOutServerLogger();
         Socket mockClientSocket = mock(Socket.class);
         ClientHandler clientHandler = new ClientHandler(mockClientSocket, serverLogger);
-
         BufferedReader mockClientRequestReader = mock(BufferedReader.class);
+
         when(mockClientRequestReader.readLine()).thenReturn("GET /simple_get HTTP/1.1");
         clientHandler.getClientRequest(mockClientRequestReader);
 
@@ -31,7 +31,6 @@ class ClientHandlerTest {
         StdOutServerLogger serverLogger = new StdOutServerLogger();
         Socket mockClientSocket = mock(Socket.class);
         ClientHandler clientHandler = new ClientHandler(mockClientSocket, serverLogger);
-
         PrintWriter mockClientResponseWriter = mock(PrintWriter.class);
         String mockResponse = "HTTP/1.1 200 OK";
 
