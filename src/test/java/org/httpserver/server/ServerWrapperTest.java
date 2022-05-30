@@ -53,4 +53,5 @@ class ServerWrapperTest {
 
         verify(mockServerLogger, times(1)).printFailedClientSocketConnection();
     }
+
 }

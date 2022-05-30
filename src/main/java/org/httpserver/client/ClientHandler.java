@@ -11,7 +11,7 @@ public class ClientHandler {
     private final Socket clientSocket;
     private final ServerLogger serverLogger;
 
-    private int clientConnectionCounter;
+    public int clientConnectionCounter;
     BufferedReader clientRequestReader;
     PrintWriter clientResponseWriter;
 

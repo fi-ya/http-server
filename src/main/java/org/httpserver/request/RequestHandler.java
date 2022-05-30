@@ -11,6 +11,7 @@ public class RequestHandler {
     String httpMethod;
     String requestTarget;
     String httpVersion;
+    String requestBody;
 
 
     public RequestHandler(BufferedReader clientRequestReader) {
@@ -21,7 +22,6 @@ public class RequestHandler {
         parseClientRequestLine();
         LinkedHashMap requestHeaders = parseClientRequestHeaders();
         String contentLengthValue = getContentLengthHeaderValue(requestHeaders);
-        parseClientRequestMessageBody(contentLengthValue);
     }
 
     public void parseClientRequestLine() throws IOException {
@@ -60,23 +60,7 @@ public class RequestHandler {
         return requestHeadersMap.isEmpty() ? null : (String) requestHeadersMap.get("Content-Length");
     }
 
-    private void parseClientRequestMessageBody(String contentLengthValue) throws IOException {
-        System.out.println("contentLengthValue " + contentLengthValue);
-        if (contentLengthValue == null) {
-            String requestMessageBody = null;
-        } else {
-            int contentLengthInt = Integer.parseInt(contentLengthValue);
-            System.out.println("length " + contentLengthInt);
-            StringBuilder requestMessageBody = new StringBuilder();
-//            for (int i = 0; i < contentLengthInt; i++) {
-//                requestMessageBody.append(clientRequestReader.readLine());
-//                System.out.println("mes body" + requestMessageBody);
-//            }
-//            System.out.println("mes body"+ requestMessageBody.toString().trim());
-        }
-    }
 
-    //    GET /simple_get HTTP/1.1\r\nContent-Length: 3\r\nhii
     public String responseBuilder() {
         String statusCode = "200";
         String statusText = "OK";
@@ -89,14 +73,21 @@ public class RequestHandler {
 
         if (Objects.equals(httpMethod, "GET") || Objects.equals(httpMethod, "HEAD")) {
             if (Objects.equals(requestTarget, "/simple_get") || Objects.equals(requestTarget, "/head_request")) {
-                responseBody = "";
-            } else {
-                if (Objects.equals(requestTarget, "/simple_get_with_body")) {
-                    responseBody = "Hello world";
-                }
+                response = responseStatusLine + CRLF + responseBody;
+
+            } else if (Objects.equals(requestTarget, "/simple_get_with_body")) {
+                responseBody = "Hello world";
+                response = responseStatusLine + CRLF + responseBody;
+            } else{
+                statusCode = "404";
+                statusText = "Not Found";
+                responseStatusLine = httpVersion + SP + statusCode + SP + statusText + CRLF;
+                response = responseStatusLine + CRLF;
             }
-            response = responseStatusLine + CRLF + responseBody;
-        } else if (Objects.equals(httpMethod, "OPTIONS")) {
+           return response;
+        }
+
+        if (Objects.equals(httpMethod, "OPTIONS")) {
             if (Objects.equals(requestTarget, "/method_options")) {
                 responseHeaders = "Allow: GET, HEAD, OPTIONS" + CRLF;
             } else {
