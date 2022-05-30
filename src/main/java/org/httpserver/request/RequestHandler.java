@@ -88,6 +88,13 @@ public class RequestHandler {
             } else if (Objects.equals(requestTarget, "/simple_get_with_body")) {
                 responseBody = "Hello world";
                 response = responseStatusLine + CRLF + responseBody;
+            } else if ( Objects.equals(requestTarget, "/redirect")) {
+                statusCode = "301";
+                statusText = "Moved Permanently";
+                responseStatusLine = httpVersion + SP + statusCode + SP + statusText + CRLF;
+                responseHeaders = "Location: http://127.0.0.1:5000/simple_get" + CRLF;
+                responseBody = "";
+                response = responseStatusLine + responseHeaders + CRLF + responseBody;
             } else{
                 statusCode = "404";
                 statusText = "Not Found";
