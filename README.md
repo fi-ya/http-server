@@ -1,3 +1,5 @@
+[![fi-ya](https://circleci.com/gh/fi-ya/http-server.svg?style=shield)](https://circleci.com/docs/)
+[![Coverage Status](https://coveralls.io/repos/github/fi-ya/http-server/badge.svg?branch=main)](https://coveralls.io/github/fi-ya/http-server?branch=main)
 # HTTP Server
 This is an 8th Light apprenticeship project.
 ## Project requirements
@@ -5,17 +7,29 @@ This is an 8th Light apprenticeship project.
 - The routes must be customizable with a URL, a verb, and an action to take when the route is called. 
 ## Run project
 The following steps will allow you to run the server in your terminal.
-1. Clone repository `git clone git@github.com:fi-ya/http-server.git`
+1. Clone repository and htt_server_spec submodule by running `git clone --recurse-submodules git@github.com:fi-ya/http-server.git`
 2. Check to see if you have the correct version of Java (17) installed `java --version`
    - Choose to open build/run the server socket either with an IDE or in the terminal (CLI) using the following steps:
-     - IntelliJ/VS Code: open `src/main/java/org.httpserver/Main` and pressing green `play` button next to `Main()` or click `Ctrl + Shift + R`.
+     - IntelliJ/VS Code: open `src/main/java/org.httpserver/App` and pressing green `play` button next to `main()` or click `Ctrl + Shift + R`.
      - Terminal: cd into project folder and run the command `./gradlew run`
+3. Send client request using netcat by running `nc localhost 5000` followed by the client request, ie. `GET /simple_get HTTP/1.1` and wait for server response.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Run tests
 You can find all tests in `src/test/java` and run the test suite using either of the following steps.
 - Open a test file and either click on green play button next to the class name or run `Ctrl + Shift + R`
 - Terminal: cd into project folder and run the command `./gradlew test` or for more information run `./gradlew test --info`
+
+### Running acceptance tests
+- Start the HTTP server on port 5000, by following the `Run project` steps above.
+- Once your server is running, `cd` into http_server_spec directory `src/test/http_server_spec` and run the acceptance test suite in the terminal with:
+  - To run full test suite run `rake test`
+  - To run the tests from a specific section of the features: 
+    - `rake test:f1 # Run all of the tests in 01_getting_started`
+    - `rake test:f2 # Run all of the tests in 02_structured_data`
+    - `rake test:f3 # Run all of the tests in 03_file_server`
+    - `rake test:f4 # Run all of the tests in 04_todo_list`
+ For further information check [acceptance README](https://github.com/8thlight/http_server_spec)
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Functional Requirements
