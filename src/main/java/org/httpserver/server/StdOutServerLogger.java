@@ -21,7 +21,7 @@ public class StdOutServerLogger implements ServerLogger {
     }
 
     public void printNumberOfClientsConnected(int clientConnectionCounter) {
-        System.out.println("Number of clients connected: " + clientConnectionCounter);
+        System.out.println("[+] Number of clients connected: " + clientConnectionCounter);
     }
 
     public void printFailedClientSocketConnection() {

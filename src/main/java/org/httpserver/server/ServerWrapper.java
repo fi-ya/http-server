@@ -7,16 +7,16 @@ import java.net.Socket;
 public class ServerWrapper {
     private final ServerLogger serverLogger;
 
-    public ServerWrapper(ServerLogger serverLogger){
+    public ServerWrapper(ServerLogger serverLogger) {
         this.serverLogger = serverLogger;
     }
 
     public ServerSocket createServerSocket(int portNumber) throws IOException {
         ServerSocket serverSocket = null;
-        try{
+        try {
             serverSocket = new ServerSocket(portNumber);
             serverLogger.listeningForClientRequest(portNumber);
-        } catch (IOException ioException){
+        } catch (IOException ioException) {
             ioException.printStackTrace();
             serverLogger.printFailedToCreateServerSocket(portNumber);
             System.exit(1);
@@ -24,12 +24,12 @@ public class ServerWrapper {
         return serverSocket;
     }
 
-    public Socket createClientSocket(ServerSocket serverSocket)throws IOException {
+    public Socket createClientSocket(ServerSocket serverSocket) throws IOException {
         Socket clientSocket = null;
-        try{
+        try {
             clientSocket = serverSocket.accept();
             serverLogger.printConnectedClientSocket(clientSocket.getPort());
-        } catch(IOException ioException){
+        } catch (IOException ioException) {
             ioException.printStackTrace();
             serverLogger.printFailedClientSocketConnection();
         }
