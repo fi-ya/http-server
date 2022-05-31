@@ -17,14 +17,14 @@ import static org.mockito.Mockito.when;
 class RequestHandlerTest {
 
     @Test
-    void requestLineParsedSuccessfully() throws IOException {
+    void requestLineParsedSuccessfullyReturnMap() throws IOException {
         BufferedReader mockClientRequestReader = mock(BufferedReader.class);
         String mockRequestLine = "GET /simple_get HTTP/1.1";
 
         when(mockClientRequestReader.readLine()).thenReturn(mockRequestLine);
 
         RequestHandler requestHandler = new RequestHandler();
-        LinkedHashMap actualMap = requestHandler.parseClientRequestLine(mockRequestLine);
+        LinkedHashMap actualMap = requestHandler.parseClientRequestLine(mockClientRequestReader);
 
         assertEquals("GET",  actualMap.get("httpMethod"));
         assertEquals("/simple_get",  actualMap.get("requestTarget"));
@@ -34,14 +34,26 @@ class RequestHandlerTest {
     @Test
     void processClientRequestSuccessfully() throws IOException {
         BufferedReader mockClientRequestReader = mock(BufferedReader.class);
-        String mockRequestLine = "GET /simple_get_with_body HTTP/1.1";
+        String RequestLineStub = "GET /simple_get_with_body HTTP/1.1";
 
-        when(mockClientRequestReader.readLine()).thenReturn(mockRequestLine);
+        LinkedHashMap <String, String> requestLineMapStub = new LinkedHashMap<>(){{
+            put("httpMethod", "GET");
+            put("requestTarget", "/simple_get_with_body");
+            put("httpVersion", "HTTP/1.1");
+        }};
+        String requestBodyStub = "";
 
+        when(mockClientRequestReader.readLine()).thenReturn(RequestLineStub);
         RequestHandler requestHandler = new RequestHandler();
-        String actualResponse = requestHandler.processClientRequest(mockClientRequestReader);
-        String expectedResponse = "HTTP/1.1 200 OK\n" + "\n" + "Hello world";
+
+        String actualResponse = requestHandler.responseBuilder(requestLineMapStub,requestBodyStub);
+        String expectedResponse = """
+                HTTP/1.1 200 OK\r
+
+                Hello world""";
 
         assertEquals(expectedResponse,  actualResponse);
     }
+
+
 }
