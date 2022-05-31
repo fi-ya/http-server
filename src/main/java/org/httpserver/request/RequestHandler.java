@@ -4,12 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Objects;
+import java.util.concurrent.LinkedBlockingDeque;
 
 public class RequestHandler {
     private final BufferedReader clientRequestReader;
-    String httpMethod;
-    String requestTarget;
-    String httpVersion;
+//    String httpMethod;
+//    String requestTarget;
+//    String httpVersion;
 
 
     public RequestHandler(BufferedReader clientRequestReader) {
@@ -17,23 +18,24 @@ public class RequestHandler {
     }
 
     public String processClientRequest() throws IOException {
-        parseClientRequestLine();
-        LinkedHashMap requestHeaders = parseClientRequestHeaders();
-        String contentLengthValue = getContentLengthHeaderValue(requestHeaders);
+        LinkedHashMap requestLineMap = parseClientRequestLine();
+        LinkedHashMap requestHeadersMap = parseClientRequestHeaders();
+        String contentLengthValue = getContentLengthHeaderValue(requestHeadersMap);
         String requestBody = parseClientRequestMessageBody(contentLengthValue);
 
-        return responseBuilder(requestBody);
+        return responseBuilder(requestLineMap, requestBody);
     }
 
-    public void parseClientRequestLine() throws IOException {
+    public LinkedHashMap parseClientRequestLine() throws IOException {
         String clientRequestLine;
-
+        LinkedHashMap <String, String> requestLineMap = new LinkedHashMap<>();
         if ((clientRequestLine = readClientRequestLine()) != null) {
             String[] arrOfSplitRequestLineStr = clientRequestLine.split(" ", 3);
-            this.httpMethod = arrOfSplitRequestLineStr[0];
-            this.requestTarget = arrOfSplitRequestLineStr[1];
-            this.httpVersion = arrOfSplitRequestLineStr[2];
+            requestLineMap.put("httpMethod", arrOfSplitRequestLineStr[0]);
+            requestLineMap.put("requestTarget", arrOfSplitRequestLineStr[1]);
+            requestLineMap.put("httpVersion", arrOfSplitRequestLineStr[2]);
         }
+        return requestLineMap;
     }
 
     private String readClientRequestLine() throws IOException {
@@ -79,7 +81,10 @@ public class RequestHandler {
     }
 
 
-    public String responseBuilder(String requestBody) {
+    public String responseBuilder(LinkedHashMap requestLineMap, String requestBody) {
+        String httpVersion = (String) requestLineMap.get("httpVersion");
+        String httpMethod = (String) requestLineMap.get("httpMethod");
+        String requestTarget = (String) requestLineMap.get("requestTarget");
         String statusCode = "200";
         String statusText = "OK";
         String SP = " ";

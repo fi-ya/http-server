@@ -24,10 +24,10 @@ class RequestHandlerTest {
         when(mockClientRequestReader.readLine()).thenReturn(mockRequestLine);
 
         RequestHandler requestHandler = new RequestHandler(mockClientRequestReader);
-        requestHandler.parseClientRequestLine();
+        LinkedHashMap actualMap = requestHandler.parseClientRequestLine();
 
-        assertEquals("GET",  requestHandler.httpMethod);
-        assertEquals("/simple_get",  requestHandler.requestTarget);
-        assertEquals("HTTP/1.1",  requestHandler.httpVersion);
+        assertEquals("GET",  actualMap.get("httpMethod"));
+        assertEquals("/simple_get",  actualMap.get("requestTarget"));
+        assertEquals("HTTP/1.1",  actualMap.get("httpVersion"));
     }
 }
