@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class RequestHandlerTest {
+class RequestParserTest {
 
     @Test
     void requestLineParsedSuccessfullyReturnMap() throws IOException {
@@ -19,8 +19,8 @@ class RequestHandlerTest {
 
         when(mockClientRequestReader.readLine()).thenReturn(mockRequestLine);
 
-        RequestHandler requestHandler = new RequestHandler();
-        LinkedHashMap actualMap = requestHandler.parseClientRequestLine(mockClientRequestReader);
+        RequestParser requestParser = new RequestParser();
+        LinkedHashMap actualMap = requestParser.getRequestLine(mockClientRequestReader);
 
         assertEquals("GET", actualMap.get("httpMethod"));
         assertEquals("/simple_get", actualMap.get("requestTarget"));
@@ -30,19 +30,22 @@ class RequestHandlerTest {
     @Test
     void processClientRequestSuccessfully() throws IOException {
         BufferedReader mockClientRequestReader = mock(BufferedReader.class);
-        String RequestLineStub = "GET /simple_get_with_body HTTP/1.1";
+        String requestLineStub = "GET /simple_get_with_body HTTP/1.1";
         LinkedHashMap<String, String> requestLineMapStub = new LinkedHashMap<>() {{
             put("httpMethod", "GET");
             put("requestTarget", "/simple_get_with_body");
             put("httpVersion", "HTTP/1.1");
         }};
+
+        LinkedHashMap<String, String> requestHeadersMapStub = new LinkedHashMap<>();
         String requestBodyStub = "";
 
-        when(mockClientRequestReader.readLine()).thenReturn(RequestLineStub);
-        RequestHandler requestHandler = new RequestHandler();
+        when(mockClientRequestReader.readLine()).thenReturn(requestLineStub);
+        RequestParser requestParser = new RequestParser();
+        Request mockRequest = new Request(requestLineMapStub,requestHeadersMapStub, requestBodyStub);
 
         String expectedResponse = "HTTP/1.1 200 OK\r\n\r\nHello world";
-        String actualResponse = requestHandler.responseBuilder(requestLineMapStub, requestBodyStub);
+        String actualResponse = requestParser.responseBuilder(mockRequest);
 
         assertEquals(expectedResponse, actualResponse);
     }

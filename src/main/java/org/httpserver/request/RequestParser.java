@@ -5,23 +5,19 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
-public class RequestHandler {
+public class RequestParser {
 
+    public Request parseRequest(BufferedReader clientRequestReader) throws IOException {
+        LinkedHashMap <String, String> requestLineMap = getRequestLine(clientRequestReader);
+        LinkedHashMap <String, String> requestHeadersMap = getRequestHeaders(clientRequestReader);
+        String contentLengthHeaderValue = getContentLengthHeaderValue(requestHeadersMap);
+        String requestBody = getRequestMessageBody(contentLengthHeaderValue, clientRequestReader);
 
-    public String processClientRequest(BufferedReader clientRequestReader) throws IOException {
-        LinkedHashMap requestLineMap = parseClientRequestLine(clientRequestReader);
-        LinkedHashMap requestHeadersMap = parseClientRequestHeaders(clientRequestReader);
-        String contentLengthValue = getContentLengthHeaderValue(requestHeadersMap);
-        String requestBody = parseClientRequestMessageBody(contentLengthValue, clientRequestReader);
-
-        // return
-        return responseBuilder(requestLineMap, requestBody);
+        return new Request(requestLineMap, requestHeadersMap, requestBody);
     }
 
-    // client req parser method
-    //
 
-    public LinkedHashMap parseClientRequestLine(BufferedReader clientRequestReader) throws IOException {
+    public LinkedHashMap <String, String> getRequestLine(BufferedReader clientRequestReader) throws IOException {
         String clientRequestLine;
         LinkedHashMap<String, String> requestLineMap = new LinkedHashMap<>();
         if ((clientRequestLine = clientRequestReader.readLine()) != null) {
@@ -33,7 +29,7 @@ public class RequestHandler {
         return requestLineMap;
     }
 
-    private LinkedHashMap parseClientRequestHeaders(BufferedReader clientRequestReader) throws IOException {
+    private LinkedHashMap <String, String> getRequestHeaders(BufferedReader clientRequestReader) throws IOException {
         LinkedHashMap<String, String> headersMap = new LinkedHashMap<>();
         String headerLine;
 
@@ -50,11 +46,11 @@ public class RequestHandler {
         return headersMap;
     }
 
-    private String getContentLengthHeaderValue(LinkedHashMap requestHeadersMap) {
+    private String getContentLengthHeaderValue(LinkedHashMap <String, String> requestHeadersMap) {
         return requestHeadersMap.isEmpty() ? null : (String) requestHeadersMap.get("Content-Length");
     }
 
-    private String parseClientRequestMessageBody(String contentLengthValue, BufferedReader clientRequestReader) throws IOException {
+    private String getRequestMessageBody(String contentLengthValue, BufferedReader clientRequestReader) throws IOException {
         String requestBody = null;
 
         if (contentLengthValue == null) {
@@ -71,10 +67,10 @@ public class RequestHandler {
         return requestBody;
     }
 
-    public String responseBuilder(LinkedHashMap requestLineMap, String requestBody) {
-        String httpVersion = (String) requestLineMap.get("httpVersion");
-        String httpMethod = (String) requestLineMap.get("httpMethod");
-        String requestTarget = (String) requestLineMap.get("requestTarget");
+    public String responseBuilder(Request request) {
+        String httpVersion = request.getHttpVersion();
+        String httpMethod = request.getHttpMethod();
+        String requestTarget = request.getRequestTarget();
         String statusCode = "200";
         String statusText = "OK";
         String SP = " ";
@@ -135,7 +131,7 @@ public class RequestHandler {
         }
 
         if (Objects.equals(httpMethod, "POST") && Objects.equals(requestTarget, "/echo_body")) {
-            responseBody = requestBody;
+            responseBody = request.getRequestBody();
             response = responseStatusLine + responseHeaders + responseBody;
         }
 

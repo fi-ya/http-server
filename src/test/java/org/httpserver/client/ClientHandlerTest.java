@@ -1,11 +1,9 @@
 package org.httpserver.client;
 
-import org.httpserver.request.RequestHandler;
 import org.httpserver.server.StdOutServerLogger;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
