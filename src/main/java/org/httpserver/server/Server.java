@@ -28,8 +28,9 @@ public class Server {
             ClientHandler clientHandler = new ClientHandler(clientSocket, serverLogger);
             BufferedReader clientRequestReader = clientHandler.createClientInputStreamReader();
 
-            RequestHandler requestHandler = new RequestHandler(clientRequestReader);
-            String response = requestHandler.processClientRequest();
+            RequestHandler requestHandler = new RequestHandler();
+            String response = requestHandler.processClientRequest(clientRequestReader);
+            System.out.print("res"+response);
             clientHandler.processSendResponse(response);
             clientHandler.closeClientConnection();
         }

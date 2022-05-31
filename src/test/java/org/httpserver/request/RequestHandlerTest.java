@@ -23,11 +23,25 @@ class RequestHandlerTest {
 
         when(mockClientRequestReader.readLine()).thenReturn(mockRequestLine);
 
-        RequestHandler requestHandler = new RequestHandler(mockClientRequestReader);
-        LinkedHashMap actualMap = requestHandler.parseClientRequestLine();
+        RequestHandler requestHandler = new RequestHandler();
+        LinkedHashMap actualMap = requestHandler.parseClientRequestLine(mockRequestLine);
 
         assertEquals("GET",  actualMap.get("httpMethod"));
         assertEquals("/simple_get",  actualMap.get("requestTarget"));
         assertEquals("HTTP/1.1",  actualMap.get("httpVersion"));
+    }
+
+    @Test
+    void processClientRequestSuccessfully() throws IOException {
+        BufferedReader mockClientRequestReader = mock(BufferedReader.class);
+        String mockRequestLine = "GET /simple_get_with_body HTTP/1.1";
+
+        when(mockClientRequestReader.readLine()).thenReturn(mockRequestLine);
+
+        RequestHandler requestHandler = new RequestHandler();
+        String actualResponse = requestHandler.processClientRequest(mockClientRequestReader);
+        String expectedResponse = "HTTP/1.1 200 OK\n" + "\n" + "Hello world";
+
+        assertEquals(expectedResponse,  actualResponse);
     }
 }
