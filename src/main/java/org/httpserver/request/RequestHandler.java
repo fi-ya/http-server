@@ -14,8 +14,12 @@ public class RequestHandler {
         String contentLengthValue = getContentLengthHeaderValue(requestHeadersMap);
         String requestBody = parseClientRequestMessageBody(contentLengthValue, clientRequestReader);
 
+        // return
         return responseBuilder(requestLineMap, requestBody);
     }
+
+    // client req parser method
+    //
 
     public LinkedHashMap parseClientRequestLine(BufferedReader clientRequestReader) throws IOException {
         String clientRequestLine;
@@ -28,7 +32,6 @@ public class RequestHandler {
         }
         return requestLineMap;
     }
-
 
     private LinkedHashMap parseClientRequestHeaders(BufferedReader clientRequestReader) throws IOException {
         LinkedHashMap<String, String> headersMap = new LinkedHashMap<>();
@@ -68,7 +71,6 @@ public class RequestHandler {
         return requestBody;
     }
 
-
     public String responseBuilder(LinkedHashMap requestLineMap, String requestBody) {
         String httpVersion = (String) requestLineMap.get("httpVersion");
         String httpMethod = (String) requestLineMap.get("httpMethod");
@@ -89,11 +91,19 @@ public class RequestHandler {
             responseHeaders = "Allow: HEAD, OPTIONS" + CRLF;
             responseBody = "";
             response = responseStatusLine + responseHeaders + CRLF + responseBody;
+
             return response;
         }
 
         if (Objects.equals(httpMethod, "GET") || Objects.equals(httpMethod, "HEAD")) {
             if (Objects.equals(requestTarget, "/simple_get") || Objects.equals(requestTarget, "/head_request")) {
+                // router Class
+                // router(takes in paresed request)
+                // router.handleRequest
+                // simpleGetHandler- return Response response = new Response(statusCode, statusText)
+                // (String response = response.convertToStringResponse())
+                // SEND RESPONSE TO CLIENThANDLER
+
                 response = responseStatusLine + CRLF + responseBody;
             } else if (Objects.equals(requestTarget, "/simple_get_with_body")) {
                 responseBody = "Hello world";
