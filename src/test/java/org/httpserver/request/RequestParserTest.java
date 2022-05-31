@@ -42,7 +42,7 @@ class RequestParserTest {
 
         when(mockClientRequestReader.readLine()).thenReturn(requestLineStub);
         RequestParser requestParser = new RequestParser();
-        Request mockRequest = new Request(requestLineMapStub,requestHeadersMapStub, requestBodyStub);
+        Request mockRequest = new Request(requestLineMapStub, requestHeadersMapStub, requestBodyStub);
 
         String expectedResponse = "HTTP/1.1 200 OK\r\n\r\nHello world";
         String actualResponse = requestParser.responseBuilder(mockRequest);

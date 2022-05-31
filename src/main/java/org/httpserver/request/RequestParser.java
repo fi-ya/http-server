@@ -8,8 +8,8 @@ import java.util.Objects;
 public class RequestParser {
 
     public Request parseRequest(BufferedReader clientRequestReader) throws IOException {
-        LinkedHashMap <String, String> requestLineMap = getRequestLine(clientRequestReader);
-        LinkedHashMap <String, String> requestHeadersMap = getRequestHeaders(clientRequestReader);
+        LinkedHashMap<String, String> requestLineMap = getRequestLine(clientRequestReader);
+        LinkedHashMap<String, String> requestHeadersMap = getRequestHeaders(clientRequestReader);
         String contentLengthHeaderValue = getContentLengthHeaderValue(requestHeadersMap);
         String requestBody = getRequestMessageBody(contentLengthHeaderValue, clientRequestReader);
 
@@ -17,7 +17,7 @@ public class RequestParser {
     }
 
 
-    public LinkedHashMap <String, String> getRequestLine(BufferedReader clientRequestReader) throws IOException {
+    public LinkedHashMap<String, String> getRequestLine(BufferedReader clientRequestReader) throws IOException {
         String clientRequestLine;
         LinkedHashMap<String, String> requestLineMap = new LinkedHashMap<>();
         if ((clientRequestLine = clientRequestReader.readLine()) != null) {
@@ -29,7 +29,7 @@ public class RequestParser {
         return requestLineMap;
     }
 
-    private LinkedHashMap <String, String> getRequestHeaders(BufferedReader clientRequestReader) throws IOException {
+    private LinkedHashMap<String, String> getRequestHeaders(BufferedReader clientRequestReader) throws IOException {
         LinkedHashMap<String, String> headersMap = new LinkedHashMap<>();
         String headerLine;
 
@@ -46,8 +46,8 @@ public class RequestParser {
         return headersMap;
     }
 
-    private String getContentLengthHeaderValue(LinkedHashMap <String, String> requestHeadersMap) {
-        return requestHeadersMap.isEmpty() ? null : (String) requestHeadersMap.get("Content-Length");
+    private String getContentLengthHeaderValue(LinkedHashMap<String, String> requestHeadersMap) {
+        return requestHeadersMap.isEmpty() ? null : requestHeadersMap.get("Content-Length");
     }
 
     private String getRequestMessageBody(String contentLengthValue, BufferedReader clientRequestReader) throws IOException {
@@ -93,12 +93,18 @@ public class RequestParser {
 
         if (Objects.equals(httpMethod, "GET") || Objects.equals(httpMethod, "HEAD")) {
             if (Objects.equals(requestTarget, "/simple_get") || Objects.equals(requestTarget, "/head_request")) {
-                // router Class
-                // router(takes in paresed request)
-                // router.handleRequest
-                // simpleGetHandler- return Response response = new Response(statusCode, statusText)
-                // (String response = response.convertToStringResponse())
-                // SEND RESPONSE TO CLIENThANDLER
+                // RequestRouter Class > router(takes in paresed request) > router.handleRequest
+                // > simpleGetHandler- return Response response = new Response(statusCode, statusText) >(String response = response.convertToStringResponse())
+                // >SEND RESPONSE TO CLIENThANDLER
+
+
+                // RequestRouter requestRouter = new Router(request);
+                // router.findHandler(request)v-> simpleGetHandler
+                //
+                //
+
+//               Handler handler = this.requestRouter.findHandler(request);
+////            Response response = handler.processRequest(request);
 
                 response = responseStatusLine + CRLF + responseBody;
             } else if (Objects.equals(requestTarget, "/simple_get_with_body")) {

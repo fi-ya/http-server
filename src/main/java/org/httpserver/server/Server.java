@@ -31,8 +31,15 @@ public class Server {
 
             RequestParser requestParser = new RequestParser();
             Request request = requestParser.parseRequest(clientRequestReader);
+
+//          RequestRouter requestRouter = new RequestRouter(request);
+            // requestRouter.getHandler(request);
+            //
+
             String response = requestParser.responseBuilder(request);
-//            String response = requestParser.processClientRequest(clientRequestReader);
+
+//            Handler handler = this.requestRouter.findHandler(request);
+//            Response response = handler.processRequest(request);
             clientHandler.processSendResponse(response);
             clientHandler.closeClientConnection();
         }
