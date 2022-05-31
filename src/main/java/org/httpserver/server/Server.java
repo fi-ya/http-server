@@ -30,7 +30,6 @@ public class Server {
 
             RequestHandler requestHandler = new RequestHandler();
             String response = requestHandler.processClientRequest(clientRequestReader);
-            System.out.print("res"+response);
             clientHandler.processSendResponse(response);
             clientHandler.closeClientConnection();
         }
