@@ -4,6 +4,7 @@ import org.httpserver.client.ClientHandler;
 import org.httpserver.handler.Handler;
 import org.httpserver.request.Request;
 import org.httpserver.request.RequestParser;
+import org.httpserver.response.Response;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,14 +34,19 @@ public class Server {
             RequestParser requestParser = new RequestParser();
             Request request = requestParser.parseRequest(clientRequestReader);
 
-            Router router = new Router();
-            Handler handler = router.getHandler(request);
+//            Router router = new Router();
+//            Handler handler = router.getHandler(request);
+////            Response response = handler.processRequest(request);
+//            handler.processRequest(request);
+
+//           System.out.println("process" + handler.processRequest(request));
+//            handler.processRequest(request);
+
             // getHandler process request
 //           Response response =  handler.processRequest();
-            String response = requestParser.responseBuilder(request);
 
-//
-            clientHandler.processSendResponse(response);
+            String response = requestParser.responseBuilder(request);
+            clientHandler.processSendResponse(String.valueOf(response));
             clientHandler.closeClientConnection();
         }
     }

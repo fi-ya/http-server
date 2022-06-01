@@ -1,8 +1,9 @@
 package org.httpserver.server;
 
-import org.httpserver.handler.GetHandler;
+import org.httpserver.handler.SimpleGetHandler;
 import org.httpserver.handler.Handler;
 import org.httpserver.request.Request;
+import org.httpserver.response.Response;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,8 +14,8 @@ public class Router {
 
     public Map<String, Handler> createResourceAndHandler() {
         return new HashMap<>() {{
-            put("/simple_get", new GetHandler());
-//                put("/simple_get_with_body", "new GetHandler()");
+            put("/simple_get", new SimpleGetHandler());
+//                put("/simple_get_with_body", "new SimpleGetHandler()");
 //                put("/head_request", "new HeadRequestHandler()");
 //                put("/redirect", "new RedirectHandler()");
 //                put("/echo_body", "new PostHandler()");
@@ -28,8 +29,8 @@ public class Router {
         Handler handler = null;
         if (resourceAndHandler.containsKey(request.getRequestTarget())) {
             handler = resourceAndHandler.get(request.getRequestTarget());
-            System.out.println("handler" + handler);
         }
+//        assert handler != null;
         return handler;
     }
 
