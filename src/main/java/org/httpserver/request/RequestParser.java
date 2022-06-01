@@ -93,19 +93,6 @@ public class RequestParser {
 
         if (Objects.equals(httpMethod, "GET") || Objects.equals(httpMethod, "HEAD")) {
             if (Objects.equals(requestTarget, "/simple_get") || Objects.equals(requestTarget, "/head_request")) {
-                // RequestRouter Class > router(takes in paresed request) > router.handleRequest
-                // > simpleGetHandler- return Response response = new Response(statusCode, statusText) >(String response = response.convertToStringResponse())
-                // >SEND RESPONSE TO CLIENThANDLER
-
-
-                // RequestRouter requestRouter = new Router(request);
-                // router.findHandler(request)v-> simpleGetHandler
-                //
-                //
-
-//               Handler handler = this.requestRouter.findHandler(request);
-////            Response response = handler.processRequest(request);
-
                 response = responseStatusLine + CRLF + responseBody;
             } else if (Objects.equals(requestTarget, "/simple_get_with_body")) {
                 responseBody = "Hello world";
