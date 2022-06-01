@@ -1,6 +1,7 @@
 package org.httpserver.server;
 
 import org.httpserver.client.ClientHandler;
+import org.httpserver.handler.Handler;
 import org.httpserver.request.Request;
 import org.httpserver.request.RequestParser;
 
@@ -32,14 +33,13 @@ public class Server {
             RequestParser requestParser = new RequestParser();
             Request request = requestParser.parseRequest(clientRequestReader);
 
-//          RequestRouter requestRouter = new RequestRouter(request);
-            // requestRouter.getHandler(request);
-            //
-
+            Router router = new Router();
+            Handler handler = router.getHandler(request);
+            // getHandler process request
+//           Response response =  handler.processRequest();
             String response = requestParser.responseBuilder(request);
 
-//            Handler handler = this.requestRouter.findHandler(request);
-//            Response response = handler.processRequest(request);
+//
             clientHandler.processSendResponse(response);
             clientHandler.closeClientConnection();
         }
