@@ -80,16 +80,16 @@ public class RequestParser {
         String responseHeaders = "" + CRLF;
         String response = "";
 
-        if (Objects.equals(httpMethod, "GET") && Objects.equals(requestTarget, "/head_request")) {
-            statusCode = "405";
-            statusText = "Method Not Allowed";
-            responseStatusLine = httpVersion + SP + statusCode + SP + statusText + CRLF;
-            responseHeaders = "Allow: HEAD, OPTIONS" + CRLF;
-            responseBody = "";
-            response = responseStatusLine + responseHeaders + CRLF + responseBody;
-
-            return response;
-        }
+//        if (Objects.equals(httpMethod, "GET") && Objects.equals(requestTarget, "/head_request")) {
+//            statusCode = "405";
+//            statusText = "Method Not Allowed";
+//            responseStatusLine = httpVersion + SP + statusCode + SP + statusText + CRLF;
+//            responseHeaders = "Allow: HEAD, OPTIONS" + CRLF;
+//            responseBody = "";
+//            response = responseStatusLine + responseHeaders + CRLF + responseBody;
+//
+//            return response;
+//        }
 
         if (Objects.equals(httpMethod, "GET") || Objects.equals(httpMethod, "HEAD")) {
             if (Objects.equals(requestTarget, "/simple_get") || Objects.equals(requestTarget, "/head_request")) {

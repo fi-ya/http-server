@@ -37,7 +37,9 @@ public class Server {
             Router router = new Router();
             Handler handler = router.getHandler(request);
 //            Response response = router.getHandler(request);
-            Response response = handler.processRequest(request);
+            System.out.println("handler "+handler);
+            Response response = handler.handleResponse(request);
+            System.out.println("response "+response);
 //            handler.processRequest(request);
 
 //           System.out.println("process" + handler.processRequest(request));

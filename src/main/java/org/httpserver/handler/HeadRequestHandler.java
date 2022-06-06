@@ -8,11 +8,10 @@ import org.httpserver.server.HttpMethod;
 import java.util.Arrays;
 import java.util.List;
 
-public class SimpleGetHandler implements Handler {
-
+public class HeadRequestHandler implements Handler{
     @Override
     public List<String> allowedHttpMethods() {
-        return Arrays.asList(HttpMethod.GET, HttpMethod.HEAD);
+        return List.of(HttpMethod.HEAD);
     }
 
     public Response responseBuilder(Request request) {
