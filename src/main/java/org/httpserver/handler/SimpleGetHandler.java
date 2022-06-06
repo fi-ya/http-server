@@ -11,19 +11,21 @@ import java.util.List;
 public class SimpleGetHandler implements Handler {
 
     @Override
-    public void processRequest(Request request) {
-//        Response response = null;
-        System.out.println("method: " + request.getHttpMethod());
-//        boolean requestHasAllowedHttpMethod = allowedHttpMethods().contains(request.getHttpMethod());
-//        if (requestHasAllowedHttpMethod) {
-//            response = responseBuilder(request);
-//        }
-//        return new Response("responseStatusLine", "responseHeaders", "responseBody");
+    public Response processRequest(Request request) {
+        Response response = null;
+
+        boolean requestHasAllowedHttpMethod = allowedHttpMethods().contains(request.getHttpMethod());
+
+        if (requestHasAllowedHttpMethod) {
+            response =  responseBuilder(request);
+        }
+
+        return response;
     }
 
 
     @Override
-    public List<HttpMethod> allowedHttpMethods() {
+    public List<String> allowedHttpMethods() {
         return Arrays.asList(HttpMethod.GET, HttpMethod.HEAD);
     }
 
@@ -42,6 +44,5 @@ public class SimpleGetHandler implements Handler {
         responseBuilder.setResponseBody(responseBody);
 
         return responseBuilder.buildResponse();
-
     }
 }

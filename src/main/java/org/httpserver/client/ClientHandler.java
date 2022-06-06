@@ -1,5 +1,6 @@
 package org.httpserver.client;
 
+import org.httpserver.response.Response;
 import org.httpserver.server.ServerLogger;
 
 import java.io.*;
@@ -40,7 +41,7 @@ public class ClientHandler {
         return clientSocket.getInputStream();
     }
 
-    public void processSendResponse(String response) throws IOException {
+    public void processSendResponse(Response response) throws IOException {
         clientResponseWriter = createClientResponseWriter();
         serverLogger.printSendingClientResponse();
         sendResponse(response, clientResponseWriter);
@@ -50,8 +51,9 @@ public class ClientHandler {
         return new PrintWriter(clientSocket.getOutputStream(), true);
     }
 
-    public void sendResponse(String response, PrintWriter clientResponseWriter) {
-        clientResponseWriter.write(response);
+    public void sendResponse(Response response, PrintWriter clientResponseWriter) {
+        clientResponseWriter.write(response.stringFormatResponse());
+        System.out.println("res "+ response.stringFormatResponse());
         clientResponseWriter.close();
     }
 

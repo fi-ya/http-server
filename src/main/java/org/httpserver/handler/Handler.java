@@ -4,14 +4,12 @@ import org.httpserver.request.Request;
 import org.httpserver.response.Response;
 import org.httpserver.server.HttpMethod;
 
-import java.util.Arrays;
+import java.io.IOException;
 import java.util.List;
 
 public interface Handler {
-    void processRequest(Request request);
-
-    List<HttpMethod> allowedHttpMethods();
-//    Response processRequest(Request request) throw IOException;
+    Response processRequest(Request request) throws IOException;
+    List<String> allowedHttpMethods();
     Response responseBuilder(Request request);
 
 

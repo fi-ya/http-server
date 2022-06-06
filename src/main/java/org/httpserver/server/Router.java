@@ -10,7 +10,11 @@ import java.util.Map;
 
 public class Router {
 
-    private final Map<String, Handler> resourceAndHandler = createResourceAndHandler();
+    private final Map<String, Handler> resourceAndHandler;
+
+    public Router() {
+        this.resourceAndHandler = createResourceAndHandler();
+    }
 
     public Map<String, Handler> createResourceAndHandler() {
         return new HashMap<>() {{
@@ -26,12 +30,14 @@ public class Router {
 
     public Handler getHandler(Request request) {
         System.out.println("get" + request.getRequestTarget());
-        Handler handler = null;
-        if (resourceAndHandler.containsKey(request.getRequestTarget())) {
-            handler = resourceAndHandler.get(request.getRequestTarget());
+        if (resourceTargetExists(request)) {
+            System.out.println("geHandler : ");
+            return resourceAndHandler.get(request.getRequestTarget());
         }
-//        assert handler != null;
-        return handler;
+        return null;
     }
 
+    private boolean resourceTargetExists(Request request){
+        return resourceAndHandler.containsKey(request.getRequestTarget());
+    }
 }
