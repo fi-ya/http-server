@@ -5,23 +5,20 @@ import org.httpserver.response.Response;
 import org.httpserver.response.ResponseBuilder;
 import org.httpserver.server.HttpMethod;
 
-import java.util.Arrays;
 import java.util.List;
 
-public class HeadRequestHandler implements Handler{
+public class HeadRequestHandler implements Handler {
     @Override
     public List<String> allowedHttpMethods() {
         return List.of(HttpMethod.HEAD);
     }
 
     public Response responseBuilder(Request request) {
-        String SP = " ";
         String CRLF = "\r\n";
-        String statusCode = "200";
-        String statusText = "OK";
-        String responseStatusLine = request.getHttpVersion() + SP + statusCode + SP + statusText + CRLF;
-        String responseHeaders = "" + CRLF;
-        String responseBody = "";
+
+        String responseStatusLine = handleStatusLine(request) + CRLF;
+        String responseHeaders = handleHeaders() + CRLF;
+        String responseBody = handleBody();
 
         ResponseBuilder responseBuilder = new ResponseBuilder();
         responseBuilder.setResponseStatusLine(responseStatusLine);
@@ -29,5 +26,20 @@ public class HeadRequestHandler implements Handler{
         responseBuilder.setResponseBody(responseBody);
 
         return responseBuilder.buildResponse();
+    }
+
+    private String handleStatusLine(Request request) {
+        String SP = " ";
+        String statusCode = "200";
+        String statusText = "OK";
+        return request.getHttpVersion() + SP + statusCode + SP + statusText;
+    }
+
+    private String handleHeaders() {
+        return "";
+    }
+
+    private String handleBody() {
+        return "";
     }
 }

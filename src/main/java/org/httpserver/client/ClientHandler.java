@@ -53,7 +53,7 @@ public class ClientHandler {
 
     public void sendResponse(Response response, PrintWriter clientResponseWriter) {
         clientResponseWriter.write(response.stringFormatResponse());
-        System.out.println("res "+ response.stringFormatResponse());
+        serverLogger.printResponse(response.stringFormatResponse());
         clientResponseWriter.close();
     }
 

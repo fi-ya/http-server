@@ -3,7 +3,6 @@ package org.httpserver.request;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.LinkedHashMap;
-import java.util.Objects;
 
 public class RequestParser {
 

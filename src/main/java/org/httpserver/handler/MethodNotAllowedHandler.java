@@ -8,7 +8,7 @@ import org.httpserver.server.HttpMethod;
 import java.util.Arrays;
 import java.util.List;
 
-public class MethodNotAllowedHandler implements Handler{
+public class MethodNotAllowedHandler implements Handler {
     @Override
     public List<String> allowedHttpMethods() {
         return Arrays.asList(HttpMethod.HEAD, HttpMethod.OPTIONS);
@@ -16,21 +16,32 @@ public class MethodNotAllowedHandler implements Handler{
 
     @Override
     public Response responseBuilder(Request request) {
-        String SP = " ";
         String CRLF = "\r\n";
-        String statusCode = "405";
-        String statusText = "Method Not Allowed";
 
-        String responseStatusLine = request.getHttpVersion() + SP + statusCode + SP + statusText + CRLF;
-        String responseHeaders = "Allow: HEAD, OPTIONS" +  CRLF;
-        String responseBody = "";
+        String responseStatusLine = handleStatusLine(request) + CRLF;
+        String responseHeaders = handleHeaders() + CRLF;
+        String responseBody = handleBody();
 
         ResponseBuilder responseBuilder = new ResponseBuilder();
-
         responseBuilder.setResponseStatusLine(responseStatusLine);
         responseBuilder.setResponseHeaders(responseHeaders + CRLF);
         responseBuilder.setResponseBody(responseBody);
 
         return responseBuilder.buildResponse();
+    }
+
+    private String handleStatusLine(Request request) {
+        String SP = " ";
+        String statusCode = "405";
+        String statusText = "Method Not Allowed";
+        return request.getHttpVersion() + SP + statusCode + SP + statusText;
+    }
+
+    private String handleHeaders() {
+        return "Allow: HEAD, OPTIONS";
+    }
+
+    private String handleBody() {
+        return "";
     }
 }
