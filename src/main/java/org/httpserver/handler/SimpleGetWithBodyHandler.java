@@ -14,13 +14,11 @@ public class SimpleGetWithBodyHandler implements Handler {
     }
 
     public Response responseBuilder(Request request) {
-        String SP = " ";
         String CRLF = "\r\n";
-        String statusCode = "200";
-        String statusText = "OK";
-        String responseStatusLine = request.getHttpVersion() + SP + statusCode + SP + statusText + CRLF;
-        String responseHeaders = "" + CRLF;
-        String responseBody = "Hello world";
+
+        String responseStatusLine = handleStatusLine(request) + CRLF;
+        String responseHeaders = handleHeaders() + CRLF;
+        String responseBody = handleBody();
 
         ResponseBuilder responseBuilder = new ResponseBuilder();
         responseBuilder.setResponseStatusLine(responseStatusLine);
@@ -28,5 +26,20 @@ public class SimpleGetWithBodyHandler implements Handler {
         responseBuilder.setResponseBody(responseBody);
 
         return responseBuilder.buildResponse();
+    }
+
+    private String handleStatusLine(Request request){
+        String SP = " ";
+        String statusCode = "200";
+        String statusText = "OK";
+        return request.getHttpVersion() + SP + statusCode + SP + statusText;
+    }
+
+    private String handleHeaders(){
+        return "";
+    }
+
+    private String handleBody(){
+        return "Hello world";
     }
 }

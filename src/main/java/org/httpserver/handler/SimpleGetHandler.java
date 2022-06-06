@@ -7,6 +7,7 @@ import org.httpserver.server.HttpMethod;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class SimpleGetHandler implements Handler {
 
@@ -16,13 +17,11 @@ public class SimpleGetHandler implements Handler {
     }
 
     public Response responseBuilder(Request request) {
-        String SP = " ";
         String CRLF = "\r\n";
-        String statusCode = "200";
-        String statusText = "OK";
-        String responseStatusLine = request.getHttpVersion() + SP + statusCode + SP + statusText + CRLF;
-        String responseHeaders = "" + CRLF;
-        String responseBody = "";
+
+        String responseStatusLine = handleStatusLine(request) + CRLF;
+        String responseHeaders = handleHeaders() + CRLF;
+        String responseBody = handleBody(request);
 
         ResponseBuilder responseBuilder = new ResponseBuilder();
         responseBuilder.setResponseStatusLine(responseStatusLine);
@@ -30,5 +29,24 @@ public class SimpleGetHandler implements Handler {
         responseBuilder.setResponseBody(responseBody);
 
         return responseBuilder.buildResponse();
+    }
+
+    private String handleStatusLine(Request request){
+        String SP = " ";
+        String statusCode = "200";
+        String statusText = "OK";
+        return request.getHttpVersion() + SP + statusCode + SP + statusText;
+    }
+
+    private String handleHeaders(){
+        return "";
+    }
+
+    private String handleBody(Request request){
+        if (Objects.equals(request.getRequestTarget(), "/simple_get_with_body")){
+            return "Hello world";
+        } else{
+            return "";
+        }
     }
 }

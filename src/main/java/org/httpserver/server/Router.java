@@ -18,7 +18,7 @@ public class Router {
     public Map<String, Handler> createResourceAndHandlerMap() {
         return new HashMap<>() {{
             put("/simple_get", new SimpleGetHandler());
-            put("/simple_get_with_body", new SimpleGetWithBodyHandler());
+            put("/simple_get_with_body", new SimpleGetHandler());
             put("/head_request", new HeadRequestHandler());
         }};
     }
