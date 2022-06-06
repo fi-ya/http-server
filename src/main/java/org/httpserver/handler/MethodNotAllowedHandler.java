@@ -20,14 +20,15 @@ public class MethodNotAllowedHandler implements Handler{
         String CRLF = "\r\n";
         String statusCode = "405";
         String statusText = "Method Not Allowed";
+
         String responseStatusLine = request.getHttpVersion() + SP + statusCode + SP + statusText + CRLF;
-        String responseHeaders = "Allow: " + allowedHttpMethods().toString() +  CRLF;
+        String responseHeaders = "Allow: HEAD, OPTIONS" +  CRLF;
         String responseBody = "";
 
         ResponseBuilder responseBuilder = new ResponseBuilder();
 
         responseBuilder.setResponseStatusLine(responseStatusLine);
-        responseBuilder.setResponseHeaders(responseHeaders);
+        responseBuilder.setResponseHeaders(responseHeaders + CRLF);
         responseBuilder.setResponseBody(responseBody);
 
         return responseBuilder.buildResponse();
