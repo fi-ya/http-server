@@ -27,10 +27,10 @@ public class Server {
             Socket clientSocket = serverWrapper.createClientSocket(serverSocket);
 
             ClientHandler clientHandler = new ClientHandler(clientSocket, serverLogger);
-            BufferedReader clientRequestReader = clientHandler.createClientInputStreamReader();
+            BufferedReader requestReader = clientHandler.createClientInputStreamReader();
 
             RequestParser requestParser = new RequestParser();
-            Request request = requestParser.parseRequest(clientRequestReader);
+            Request request = requestParser.parseRequest(requestReader);
 
             String response = requestParser.responseBuilder(request);
             clientHandler.processSendResponse(response);
