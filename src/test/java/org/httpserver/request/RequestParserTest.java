@@ -2,35 +2,30 @@ package org.httpserver.request;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class RequestParserTest {
+
     @Test
-    void processSimpleGetWithBodyRequestSuccessfully() throws IOException {
-        BufferedReader mockClientRequestReader = mock(BufferedReader.class);
-        String requestLineStub = "GET /simple_get_with_body HTTP/1.1";
-        LinkedHashMap<String, String> requestLineMapStub = new LinkedHashMap<>() {{
-            put("httpMethod", "GET");
-            put("requestTarget", "/simple_get_with_body");
-            put("httpVersion", "HTTP/1.1");
-        }};
+    void parseSimpleGetRequestSuccessfully() throws IOException {
+        String mockRequestString = "GET /simple_get HTTP/1.1\n" +
+                "\n";
+        ByteArrayInputStream mockInputStream = new ByteArrayInputStream(mockRequestString.getBytes());
+        LinkedHashMap<String, String> expectedHeadersMap = new LinkedHashMap<>();
 
-        LinkedHashMap<String, String> requestHeadersMapStub = new LinkedHashMap<>();
-        String requestBodyStub = "";
-
-        when(mockClientRequestReader.readLine()).thenReturn(requestLineStub);
         RequestParser requestParser = new RequestParser();
-        Request mockRequest = new Request(requestLineMapStub, requestHeadersMapStub, requestBodyStub);
+        Request request = requestParser.parseRequest(mockInputStream);
 
-        String expectedResponse = "HTTP/1.1 200 OK\r\n\r\nHello world";
-        String actualResponse = requestParser.responseBuilder(mockRequest);
-
-        assertEquals(expectedResponse, actualResponse);
+        assertEquals("HTTP/1.1",request.getHttpVersion());
+        assertEquals("GET",request.getHttpMethod());
+        assertEquals("/simple_get",request.getRequestTarget());
+        assertEquals( expectedHeadersMap,request.getRequestHeaders());
+        assertNull(request.getRequestBody());
     }
+
 }

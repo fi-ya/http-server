@@ -2,12 +2,15 @@ package org.httpserver.request;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.LinkedHashMap;
-import java.util.Objects;
 
 public class RequestParser {
 
-    public Request parseRequest(BufferedReader requestReader) throws IOException {
+    public Request parseRequest(InputStream clientRequestInputStream) throws IOException {
+        BufferedReader requestReader = new BufferedReader(new InputStreamReader(clientRequestInputStream));
+
         String requestLineRead = requestReader.readLine();
 
         LinkedHashMap<String, String> requestLineMap = getRequestLine(requestLineRead);
@@ -17,7 +20,7 @@ public class RequestParser {
 
         String requestBody = getRequestMessageBody(contentLengthHeaderValue, requestReader);
 
-        return new Request(requestLineMap, requestHeadersMap, requestBody);
+        return buildRequest(requestLineMap, requestHeadersMap, requestBody);
     }
 
 
@@ -71,67 +74,7 @@ public class RequestParser {
         return requestBody;
     }
 
-    public String responseBuilder(Request request) {
-        String httpVersion = request.getHttpVersion();
-        String httpMethod = request.getHttpMethod();
-        String requestTarget = request.getRequestTarget();
-        String statusCode = "200";
-        String statusText = "OK";
-        String SP = " ";
-        String CRLF = "\r\n";
-        String responseBody = "";
-        String responseStatusLine = httpVersion + SP + statusCode + SP + statusText + CRLF;
-        String responseHeaders = "" + CRLF;
-        String response = "";
-
-        if (Objects.equals(httpMethod, "GET") && Objects.equals(requestTarget, "/head_request")) {
-            statusCode = "405";
-            statusText = "Method Not Allowed";
-            responseStatusLine = httpVersion + SP + statusCode + SP + statusText + CRLF;
-            responseHeaders = "Allow: HEAD, OPTIONS" + CRLF;
-            responseBody = "";
-            response = responseStatusLine + responseHeaders + CRLF + responseBody;
-
-            return response;
-        }
-
-        if (Objects.equals(httpMethod, "GET") || Objects.equals(httpMethod, "HEAD")) {
-            if (Objects.equals(requestTarget, "/simple_get") || Objects.equals(requestTarget, "/head_request")) {
-                response = responseStatusLine + CRLF + responseBody;
-            } else if (Objects.equals(requestTarget, "/simple_get_with_body")) {
-                responseBody = "Hello world";
-                response = responseStatusLine + CRLF + responseBody;
-            } else if (Objects.equals(requestTarget, "/redirect")) {
-                statusCode = "301";
-                statusText = "Moved Permanently";
-                responseStatusLine = httpVersion + SP + statusCode + SP + statusText + CRLF;
-                responseHeaders = "Location: http://127.0.0.1:5000/simple_get" + CRLF;
-                responseBody = "";
-                response = responseStatusLine + responseHeaders + CRLF + responseBody;
-            } else {
-                statusCode = "404";
-                statusText = "Not Found";
-                responseStatusLine = httpVersion + SP + statusCode + SP + statusText + CRLF;
-                response = responseStatusLine + CRLF;
-            }
-            return response;
-        }
-
-        if (Objects.equals(httpMethod, "OPTIONS")) {
-            if (Objects.equals(requestTarget, "/method_options")) {
-                responseHeaders = "Allow: GET, HEAD, OPTIONS" + CRLF;
-            } else {
-                responseHeaders = "Allow: GET, HEAD, OPTIONS, PUT, POST" + CRLF;
-            }
-            responseBody = "";
-            response = responseStatusLine + responseHeaders + CRLF + responseBody;
-        }
-
-        if (Objects.equals(httpMethod, "POST") && Objects.equals(requestTarget, "/echo_body")) {
-            responseBody = request.getRequestBody();
-            response = responseStatusLine + responseHeaders + responseBody;
-        }
-
-        return response;
+    public Request buildRequest(LinkedHashMap<String, String> requestLineMap, LinkedHashMap<String, String> requestHeadersMap, String requestBody) {
+        return new Request(requestLineMap, requestHeadersMap, requestBody);
     }
 }

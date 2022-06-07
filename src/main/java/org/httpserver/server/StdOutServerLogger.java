@@ -1,5 +1,7 @@
 package org.httpserver.server;
 
+import org.httpserver.handler.Handler;
+
 import java.util.Date;
 
 public class StdOutServerLogger implements ServerLogger {
@@ -32,8 +34,18 @@ public class StdOutServerLogger implements ServerLogger {
         System.out.println("[+] Reading client request");
     }
 
+    public void printHandlerBuildingResponse(Handler handler) {
+        System.out.println("[+] " + handler.getClass().getSimpleName() + ": building a response");
+    }
+
     public void printSendingClientResponse() {
         System.out.println("[+] Sending client response");
+    }
+
+    ;
+
+    public void printResponse(String response) {
+        System.out.println("[+] Response start: \n" + response + "[+] Response end");
     }
 
     ;

@@ -19,23 +19,23 @@ public class Request {
     }
 
     public String getHttpMethod() {
-        return this.httpMethod;
+        return httpMethod;
     }
 
     public String getRequestTarget() {
-        return this.requestTarget;
+        return requestTarget;
     }
 
     public String getHttpVersion() {
-        return this.httpVersion;
+        return httpVersion;
     }
 
     public LinkedHashMap<String, String> getRequestHeaders() {
-        return this.requestHeaders;
+        return requestHeaders;
     }
 
     public String getRequestBody() {
-        return this.requestBody;
+        return requestBody;
     }
 
 
