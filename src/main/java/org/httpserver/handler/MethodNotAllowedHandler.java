@@ -19,15 +19,10 @@ public class MethodNotAllowedHandler implements Handler {
         String CRLF = "\r\n";
 
         String responseStatusLine = handleStatusLine(request) + CRLF;
-        String responseHeaders = handleHeaders() + CRLF;
+        String responseHeaders = handleHeaders() + CRLF + CRLF;
         String responseBody = handleBody();
 
-        ResponseBuilder responseBuilder = new ResponseBuilder();
-        responseBuilder.setResponseStatusLine(responseStatusLine);
-        responseBuilder.setResponseHeaders(responseHeaders + CRLF);
-        responseBuilder.setResponseBody(responseBody);
-
-        return responseBuilder.buildResponse();
+        return buildResponse(responseStatusLine, responseHeaders, responseBody);
     }
 
     private String handleStatusLine(Request request) {

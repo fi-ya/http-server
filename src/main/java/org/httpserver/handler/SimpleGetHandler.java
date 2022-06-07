@@ -23,12 +23,7 @@ public class SimpleGetHandler implements Handler {
         String responseHeaders = handleHeaders() + CRLF;
         String responseBody = handleBody(request);
 
-        ResponseBuilder responseBuilder = new ResponseBuilder();
-        responseBuilder.setResponseStatusLine(responseStatusLine);
-        responseBuilder.setResponseHeaders(responseHeaders);
-        responseBuilder.setResponseBody(responseBody);
-
-        return responseBuilder.buildResponse();
+        return buildResponse(responseStatusLine, responseHeaders, responseBody);
     }
 
     private String handleStatusLine(Request request){

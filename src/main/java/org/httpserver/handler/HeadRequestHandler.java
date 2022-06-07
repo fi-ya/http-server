@@ -2,7 +2,6 @@ package org.httpserver.handler;
 
 import org.httpserver.request.Request;
 import org.httpserver.response.Response;
-import org.httpserver.response.ResponseBuilder;
 import org.httpserver.server.HttpMethod;
 
 import java.util.List;
@@ -20,12 +19,7 @@ public class HeadRequestHandler implements Handler {
         String responseHeaders = handleHeaders() + CRLF;
         String responseBody = handleBody();
 
-        ResponseBuilder responseBuilder = new ResponseBuilder();
-        responseBuilder.setResponseStatusLine(responseStatusLine);
-        responseBuilder.setResponseHeaders(responseHeaders);
-        responseBuilder.setResponseBody(responseBody);
-
-        return responseBuilder.buildResponse();
+        return buildResponse(responseStatusLine, responseHeaders, responseBody);
     }
 
     private String handleStatusLine(Request request) {
