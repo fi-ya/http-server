@@ -16,7 +16,7 @@ public class SimpleGetHandler implements Handler {
         return Arrays.asList(HttpMethod.GET, HttpMethod.HEAD);
     }
 
-    public Response responseBuilder(Request request) {
+    public Response handleResponse(Request request) {
         String CRLF = "\r\n";
 
         String responseStatusLine = handleStatusLine(request) + CRLF;

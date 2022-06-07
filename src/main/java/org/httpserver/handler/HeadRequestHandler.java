@@ -13,7 +13,7 @@ public class HeadRequestHandler implements Handler {
         return List.of(HttpMethod.HEAD);
     }
 
-    public Response responseBuilder(Request request) {
+    public Response handleResponse(Request request) {
         String CRLF = "\r\n";
 
         String responseStatusLine = handleStatusLine(request) + CRLF;

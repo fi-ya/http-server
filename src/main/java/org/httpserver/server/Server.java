@@ -30,7 +30,6 @@ public class Server {
             Socket clientSocket = serverWrapper.createClientSocket(serverSocket);
 
             ClientHandler clientHandler = new ClientHandler(clientSocket, serverLogger);
-//            BufferedReader requestReader = clientHandler.createClientInputStreamReader();
             InputStream clientRequestInputStream = clientHandler.clientRequestInputStream();
             clientHandler.updateClientConnectionLogger();
 

@@ -15,7 +15,7 @@ public class MethodNotAllowedHandler implements Handler {
     }
 
     @Override
-    public Response responseBuilder(Request request) {
+    public Response handleResponse(Request request) {
         String CRLF = "\r\n";
 
         String responseStatusLine = handleStatusLine(request) + CRLF;
