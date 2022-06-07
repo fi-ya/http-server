@@ -16,7 +16,7 @@ public class RequestParser {
 
         String requestBody = getRequestMessageBody(contentLengthHeaderValue, requestReader);
 
-        return new Request(requestLineMap, requestHeadersMap, requestBody);
+        return buildRequest(requestLineMap, requestHeadersMap, requestBody);
     }
 
 
@@ -68,5 +68,9 @@ public class RequestParser {
             }
         }
         return requestBody;
+    }
+
+    public Request buildRequest(LinkedHashMap<String, String> requestLineMap, LinkedHashMap<String, String> requestHeadersMap, String requestBody){
+        return new Request(requestLineMap, requestHeadersMap, requestBody);
     }
 }
