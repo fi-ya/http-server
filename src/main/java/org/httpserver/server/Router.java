@@ -7,7 +7,6 @@ import org.httpserver.handler.SimpleGetHandler;
 import org.httpserver.request.Request;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Router {
@@ -39,9 +38,8 @@ public class Router {
 
     private boolean isHttpMethodAllowed(Request request) {
         Handler handler = resourceAndHandlerMap.get(request.getRequestTarget());
-        List<String> getAllowedMethods = handler.allowedHttpMethods();
 
-        return getAllowedMethods.contains(request.getHttpMethod());
+        return handler.allowedHttpMethods().contains(request.getHttpMethod());
     }
 
 
