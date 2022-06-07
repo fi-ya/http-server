@@ -2,11 +2,15 @@ package org.httpserver.request;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.LinkedHashMap;
 
 public class RequestParser {
 
-    public Request parseRequest(BufferedReader requestReader) throws IOException {
+    public Request parseRequest(InputStream clientRequestInputStream) throws IOException {
+        BufferedReader requestReader = new BufferedReader(new InputStreamReader(clientRequestInputStream));
+
         String requestLineRead = requestReader.readLine();
 
         LinkedHashMap<String, String> requestLineMap = getRequestLine(requestLineRead);

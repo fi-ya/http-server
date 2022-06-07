@@ -8,6 +8,7 @@ import org.httpserver.response.Response;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -29,11 +30,13 @@ public class Server {
             Socket clientSocket = serverWrapper.createClientSocket(serverSocket);
 
             ClientHandler clientHandler = new ClientHandler(clientSocket, serverLogger);
-            BufferedReader requestReader = clientHandler.createClientInputStreamReader();
+//            BufferedReader requestReader = clientHandler.createClientInputStreamReader();
+            InputStream clientRequestInputStream = clientHandler.clientRequestInputStream();
+            clientHandler.updateClientConnectionLogger();
 
             RequestParser requestParser = new RequestParser();
 
-            Request request = requestParser.parseRequest(requestReader);
+            Request request = requestParser.parseRequest(clientRequestInputStream);
 
             Router router = new Router();
             Handler handler = router.getHandler(request);
