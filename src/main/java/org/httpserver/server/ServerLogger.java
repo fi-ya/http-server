@@ -18,6 +18,7 @@ public interface ServerLogger {
     void printHandlerBuildingResponse(Handler handler);
 
     void printSendingClientResponse();
+
     void printResponse(String response);
 
     void printClosedClientConnection(int clientPortNumber);

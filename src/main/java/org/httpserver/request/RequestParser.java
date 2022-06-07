@@ -70,7 +70,7 @@ public class RequestParser {
         return requestBody;
     }
 
-    public Request buildRequest(LinkedHashMap<String, String> requestLineMap, LinkedHashMap<String, String> requestHeadersMap, String requestBody){
+    public Request buildRequest(LinkedHashMap<String, String> requestLineMap, LinkedHashMap<String, String> requestHeadersMap, String requestBody) {
         return new Request(requestLineMap, requestHeadersMap, requestBody);
     }
 }

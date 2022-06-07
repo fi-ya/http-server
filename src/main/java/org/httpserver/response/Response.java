@@ -24,7 +24,7 @@ public class Response {
         return responseBody;
     }
 
-    public String stringFormatResponse(){
+    public String stringFormatResponse() {
         return getResponseStatusLine() + getResponseHeaders() + getResponseBody();
     }
 }

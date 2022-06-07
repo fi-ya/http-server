@@ -34,8 +34,8 @@ public class StdOutServerLogger implements ServerLogger {
         System.out.println("[+] Reading client request");
     }
 
-    public void printHandlerBuildingResponse(Handler handler)  {
-        System.out.println("[+] "+ handler.getClass().getSimpleName() + ": building a response");
+    public void printHandlerBuildingResponse(Handler handler) {
+        System.out.println("[+] " + handler.getClass().getSimpleName() + ": building a response");
     }
 
     public void printSendingClientResponse() {

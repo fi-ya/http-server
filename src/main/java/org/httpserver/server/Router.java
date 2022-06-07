@@ -1,6 +1,9 @@
 package org.httpserver.server;
 
-import org.httpserver.handler.*;
+import org.httpserver.handler.Handler;
+import org.httpserver.handler.HeadRequestHandler;
+import org.httpserver.handler.MethodNotAllowedHandler;
+import org.httpserver.handler.SimpleGetHandler;
 import org.httpserver.request.Request;
 
 import java.util.HashMap;

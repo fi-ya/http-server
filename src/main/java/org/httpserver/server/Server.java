@@ -34,7 +34,6 @@ public class Server {
             RequestParser requestParser = new RequestParser();
 
             Request request = requestParser.parseRequest(requestReader);
-            System.out.println("Req : "+request);
 
             Router router = new Router();
             Handler handler = router.getHandler(request);
