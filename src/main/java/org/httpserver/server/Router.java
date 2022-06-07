@@ -38,7 +38,6 @@ public class Router {
 
     private boolean isHttpMethodAllowed(Request request) {
         Handler handler = resourceAndHandlerMap.get(request.getRequestTarget());
-
         return handler.allowedHttpMethods().contains(request.getHttpMethod());
     }
 

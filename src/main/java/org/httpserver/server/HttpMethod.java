@@ -1,8 +1,19 @@
 package org.httpserver.server;
 
-public final class HttpMethod {
-    public final static String GET = "GET";
-    public final static String POST = "POST";
-    public final static String HEAD = "HEAD";
-    public final static String OPTIONS = "OPTIONS";
+public enum HttpMethod {
+    GET("GET"),
+    POST("POST"),
+    HEAD("HEAD"),
+    OPTIONS("OPTIONS");
+
+
+    private final String httpMethod;
+
+    HttpMethod(String httpMethod) {
+        this.httpMethod = httpMethod;
+    }
+
+    public String getHttpMethod() {
+        return httpMethod;
+    }
 }

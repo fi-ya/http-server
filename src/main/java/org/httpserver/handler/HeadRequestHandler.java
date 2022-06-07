@@ -3,6 +3,7 @@ package org.httpserver.handler;
 import org.httpserver.request.Request;
 import org.httpserver.response.Response;
 import org.httpserver.response.ResponseBuilder;
+import org.httpserver.response.StatusCode;
 import org.httpserver.server.HttpMethod;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 public class HeadRequestHandler implements Handler {
     @Override
     public List<String> allowedHttpMethods() {
-        return List.of(HttpMethod.HEAD);
+        return List.of(HttpMethod.HEAD.getHttpMethod());
     }
 
     public Response handleResponse(Request request) {
@@ -27,8 +28,9 @@ public class HeadRequestHandler implements Handler {
 
     private String handleStatusLine(Request request) {
         String SP = " ";
-        String statusCode = "200";
-        String statusText = "OK";
+        String statusCode = StatusCode.OK.getStatusCode();
+        String statusText = String.valueOf(StatusCode.OK);
+
         return request.getHttpVersion() + SP + statusCode + SP + statusText;
     }
 
