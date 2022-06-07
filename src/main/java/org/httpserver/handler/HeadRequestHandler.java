@@ -19,7 +19,8 @@ public class HeadRequestHandler implements Handler {
         String responseHeaders = handleHeaders() + CRLF;
         String responseBody = handleBody();
 
-        return buildResponse(responseStatusLine, responseHeaders, responseBody);
+        return new Response(responseStatusLine, responseHeaders, responseBody);
+
     }
 
     private String handleStatusLine(Request request) {
