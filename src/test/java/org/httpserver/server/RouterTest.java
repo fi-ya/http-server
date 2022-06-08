@@ -32,6 +32,25 @@ class RouterTest {
     }
 
     @Test
+    void getHandlerReturnsGetHandlerForSimpleBodyRoute() {
+
+        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<String, String>() {{
+            put("httpMethod", "GET");
+            put("requestTarget", "/simple_get_with_body");
+            put("httpVersion", "HTTP/1.1");
+        }};
+        LinkedHashMap<String, String> requestHeadersStub = new LinkedHashMap<>();
+        String requestBodyStub = "";
+        Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
+
+        Router router = new Router();
+        Handler actualHandler = router.getHandler(requestMock);
+        SimpleGetHandler expectedHandler = new SimpleGetHandler();
+
+        assertEquals(expectedHandler.getClass(), actualHandler.getClass());
+    }
+
+    @Test
     void getHandlerReturnsGetHandlerForHeadRequestRoute() {
 
         LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<String, String>() {{
@@ -49,4 +68,6 @@ class RouterTest {
 
         assertEquals(expectedHandler.getClass(), actualHandler.getClass());
     }
+
+
 }
