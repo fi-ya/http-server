@@ -14,25 +14,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RouterTest {
 
+    private LinkedHashMap<String, String> requestLineStub;
     private LinkedHashMap<String, String> requestHeadersStub;
     private  String requestBodyStub;
 
     @BeforeEach
     void setup(){
-        LinkedHashMap<String, String> requestHeadersStub = new LinkedHashMap<>();
-        String requestBodyStub = "";
-
+        requestLineStub = new LinkedHashMap<String, String>() {{
+            put("httpVersion", "HTTP/1.1");
+        }};
+       requestHeadersStub = new LinkedHashMap<>();
+       requestBodyStub = "";
     }
 
     @Test
     void getHandlerReturnsGetHandler_ForSimpleGetRoute() {
 
-        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<String, String>() {{
-            put("httpMethod", "GET");
-            put("requestTarget", "/simple_get");
-            put("httpVersion", "HTTP/1.1");
-        }};
-
+        requestLineStub.put("httpMethod", "GET");
+        requestLineStub.put("requestTarget", "/simple_get");
         Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
         Router router = new Router();
         Handler actualHandler = router.getHandler(requestMock);
@@ -45,12 +44,8 @@ class RouterTest {
     @Test
     void getHandlerReturnsGetHandler_ForSimpleBodyRoute() {
 
-        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<String, String>() {{
-            put("httpMethod", "GET");
-            put("requestTarget", "/simple_get_with_body");
-            put("httpVersion", "HTTP/1.1");
-        }};
-
+        requestLineStub.put("httpMethod", "GET");
+        requestLineStub.put("requestTarget", "/simple_get_with_body");
         Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
         Router router = new Router();
         Handler actualHandler = router.getHandler(requestMock);
@@ -63,15 +58,11 @@ class RouterTest {
     @Test
     void getHandlerReturnsHeadRequestHandler_ForHeadRequestRoute() {
 
-        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<String, String>() {{
-            put("httpMethod", "HEAD");
-            put("requestTarget", "/head_request");
-            put("httpVersion", "HTTP/1.1");
-        }};
-
+        requestLineStub.put("httpMethod", "HEAD");
+        requestLineStub.put("requestTarget", "/head_request");
         Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
-
         Router router = new Router();
+
         Handler actualHandler = router.getHandler(requestMock);
 
         HeadRequestHandler expectedHandler = new HeadRequestHandler();
@@ -82,14 +73,11 @@ class RouterTest {
     @Test
     void getHandlerReturnsMethodNotAllowedHandlerForRouteWith_IncorrectHttpMethodSupplied() {
 
-        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<String, String>() {{
-            put("httpMethod", "GET");
-            put("requestTarget", "/head_request");
-            put("httpVersion", "HTTP/1.1");
-        }};
-
+        requestLineStub.put("httpMethod", "GET");
+        requestLineStub.put("requestTarget", "/head_request");
         Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
         Router router = new Router();
+
         Handler actualHandler = router.getHandler(requestMock);
 
         MethodNotAllowedHandler expectedHandler = new MethodNotAllowedHandler();
