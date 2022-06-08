@@ -2,6 +2,7 @@ package org.httpserver.server;
 
 import org.httpserver.handler.Handler;
 import org.httpserver.handler.HeadRequestHandler;
+import org.httpserver.handler.MethodNotAllowedHandler;
 import org.httpserver.handler.SimpleGetHandler;
 import org.httpserver.request.Request;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class RouterTest {
 
     @Test
-    void getHandlerReturnsGetHandlerForSimpleGetRoute() {
+    void getHandlerReturnsGetHandler_ForSimpleGetRoute() {
 
         LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<String, String>() {{
             put("httpMethod", "GET");
@@ -32,7 +33,7 @@ class RouterTest {
     }
 
     @Test
-    void getHandlerReturnsGetHandlerForSimpleBodyRoute() {
+    void getHandlerReturnsGetHandler_ForSimpleBodyRoute() {
 
         LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<String, String>() {{
             put("httpMethod", "GET");
@@ -51,7 +52,7 @@ class RouterTest {
     }
 
     @Test
-    void getHandlerReturnsGetHandlerForHeadRequestRoute() {
+    void getHandlerReturnsHeadRequestHandler_ForHeadRequestRoute() {
 
         LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<String, String>() {{
             put("httpMethod", "HEAD");
@@ -65,6 +66,25 @@ class RouterTest {
         Router router = new Router();
         Handler actualHandler = router.getHandler(requestMock);
         HeadRequestHandler expectedHandler = new HeadRequestHandler();
+
+        assertEquals(expectedHandler.getClass(), actualHandler.getClass());
+    }
+
+    @Test
+    void getHandlerReturnsMethodNotAllowedHandlerForRouteWith_IncorrectHttpMethodSupplied() {
+
+        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<String, String>() {{
+            put("httpMethod", "GET");
+            put("requestTarget", "/head_request");
+            put("httpVersion", "HTTP/1.1");
+        }};
+        LinkedHashMap<String, String> requestHeadersStub = new LinkedHashMap<>();
+        String requestBodyStub = "";
+        Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
+
+        Router router = new Router();
+        Handler actualHandler = router.getHandler(requestMock);
+        MethodNotAllowedHandler expectedHandler = new MethodNotAllowedHandler();
 
         assertEquals(expectedHandler.getClass(), actualHandler.getClass());
     }
