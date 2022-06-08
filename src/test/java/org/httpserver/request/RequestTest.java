@@ -32,5 +32,26 @@ class RequestTest {
         assertEquals(HttpMethod.GET.getHttpMethod(), request.getHttpMethod());
     }
 
+    @Test
+    void returnsRequestTarget() {
+        assertEquals("/simple_get", request.getRequestTarget());
+    }
+
+    @Test
+    void returnsHttpVersion() {
+        assertEquals("HTTP/1.1", request.getHttpVersion());
+    }
+
+    @Test
+    void returnsHeaders() {
+        LinkedHashMap<String, String> expectedRequestHeaders = new LinkedHashMap<>();
+        assertEquals(expectedRequestHeaders, request.getRequestHeaders());
+    }
+
+    @Test
+    void returnsRequestBody() {
+        assertEquals("", request.getRequestBody());
+    }
+
 
 }
