@@ -28,7 +28,14 @@ class SimpleGetHandlerTest {
     }
 
     @Test
-    void handlesSimpleGetRequest_Response() {
+    void allowedMethods_returnsGe_AndHead_MethodsOnly() {
+        SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
+
+        assertEquals("[GET, HEAD]", simpleGetHandler.allowedHttpMethods().toString());
+    }
+
+    @Test
+    void handleResponse_ReturnsResponseWith_ResponseStatusLineOnly() {
         requestLineStub.put("requestTarget", "/simple_get");
         Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
         SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
@@ -41,7 +48,7 @@ class SimpleGetHandlerTest {
     }
 
     @Test
-    void handlesSimpleGetWithBodyRequest_Response() {
+    void handleResponse_ReturnsResponseWith_ResponseStatusLine_AndBody() {
         requestLineStub.put("requestTarget", "/simple_get_with_body");
         Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
         SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
@@ -52,14 +59,4 @@ class SimpleGetHandlerTest {
         assertTrue(actualResponse.getResponseHeaders().isBlank());
         assertEquals("Hello world", actualResponse.getResponseBody());
     }
-
-    @Test
-    void allowedMethods_returnsGetHeadMethodsOnly() {
-        SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
-
-        List<String> actualAllowedMethods = simpleGetHandler.allowedHttpMethods();
-
-        assertEquals("[GET, HEAD]", actualAllowedMethods.toString());
-    }
-
 }

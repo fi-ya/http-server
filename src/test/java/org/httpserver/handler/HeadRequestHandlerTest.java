@@ -5,7 +5,6 @@ import org.httpserver.response.Response;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -14,12 +13,9 @@ class HeadRequestHandlerTest {
 
     @Test
     void allowedHttpMethods_ReturnsHeadOnly() {
-
         HeadRequestHandler headRequestHandler = new HeadRequestHandler();
 
-        List<String> actualAllowedMethods = headRequestHandler.allowedHttpMethods();
-
-        assertEquals("[HEAD]", actualAllowedMethods.toString());
+        assertEquals("[HEAD]", headRequestHandler.allowedHttpMethods().toString());
     }
 
     @Test
@@ -32,8 +28,8 @@ class HeadRequestHandlerTest {
         LinkedHashMap<String, String> requestHeadersStub = new LinkedHashMap<>();
         String requestBodyStub = "";
         Request mockRequest = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
-
         HeadRequestHandler headRequestHandler = new HeadRequestHandler();
+
         Response actual = headRequestHandler.handleResponse(mockRequest);
 
         assertEquals("HTTP/1.1 200 OK\r\n", actual.getResponseStatusLine());

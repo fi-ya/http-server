@@ -30,7 +30,7 @@ public class MethodNotAllowedHandler implements Handler {
     private String handleStatusLine(Request request) {
         String SP = " ";
         String statusCode = StatusCode.METHOD_NOT_ALLOWED.getStatusCode();
-        String statusText = String.valueOf(StatusCode.METHOD_NOT_ALLOWED);
+        String statusText = String.valueOf(StatusCode.METHOD_NOT_ALLOWED).replace("_"," ");
 
         return request.getHttpVersion() + SP + statusCode + SP + statusText;
     }
