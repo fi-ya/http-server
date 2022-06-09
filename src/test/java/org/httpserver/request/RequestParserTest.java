@@ -19,9 +19,9 @@ class RequestParserTest {
         RequestParser requestParser = new RequestParser();
         Request request = requestParser.parseRequest(mockInputStream);
 
-        assertEquals("HTTP/1.1",request.getHttpVersion());
-        assertEquals("GET",request.getHttpMethod());
-        assertEquals("/simple_get",request.getRequestTarget());
+        assertEquals("HTTP/1.1", request.getHttpVersion());
+        assertEquals("GET", request.getHttpMethod());
+        assertEquals("/simple_get", request.getRequestTarget());
         assertTrue(request.getRequestHeaders().isEmpty());
         assertNull(request.getRequestBody());
     }
@@ -35,12 +35,12 @@ class RequestParserTest {
         RequestParser requestParser = new RequestParser();
         Request request = requestParser.parseRequest(mockInputStream);
 
-        assertEquals("HTTP/1.1",request.getHttpVersion());
-        assertEquals("GET",request.getHttpMethod());
-        assertEquals("/simple_get",request.getRequestTarget());
-        assertEquals( new LinkedHashMap<String, String>() {{
+        assertEquals("HTTP/1.1", request.getHttpVersion());
+        assertEquals("GET", request.getHttpMethod());
+        assertEquals("/simple_get", request.getRequestTarget());
+        assertEquals(new LinkedHashMap<String, String>() {{
             put("Host", "0.0.0.0:5000");
-        }},request.getRequestHeaders());
+        }}, request.getRequestHeaders());
         assertNull(request.getRequestBody());
     }
 
