@@ -37,7 +37,7 @@ class HeadRequestHandlerTest {
         Response actual = headRequestHandler.handleResponse(mockRequest);
 
         assertEquals("HTTP/1.1 200 OK\r\n", actual.getResponseStatusLine());
-        assertEquals("\r\n", actual.getResponseHeaders());
+        assertTrue(actual.getResponseHeaders().isBlank());
         assertTrue(actual.getResponseBody().isEmpty());
     }
 }

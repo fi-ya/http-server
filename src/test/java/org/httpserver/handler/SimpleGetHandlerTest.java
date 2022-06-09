@@ -36,7 +36,7 @@ class SimpleGetHandlerTest {
         Response actualResponse = simpleGetHandler.handleResponse(requestMock);
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
-        assertEquals("\r\n", actualResponse.getResponseHeaders());
+        assertTrue(actualResponse.getResponseHeaders().isBlank());
         assertTrue(actualResponse.getResponseBody().isEmpty());
     }
 
@@ -49,7 +49,7 @@ class SimpleGetHandlerTest {
         Response actualResponse = simpleGetHandler.handleResponse(requestMock);
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
-        assertEquals("\r\n", actualResponse.getResponseHeaders());
+        assertTrue(actualResponse.getResponseHeaders().isBlank());
         assertEquals("Hello world", actualResponse.getResponseBody());
     }
 
