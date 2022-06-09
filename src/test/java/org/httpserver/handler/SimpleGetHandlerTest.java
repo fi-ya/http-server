@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -52,5 +53,13 @@ class SimpleGetHandlerTest {
         assertEquals("Hello world", actualResponse.getResponseBody());
     }
 
+    @Test
+    void allowedMethods_returnsGetHeadMethodsOnly() {
+        SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
+
+        List<String> actualAllowedMethods = simpleGetHandler.allowedHttpMethods();
+
+        assertEquals("[GET, HEAD]", actualAllowedMethods.toString());
+    }
 
 }
