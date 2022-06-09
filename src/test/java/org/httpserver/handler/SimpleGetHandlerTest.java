@@ -21,15 +21,14 @@ class SimpleGetHandlerTest {
         requestLineStub = new LinkedHashMap<String, String>() {{
             put("httpVersion", "HTTP/1.1");
             put("httpMethod", "GET");
-            put("requestTarget", "/simple_get");
         }};
         requestHeadersStub = new LinkedHashMap<>();
         requestBodyStub = "";
     }
 
     @Test
-    void handlesSimpleGetRequestResponseCorrectly() {
-
+    void handlesSimpleGetRequest_Response() {
+        requestLineStub.put("requestTarget", "/simple_get");
         Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
         SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
 
@@ -39,5 +38,19 @@ class SimpleGetHandlerTest {
         assertEquals("\r\n", actualResponse.getResponseHeaders());
         assertTrue(actualResponse.getResponseBody().isEmpty());
     }
+
+    @Test
+    void handlesSimpleGetWithBodyRequest_Response() {
+        requestLineStub.put("requestTarget", "/simple_get_with_body");
+        Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
+        SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
+
+        Response actualResponse = simpleGetHandler.handleResponse(requestMock);
+
+        assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
+        assertEquals("\r\n", actualResponse.getResponseHeaders());
+        assertEquals("Hello world", actualResponse.getResponseBody());
+    }
+
 
 }
