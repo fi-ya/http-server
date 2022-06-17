@@ -28,10 +28,11 @@ public class SimpleGetHandler implements Handler {
     }
 
     private String handleStatusLine(Request request) {
+        String httpVersion = request.getHttpVersion();
         String statusCode = StatusCode.OK.getStatusCode();
         String statusText = String.valueOf(StatusCode.OK);
 
-        return request.getHttpVersion() + Constant.SP + statusCode + Constant.SP + statusText;
+        return String.format("%s %s %s", httpVersion, statusCode, statusText);
     }
 
     private String handleHeaders() {

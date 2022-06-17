@@ -27,10 +27,11 @@ public class MethodNotAllowedHandler implements Handler {
     }
 
     private String handleStatusLine(Request request) {
+        String httpVersion = request.getHttpVersion();
         String statusCode = StatusCode.METHOD_NOT_ALLOWED.getStatusCode();
         String statusText = String.valueOf(StatusCode.METHOD_NOT_ALLOWED).replace("_", " ");
 
-        return request.getHttpVersion() + Constant.SP + statusCode + Constant.SP + statusText;
+        return String.format("%s %s %s", httpVersion, statusCode, statusText);
     }
 
     private String handleHeaders() {
