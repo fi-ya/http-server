@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MethodNotAllowedHandlerTest {
 
     @Test
-    void allowedMethods_returnsGetHeadAndOptionsMethodsOnly() {
+    void allowedMethods_returnsHeadAndOptionsMethodsOnly() {
         MethodNotAllowedHandler methodNotAllowedHandler = new MethodNotAllowedHandler();
 
         assertTrue(methodNotAllowedHandler.allowedHttpMethods().contains("HEAD"));
