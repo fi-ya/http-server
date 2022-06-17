@@ -26,10 +26,9 @@ class EchoBodyHandlerTest {
             put("httpMethod", "POST");
             put("requestTarget", "/echo_body");
         }};
-        Request requestMock = new Request(requestLineStub, new LinkedHashMap<>(), "some body");
         EchoBodyHandler echoBodyHandler = new EchoBodyHandler();
 
-        Response actualResponse = echoBodyHandler.handleResponse(requestMock);
+        Response actualResponse = echoBodyHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), "some body"));
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().isBlank());

@@ -25,10 +25,9 @@ class MethodNotAllowedHandlerTest {
             put("httpMethod", "GET");
             put("requestTarget", "/head_request");
         }};
-        Request mockRequest = new Request(requestLineStub, new LinkedHashMap<>(), "");
         MethodNotAllowedHandler methodNotAllowedHandler = new MethodNotAllowedHandler();
 
-        Response actual = methodNotAllowedHandler.handleResponse(mockRequest);
+        Response actual = methodNotAllowedHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 405 METHOD NOT ALLOWED\r\n", actual.getResponseStatusLine());
         assertEquals("Allow: HEAD, OPTIONS\r\n\r\n", actual.getResponseHeaders());

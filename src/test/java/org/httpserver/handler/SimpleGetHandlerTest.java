@@ -34,10 +34,9 @@ class SimpleGetHandlerTest {
     @Test
     void returnsResponseWithStatusLineOnly() {
         requestLineStub.put("requestTarget", "/simple_get");
-        Request requestMock = new Request(requestLineStub, new LinkedHashMap<>(), "");
         SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
 
-        Response actualResponse = simpleGetHandler.handleResponse(requestMock);
+        Response actualResponse = simpleGetHandler.handleResponse( new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().isBlank());
@@ -47,10 +46,9 @@ class SimpleGetHandlerTest {
     @Test
     void returnsResponseWithResponseStatusLineAndBody() {
         requestLineStub.put("requestTarget", "/simple_get_with_body");
-        Request requestMock = new Request(requestLineStub, new LinkedHashMap<>(), "");
         SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
 
-        Response actualResponse = simpleGetHandler.handleResponse(requestMock);
+        Response actualResponse = simpleGetHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().isBlank());
