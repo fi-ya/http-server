@@ -8,7 +8,6 @@ import org.httpserver.response.StatusCode;
 import org.httpserver.server.HttpMethod;
 
 import java.util.List;
-import java.util.Objects;
 
 public class EchoBodyHandler implements Handler {
     @Override
