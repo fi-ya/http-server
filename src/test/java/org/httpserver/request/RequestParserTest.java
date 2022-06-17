@@ -15,8 +15,8 @@ class RequestParserTest {
         String mockRequestString = "GET /simple_get HTTP/1.1\n" +
                 "\n";
         ByteArrayInputStream mockInputStream = new ByteArrayInputStream(mockRequestString.getBytes());
-
         RequestParser requestParser = new RequestParser();
+
         Request request = requestParser.parseRequest(mockInputStream);
 
         assertEquals("HTTP/1.1", request.getHttpVersion());
@@ -31,8 +31,8 @@ class RequestParserTest {
         String mockRequestString = "GET /simple_get HTTP/1.1\n" +
                 "Host: 0.0.0.0:5000\n";
         ByteArrayInputStream mockInputStream = new ByteArrayInputStream(mockRequestString.getBytes());
-
         RequestParser requestParser = new RequestParser();
+
         Request request = requestParser.parseRequest(mockInputStream);
 
         assertEquals("HTTP/1.1", request.getHttpVersion());

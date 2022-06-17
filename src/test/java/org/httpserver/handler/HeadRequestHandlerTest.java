@@ -15,7 +15,7 @@ class HeadRequestHandlerTest {
     void allowedHttpMethods_ReturnsHeadOnly() {
         HeadRequestHandler headRequestHandler = new HeadRequestHandler();
 
-        assertEquals("[HEAD]", headRequestHandler.allowedHttpMethods().toString());
+        assertTrue(headRequestHandler.allowedHttpMethods().contains("HEAD"));
     }
 
     @Test

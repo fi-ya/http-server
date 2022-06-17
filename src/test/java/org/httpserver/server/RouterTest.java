@@ -16,71 +16,65 @@ class RouterTest {
 
     private LinkedHashMap<String, String> requestLineStub;
     private LinkedHashMap<String, String> requestHeadersStub;
-    private  String requestBodyStub;
+    private String requestBodyStub;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         requestLineStub = new LinkedHashMap<String, String>() {{
             put("httpVersion", "HTTP/1.1");
         }};
-       requestHeadersStub = new LinkedHashMap<>();
-       requestBodyStub = "";
+        requestHeadersStub = new LinkedHashMap<>();
+        requestBodyStub = "";
     }
 
     @Test
-    void getHandlerReturnsGetHandler_ForSimpleGetRoute() {
-
+    void returnGetHandler_whenGetRoute() {
         requestLineStub.put("httpMethod", "GET");
         requestLineStub.put("requestTarget", "/simple_get");
         Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
         Router router = new Router();
-        Handler actualHandler = router.getHandler(requestMock);
 
+        Handler actualHandler = router.getHandler(requestMock);
         SimpleGetHandler expectedHandler = new SimpleGetHandler();
 
         assertEquals(expectedHandler.getClass(), actualHandler.getClass());
     }
 
     @Test
-    void getHandlerReturnsGetHandler_ForSimpleBodyRoute() {
-
+    void returnGetHandler_whenSimpleGetWithBodyRoute() {
         requestLineStub.put("httpMethod", "GET");
         requestLineStub.put("requestTarget", "/simple_get_with_body");
         Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
         Router router = new Router();
-        Handler actualHandler = router.getHandler(requestMock);
 
+        Handler actualHandler = router.getHandler(requestMock);
         SimpleGetHandler expectedHandler = new SimpleGetHandler();
 
         assertEquals(expectedHandler.getClass(), actualHandler.getClass());
     }
 
     @Test
-    void getHandlerReturnsHeadRequestHandler_ForHeadRequestRoute() {
-
+    void returnHeadHandler_whenHeadRequestRoute() {
         requestLineStub.put("httpMethod", "HEAD");
         requestLineStub.put("requestTarget", "/head_request");
         Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
         Router router = new Router();
 
-        Handler actualHandler = router.getHandler(requestMock);
-
         HeadRequestHandler expectedHandler = new HeadRequestHandler();
+        Handler actualHandler = router.getHandler(requestMock);
 
         assertEquals(expectedHandler.getClass(), actualHandler.getClass());
     }
 
     @Test
-    void getHandlerReturnsMethodNotAllowedHandlerForRouteWith_IncorrectHttpMethodSupplied() {
-
+    void returnMethodNotAllowedHandler_whenHttpMethodIncorrect() {
         requestLineStub.put("httpMethod", "GET");
         requestLineStub.put("requestTarget", "/head_request");
         Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
         Router router = new Router();
 
-        Handler actualHandler = router.getHandler(requestMock);
-
         MethodNotAllowedHandler expectedHandler = new MethodNotAllowedHandler();
+        Handler actualHandler = router.getHandler(requestMock);
 
         assertEquals(expectedHandler.getClass(), actualHandler.getClass());
     }

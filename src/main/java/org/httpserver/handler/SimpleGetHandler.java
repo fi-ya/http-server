@@ -14,7 +14,6 @@ public class SimpleGetHandler implements Handler {
 
     @Override
     public List<String> allowedHttpMethods() {
-        System.out.println("hh"+ Arrays.asList(HttpMethod.GET.getHttpMethod(), HttpMethod.HEAD.getHttpMethod()));
         return Arrays.asList(HttpMethod.GET.getHttpMethod(), HttpMethod.HEAD.getHttpMethod());
     }
 

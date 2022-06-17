@@ -36,8 +36,8 @@ class ServerWrapperTest {
         ServerWrapper serverWrapper = new ServerWrapper(serverLogger);
         ServerSocket mockServerSocket = mock(ServerSocket.class);
         Socket mockClientSocket = mock(Socket.class);
-
         when(mockServerSocket.accept()).thenReturn(mockClientSocket);
+
         serverWrapper.createClientSocket(mockServerSocket);
 
         verify(mockServerSocket, times(1)).accept();
@@ -48,8 +48,8 @@ class ServerWrapperTest {
         StdOutServerLogger mockServerLogger = mock(StdOutServerLogger.class);
         ServerWrapper serverWrapper = new ServerWrapper(mockServerLogger);
         ServerSocket mockServerSocket = mock(ServerSocket.class);
-
         when(mockServerSocket.accept()).thenThrow(IOException.class);
+
         serverWrapper.createClientSocket(mockServerSocket);
 
         verify(mockServerLogger, times(1)).printFailedClientSocketConnection();

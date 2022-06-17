@@ -14,12 +14,12 @@ class MethodNotAllowedHandlerTest {
     void allowedMethods_returnsGetHeadAndOptionsMethodsOnly() {
         MethodNotAllowedHandler methodNotAllowedHandler = new MethodNotAllowedHandler();
 
-        assertEquals("[HEAD, OPTIONS]", methodNotAllowedHandler.allowedHttpMethods().toString());
+        assertTrue(methodNotAllowedHandler.allowedHttpMethods().contains("HEAD"));
+        assertTrue(methodNotAllowedHandler.allowedHttpMethods().contains("OPTIONS"));
     }
 
     @Test
     void handleResponse_ReturnsResponseWith_ResponseStatusLine_AndHeadersOnly() {
-
         LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<String, String>() {{
             put("httpVersion", "HTTP/1.1");
             put("httpMethod", "GET");

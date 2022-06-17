@@ -2,9 +2,11 @@ package org.httpserver.handler;
 
 import org.httpserver.request.Request;
 import org.httpserver.response.Response;
+import org.httpserver.server.HttpMethod;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -31,7 +33,8 @@ class SimpleGetHandlerTest {
     void allowedMethods_returnsGe_AndHead_MethodsOnly() {
         SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
 
-        assertEquals("[GET, HEAD]", simpleGetHandler.allowedHttpMethods().toString());
+        assertTrue(simpleGetHandler.allowedHttpMethods().contains("GET"));
+        assertTrue(simpleGetHandler.allowedHttpMethods().contains("HEAD"));
     }
 
     @Test
