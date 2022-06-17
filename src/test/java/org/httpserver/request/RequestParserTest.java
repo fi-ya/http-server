@@ -28,8 +28,10 @@ class RequestParserTest {
 
     @Test
     void parseRequestThatHasRequestLineAndHeadersOnly() throws IOException {
-        String mockRequestString = "GET /simple_get HTTP/1.1\n" +
-                "Host: 0.0.0.0:5000\n";
+        String mockRequestString = """
+                GET /simple_get HTTP/1.1
+                Host: 0.0.0.0:5000
+                """;
         ByteArrayInputStream mockInputStream = new ByteArrayInputStream(mockRequestString.getBytes());
         RequestParser requestParser = new RequestParser();
 

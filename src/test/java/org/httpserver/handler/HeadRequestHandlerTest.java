@@ -20,7 +20,7 @@ class HeadRequestHandlerTest {
 
     @Test
     void handleResponse_ReturnsResponseWith_ResponseStatusLineOnly() {
-        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<String, String>() {{
+        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
             put("httpVersion", "HTTP/1.1");
             put("httpMethod", "HEAD");
             put("requestTarget", "/head_request");

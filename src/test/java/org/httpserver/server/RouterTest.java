@@ -17,7 +17,7 @@ class RouterTest {
 
     @BeforeEach
     void setup() {
-        requestLineStub = new LinkedHashMap<String, String>() {{
+        requestLineStub = new LinkedHashMap<>() {{
             put("httpVersion", "HTTP/1.1");
         }};
         requestHeadersStub = new LinkedHashMap<>();

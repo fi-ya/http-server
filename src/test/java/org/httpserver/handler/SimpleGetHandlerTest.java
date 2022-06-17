@@ -16,7 +16,7 @@ class SimpleGetHandlerTest {
 
     @BeforeEach
     void setup() {
-        requestLineStub = new LinkedHashMap<String, String>() {{
+        requestLineStub = new LinkedHashMap<>() {{
             put("httpVersion", "HTTP/1.1");
             put("httpMethod", "GET");
         }};

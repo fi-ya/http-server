@@ -21,7 +21,7 @@ class EchoBodyHandlerTest {
 
     @Test
     void returnsResponseWithStatusLineAndBodyOnly() {
-        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<String, String>() {{
+        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
             put("httpVersion", "HTTP/1.1");
             put("httpMethod", "POST");
             put("requestTarget", "/echo_body");

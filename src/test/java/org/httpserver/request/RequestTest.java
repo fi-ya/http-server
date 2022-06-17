@@ -15,7 +15,7 @@ class RequestTest {
 
     @BeforeEach
     void setup() {
-        LinkedHashMap<String, String> requestLine = new LinkedHashMap<String, String>() {{
+        LinkedHashMap<String, String> requestLine = new LinkedHashMap<>() {{
             put("httpMethod", "GET");
             put("requestTarget", "/simple_get");
             put("httpVersion", "HTTP/1.1");
