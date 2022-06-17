@@ -32,7 +32,7 @@ class SimpleGetHandlerTest {
     }
 
     @Test
-    void returnsResponseWithResponseStatusLineOnly() {
+    void returnsResponseWithStatusLineOnly() {
         requestLineStub.put("requestTarget", "/simple_get");
         Request requestMock = new Request(requestLineStub, new LinkedHashMap<>(), "");
         SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
