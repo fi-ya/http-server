@@ -2,13 +2,10 @@ package org.httpserver.handler;
 
 import org.httpserver.request.Request;
 import org.httpserver.response.Response;
-import org.httpserver.server.HttpMethod;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -37,10 +34,9 @@ class SimpleGetHandlerTest {
     @Test
     void returnsResponseWithResponseStatusLineOnly() {
         requestLineStub.put("requestTarget", "/simple_get");
-        Request requestMock = new Request(requestLineStub, new LinkedHashMap<>(), "");
         SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
 
-        Response actualResponse = simpleGetHandler.handleResponse(requestMock);
+        Response actualResponse = simpleGetHandler.handleResponse( new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().isBlank());
@@ -50,10 +46,9 @@ class SimpleGetHandlerTest {
     @Test
     void returnsResponseWithResponseStatusLineAndBody() {
         requestLineStub.put("requestTarget", "/simple_get_with_body");
-        Request requestMock = new Request(requestLineStub, new LinkedHashMap<>(), "");
         SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
 
-        Response actualResponse = simpleGetHandler.handleResponse(requestMock);
+        Response actualResponse = simpleGetHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().isBlank());

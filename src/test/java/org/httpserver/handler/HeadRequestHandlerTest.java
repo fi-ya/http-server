@@ -25,10 +25,9 @@ class HeadRequestHandlerTest {
             put("httpMethod", "HEAD");
             put("requestTarget", "/head_request");
         }};
-        Request mockRequest = new Request(requestLineStub, new LinkedHashMap<>(), "");
         HeadRequestHandler headRequestHandler = new HeadRequestHandler();
 
-        Response actual = headRequestHandler.handleResponse(mockRequest);
+        Response actual = headRequestHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 200 OK\r\n", actual.getResponseStatusLine());
         assertTrue(actual.getResponseHeaders().isBlank());

@@ -32,9 +32,8 @@ class RouterTest {
         Router router = new Router();
 
         Handler actualHandler = router.getHandler(requestMock);
-        SimpleGetHandler expectedHandler = new SimpleGetHandler();
 
-        assertEquals(expectedHandler.getClass(), actualHandler.getClass());
+        assertEquals(SimpleGetHandler.class, actualHandler.getClass());
     }
 
     @Test
@@ -45,9 +44,8 @@ class RouterTest {
         Router router = new Router();
 
         Handler actualHandler = router.getHandler(requestMock);
-        SimpleGetHandler expectedHandler = new SimpleGetHandler();
 
-        assertEquals(expectedHandler.getClass(), actualHandler.getClass());
+        assertEquals(SimpleGetHandler.class, actualHandler.getClass());
     }
 
     @Test
@@ -57,10 +55,9 @@ class RouterTest {
         Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
         Router router = new Router();
 
-        HeadRequestHandler expectedHandler = new HeadRequestHandler();
         Handler actualHandler = router.getHandler(requestMock);
 
-        assertEquals(expectedHandler.getClass(), actualHandler.getClass());
+        assertEquals(HeadRequestHandler.class, actualHandler.getClass());
     }
 
     @Test
@@ -70,10 +67,9 @@ class RouterTest {
         Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
         Router router = new Router();
 
-        MethodNotAllowedHandler expectedHandler = new MethodNotAllowedHandler();
         Handler actualHandler = router.getHandler(requestMock);
 
-        assertEquals(expectedHandler.getClass(), actualHandler.getClass());
+        assertEquals(MethodNotAllowedHandler.class, actualHandler.getClass());
     }
 
     @Test
@@ -83,10 +79,9 @@ class RouterTest {
         Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
         Router router = new Router();
 
-        OptionsHandler expectedHandler = new OptionsHandler();
         Handler actualHandler = router.getHandler(requestMock);
 
-        assertEquals(expectedHandler.getClass(), actualHandler.getClass());
+        assertEquals(OptionsHandler.class, actualHandler.getClass());
     }
     @Test
     void returnOptionsHandlerTwo_whenMethodOptions2Route() {
@@ -95,9 +90,20 @@ class RouterTest {
         Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
         Router router = new Router();
 
-        OptionsHandlerTwo expectedHandler = new OptionsHandlerTwo();
         Handler actualHandler = router.getHandler(requestMock);
 
-        assertEquals(expectedHandler.getClass(), actualHandler.getClass());
+        assertEquals(OptionsHandlerTwo.class, actualHandler.getClass());
+    }
+
+    @Test
+    void returnPostHandler_whenEchoBodyRoute() {
+        requestLineStub.put("httpMethod", "POST");
+        requestLineStub.put("requestTarget", "/echo_body");
+        Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
+        Router router = new Router();
+
+        Handler actualHandler = router.getHandler(requestMock);
+
+        assertEquals(EchoBodyHandler.class, actualHandler.getClass());
     }
 }
