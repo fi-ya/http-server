@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class OptionsHandler implements Handler{
+public class OptionsHandler implements Handler {
     @Override
     public List<String> allowedHttpMethods() {
         return Arrays.asList(HttpMethod.GET.getHttpMethod(), HttpMethod.HEAD.getHttpMethod(), HttpMethod.OPTIONS.getHttpMethod());
@@ -22,7 +22,7 @@ public class OptionsHandler implements Handler{
         String CRLF = "\r\n";
 
         String responseStatusLine = handleStatusLine(request) + CRLF;
-        String responseHeaders = handleHeaders() + CRLF;
+        String responseHeaders = handleHeaders(request) + CRLF;
         String responseBody = handleBody();
 
         ResponseBuilder responseBuilder = new ResponseBuilder();
@@ -37,11 +37,15 @@ public class OptionsHandler implements Handler{
         return request.getHttpVersion() + SP + statusCode + SP + statusText;
     }
 
-    private String handleHeaders() {
-        return "Allow: GET, HEAD, OPTIONS";
+    private String handleHeaders(Request request) {
+        if (Objects.equals(request.getRequestTarget(), "/method_options")) {
+            return "Allow: GET, HEAD, OPTIONS";
+        } else {
+            return "Allow: GET, HEAD, OPTIONS, PUT, POST";
+        }
     }
 
-    private String handleBody()  {
+    private String handleBody() {
         return "";
     }
 }

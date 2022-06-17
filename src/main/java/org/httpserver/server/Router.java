@@ -20,6 +20,7 @@ public class Router {
             put("/simple_get_with_body", new SimpleGetHandler());
             put("/head_request", new HeadRequestHandler());
             put("/method_options", new OptionsHandler());
+            put("/method_options2", new OptionsHandler());
         }};
     }
 
