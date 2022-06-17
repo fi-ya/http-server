@@ -126,4 +126,17 @@ class RouterTest {
 
         assertEquals(expectedHandler.getClass(), actualHandler.getClass());
     }
+
+    @Test
+    void returnPageNotFoundHandler_whenResourceNotAvailable(){
+        requestLineStub.put("httpMethod", "GET");
+        requestLineStub.put("requestTarget", "/page_not_exist");
+        Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
+        Router router = new Router();
+
+        PageNotFoundHandler expectedHandler = new PageNotFoundHandler();
+        Handler actualHandler = router.getHandler(requestMock);
+
+        assertEquals(expectedHandler.getClass(), actualHandler.getClass());
+    }
 }
