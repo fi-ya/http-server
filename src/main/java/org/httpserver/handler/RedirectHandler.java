@@ -1,5 +1,6 @@
 package org.httpserver.handler;
 
+import org.httpserver.Constant;
 import org.httpserver.request.Request;
 import org.httpserver.response.Response;
 import org.httpserver.response.ResponseBuilder;
@@ -16,10 +17,8 @@ public class RedirectHandler implements Handler {
 
     @Override
     public Response handleResponse(Request request) {
-        String CRLF = "\r\n";
-
-        String responseStatusLine = handleStatusLine(request) + CRLF;
-        String responseHeaders = handleHeaders(request) + CRLF + CRLF;
+        String responseStatusLine = handleStatusLine(request) + Constant.CRLF;
+        String responseHeaders = handleHeaders(request) + Constant.CRLF + Constant.CRLF;
         String responseBody = handleBody();
 
         ResponseBuilder responseBuilder = new ResponseBuilder();
@@ -27,11 +26,11 @@ public class RedirectHandler implements Handler {
     }
 
     private String handleStatusLine(Request request) {
-        String SP = " ";
+        String httpVersion = request.getHttpVersion();
         String statusCode = StatusCode.MOVED_PERMANENTLY.getStatusCode();
-        String statusText = String.valueOf(StatusCode.MOVED_PERMANENTLY).replace("_"," ");
+        String statusText = String.valueOf(StatusCode.MOVED_PERMANENTLY).replace("_", " ");
 
-        return request.getHttpVersion() + SP + statusCode + SP + statusText;
+        return String.format("%s %s %s", httpVersion, statusCode, statusText);
     }
 
     private String handleHeaders(Request request) {

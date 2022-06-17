@@ -24,9 +24,7 @@ class RedirectHandlerTest {
             put("httpMethod", "GET");
             put("requestTarget", "/redirect");
         }};
-        LinkedHashMap<String, String> requestHeadersStub = new LinkedHashMap<>();
-        String requestBodyStub = "";
-        Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
+        Request requestMock = new Request(requestLineStub, new LinkedHashMap<>(), "");
         RedirectHandler redirectHandler = new RedirectHandler();
 
         Response actualResponse = redirectHandler.handleResponse(requestMock);
