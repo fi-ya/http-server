@@ -16,8 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class SimpleGetHandlerTest {
 
     private LinkedHashMap<String, String> requestLineStub;
-    private LinkedHashMap<String, String> requestHeadersStub;
-    private String requestBodyStub;
 
     @BeforeEach
     void setup() {
@@ -25,22 +23,21 @@ class SimpleGetHandlerTest {
             put("httpVersion", "HTTP/1.1");
             put("httpMethod", "GET");
         }};
-        requestHeadersStub = new LinkedHashMap<>();
-        requestBodyStub = "";
     }
 
     @Test
-    void allowedMethods_returnsGe_AndHead_MethodsOnly() {
+    void returnsGetHeadAndMethodsOnly() {
         SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
 
         assertTrue(simpleGetHandler.allowedHttpMethods().contains("GET"));
         assertTrue(simpleGetHandler.allowedHttpMethods().contains("HEAD"));
+        assertEquals(2, simpleGetHandler.allowedHttpMethods().size());
     }
 
     @Test
-    void handleResponse_ReturnsResponseWith_ResponseStatusLineOnly() {
+    void returnsResponseWithResponseStatusLineOnly() {
         requestLineStub.put("requestTarget", "/simple_get");
-        Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
+        Request requestMock = new Request(requestLineStub, new LinkedHashMap<>(), "");
         SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
 
         Response actualResponse = simpleGetHandler.handleResponse(requestMock);
@@ -51,9 +48,9 @@ class SimpleGetHandlerTest {
     }
 
     @Test
-    void handleResponse_ReturnsResponseWith_ResponseStatusLine_AndBody() {
+    void returnsResponseWithResponseStatusLineAndBody() {
         requestLineStub.put("requestTarget", "/simple_get_with_body");
-        Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
+        Request requestMock = new Request(requestLineStub, new LinkedHashMap<>(), "");
         SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
 
         Response actualResponse = simpleGetHandler.handleResponse(requestMock);

@@ -7,21 +7,23 @@ import org.httpserver.response.ResponseBuilder;
 import org.httpserver.response.StatusCode;
 import org.httpserver.server.HttpMethod;
 
+import java.util.Arrays;
 import java.util.List;
 
-public class HeadRequestHandler implements Handler {
+public class OptionsHandlerTwo implements Handler {
+
     @Override
     public List<String> allowedHttpMethods() {
-        return List.of(HttpMethod.HEAD.getHttpMethod());
+        return Arrays.asList(HttpMethod.GET.getHttpMethod(), HttpMethod.HEAD.getHttpMethod(), HttpMethod.OPTIONS.getHttpMethod(), HttpMethod.POST.getHttpMethod(), HttpMethod.PUT.getHttpMethod());
     }
 
+    @Override
     public Response handleResponse(Request request) {
         String responseStatusLine = handleStatusLine(request) + Constant.CRLF;
-        String responseHeaders = handleHeaders() + Constant.CRLF;
+        String responseHeaders = handleHeaders(request) + Constant.CRLF + Constant.CRLF;
         String responseBody = handleBody();
 
         ResponseBuilder responseBuilder = new ResponseBuilder();
-
         return responseBuilder.buildResponse(responseStatusLine, responseHeaders, responseBody);
     }
 
@@ -33,8 +35,8 @@ public class HeadRequestHandler implements Handler {
         return String.format("%s %s %s", httpVersion, statusCode, statusText);
     }
 
-    private String handleHeaders() {
-        return "";
+    private String handleHeaders(Request request) {
+        return "Allow: GET, HEAD, OPTIONS, PUT, POST";
     }
 
     private String handleBody() {
