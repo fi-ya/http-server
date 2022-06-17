@@ -20,7 +20,6 @@ class ClientHandlerTest {
         PrintWriter mockClientResponseWriter = mock(PrintWriter.class);
         String mockResponseString = "HTTP/1.1 200 OK";
         Response mockResponse = mock(Response.class);
-
         when(mockResponse.stringFormatResponse()).thenReturn(mockResponseString);
 
         clientHandler.sendResponse(mockResponse, mockClientResponseWriter);
