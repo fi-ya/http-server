@@ -25,9 +25,7 @@ class HeadRequestHandlerTest {
             put("httpMethod", "HEAD");
             put("requestTarget", "/head_request");
         }};
-        LinkedHashMap<String, String> requestHeadersStub = new LinkedHashMap<>();
-        String requestBodyStub = "";
-        Request mockRequest = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
+        Request mockRequest = new Request(requestLineStub, new LinkedHashMap<>(), "");
         HeadRequestHandler headRequestHandler = new HeadRequestHandler();
 
         Response actual = headRequestHandler.handleResponse(mockRequest);
