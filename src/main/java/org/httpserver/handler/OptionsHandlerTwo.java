@@ -1,5 +1,6 @@
 package org.httpserver.handler;
 
+import org.httpserver.Constant;
 import org.httpserver.request.Request;
 import org.httpserver.response.Response;
 import org.httpserver.response.ResponseBuilder;
@@ -18,10 +19,8 @@ public class OptionsHandlerTwo implements Handler {
 
     @Override
     public Response handleResponse(Request request) {
-        String CRLF = "\r\n";
-
-        String responseStatusLine = handleStatusLine(request) + CRLF;
-        String responseHeaders = handleHeaders(request) + CRLF + CRLF;
+        String responseStatusLine = handleStatusLine(request) + Constant.CRLF;
+        String responseHeaders = handleHeaders(request) + Constant.CRLF + Constant.CRLF;
         String responseBody = handleBody();
 
         ResponseBuilder responseBuilder = new ResponseBuilder();
@@ -29,11 +28,10 @@ public class OptionsHandlerTwo implements Handler {
     }
 
     private String handleStatusLine(Request request) {
-        String SP = " ";
         String statusCode = StatusCode.OK.getStatusCode();
         String statusText = String.valueOf(StatusCode.OK);
 
-        return request.getHttpVersion() + SP + statusCode + SP + statusText;
+        return request.getHttpVersion() + Constant.SP + statusCode + Constant.SP + statusText;
     }
 
     private String handleHeaders(Request request) {
