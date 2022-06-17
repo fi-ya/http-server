@@ -126,4 +126,17 @@ class RouterTest {
 
         assertEquals(expectedHandler.getClass(), actualHandler.getClass());
     }
+
+    @Test
+    void returnRedirectHandler_whenRedirectRoute() {
+        requestLineStub.put("httpMethod", "GET");
+        requestLineStub.put("requestTarget", "/redirect");
+        Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
+        Router router = new Router();
+
+        RedirectHandler expectedHandler = new RedirectHandler();
+        Handler actualHandler = router.getHandler(requestMock);
+
+        assertEquals(expectedHandler.getClass(), actualHandler.getClass());
+    }
 }

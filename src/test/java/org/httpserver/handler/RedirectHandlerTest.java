@@ -18,7 +18,7 @@ class RedirectHandlerTest {
     }
 
     @Test
-    void returnsResponseWithStatusLineAndBodyOnly() {
+    void returnsResponseWithStatusLineAndHeaderOnly() {
         LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<String, String>() {{
             put("httpVersion", "HTTP/1.1");
             put("httpMethod", "GET");
@@ -33,6 +33,6 @@ class RedirectHandlerTest {
 
         assertEquals("HTTP/1.1 301 MOVED PERMANENTLY\r\n", actualResponse.getResponseStatusLine());
         assertEquals("Location: http://127.0.0.1:5000/simple_get\r\n\r\n", actualResponse.getResponseHeaders());
-        assertEquals(requestBodyStub, actualResponse.getResponseBody());
+        assertTrue(actualResponse.getResponseBody().isEmpty());
     }
 }
