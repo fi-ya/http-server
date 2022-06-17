@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EchoBodyHandlerTest {
 
@@ -25,15 +26,13 @@ class EchoBodyHandlerTest {
             put("httpMethod", "POST");
             put("requestTarget", "/echo_body");
         }};
-        LinkedHashMap<String, String> requestHeadersStub = new LinkedHashMap<>();
-        String requestBodyStub = "some body";
-        Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
+        Request requestMock = new Request(requestLineStub, new LinkedHashMap<>(), "some body");
         EchoBodyHandler echoBodyHandler = new EchoBodyHandler();
 
         Response actualResponse = echoBodyHandler.handleResponse(requestMock);
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().isBlank());
-        assertEquals(requestBodyStub, actualResponse.getResponseBody());
+        assertEquals("some body", actualResponse.getResponseBody());
     }
 }

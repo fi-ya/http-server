@@ -1,5 +1,6 @@
 package org.httpserver.handler;
 
+import org.httpserver.Constant;
 import org.httpserver.request.Request;
 import org.httpserver.response.Response;
 import org.httpserver.response.ResponseBuilder;
@@ -16,10 +17,8 @@ public class EchoBodyHandler implements Handler {
     }
 
     public Response handleResponse(Request request) {
-        String CRLF = "\r\n";
-
-        String responseStatusLine = handleStatusLine(request) + CRLF;
-        String responseHeaders = handleHeaders() + CRLF;
+        String responseStatusLine = handleStatusLine(request) + Constant.CRLF;
+        String responseHeaders = handleHeaders() + Constant.CRLF;
         String responseBody = handleBody(request);
 
         ResponseBuilder responseBuilder = new ResponseBuilder();
@@ -27,11 +26,11 @@ public class EchoBodyHandler implements Handler {
     }
 
     private String handleStatusLine(Request request) {
-        String SP = " ";
+        String httpVersion = request.getHttpVersion();
         String statusCode = StatusCode.OK.getStatusCode();
         String statusText = String.valueOf(StatusCode.OK);
 
-        return request.getHttpVersion() + SP + statusCode + SP + statusText;
+        return String.format("%s %s %s", httpVersion, statusCode, statusText);
     }
 
     private String handleHeaders() {
