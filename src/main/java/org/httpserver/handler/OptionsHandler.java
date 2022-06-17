@@ -8,7 +8,6 @@ import org.httpserver.server.HttpMethod;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class OptionsHandler implements Handler {
     @Override

@@ -21,6 +21,7 @@ public class Router {
             put("/head_request", new HeadRequestHandler());
             put("/method_options", new OptionsHandler());
             put("/method_options2", new OptionsHandlerTwo());
+            put("/echo_body", new EchoBodyHandler());
         }};
     }
 

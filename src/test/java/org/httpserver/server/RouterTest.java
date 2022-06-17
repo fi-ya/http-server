@@ -100,4 +100,17 @@ class RouterTest {
 
         assertEquals(expectedHandler.getClass(), actualHandler.getClass());
     }
+
+    @Test
+    void returnPostHandler_whenEchoBodyRoute() {
+        requestLineStub.put("httpMethod", "POST");
+        requestLineStub.put("requestTarget", "/echo_body");
+        Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
+        Router router = new Router();
+
+        EchoBodyHandler expectedHandler = new EchoBodyHandler();
+        Handler actualHandler = router.getHandler(requestMock);
+
+        assertEquals(expectedHandler.getClass(), actualHandler.getClass());
+    }
 }
