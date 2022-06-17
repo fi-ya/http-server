@@ -36,7 +36,7 @@ class OptionsHandlerTest {
         Response actualResponse = optionsHandler.handleResponse(requestMock);
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
-        assertEquals("Allow: GET, HEAD, OPTIONS\r\n", actualResponse.getResponseHeaders());
+        assertEquals("Allow: GET, HEAD, OPTIONS\r\n\r\n", actualResponse.getResponseHeaders());
         assertTrue(actualResponse.getResponseBody().isEmpty());
     }
 }

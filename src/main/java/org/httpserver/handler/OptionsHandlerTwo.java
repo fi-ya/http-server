@@ -9,18 +9,19 @@ import org.httpserver.server.HttpMethod;
 import java.util.Arrays;
 import java.util.List;
 
-public class OptionsHandlerTwo implements Handler{
+public class OptionsHandlerTwo implements Handler {
 
     @Override
     public List<String> allowedHttpMethods() {
         return Arrays.asList(HttpMethod.GET.getHttpMethod(), HttpMethod.HEAD.getHttpMethod(), HttpMethod.OPTIONS.getHttpMethod(), HttpMethod.POST.getHttpMethod(), HttpMethod.PUT.getHttpMethod());
     }
+
     @Override
     public Response handleResponse(Request request) {
         String CRLF = "\r\n";
 
         String responseStatusLine = handleStatusLine(request) + CRLF;
-        String responseHeaders = handleHeaders(request) + CRLF;
+        String responseHeaders = handleHeaders(request) + CRLF + CRLF;
         String responseBody = handleBody();
 
         ResponseBuilder responseBuilder = new ResponseBuilder();

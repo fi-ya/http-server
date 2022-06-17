@@ -22,7 +22,7 @@ public class OptionsHandler implements Handler {
         String CRLF = "\r\n";
 
         String responseStatusLine = handleStatusLine(request) + CRLF;
-        String responseHeaders = handleHeaders(request) + CRLF;
+        String responseHeaders = handleHeaders(request) + CRLF + CRLF;
         String responseBody = handleBody();
 
         ResponseBuilder responseBuilder = new ResponseBuilder();
