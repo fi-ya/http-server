@@ -25,9 +25,7 @@ class MethodNotAllowedHandlerTest {
             put("httpMethod", "GET");
             put("requestTarget", "/head_request");
         }};
-        LinkedHashMap<String, String> requestHeadersStub = new LinkedHashMap<>();
-        String requestBodyStub = "";
-        Request mockRequest = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
+        Request mockRequest = new Request(requestLineStub, new LinkedHashMap<>(), "");
         MethodNotAllowedHandler methodNotAllowedHandler = new MethodNotAllowedHandler();
 
         Response actual = methodNotAllowedHandler.handleResponse(mockRequest);
