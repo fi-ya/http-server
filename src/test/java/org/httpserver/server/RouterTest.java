@@ -1,9 +1,6 @@
 package org.httpserver.server;
 
-import org.httpserver.handler.Handler;
-import org.httpserver.handler.HeadRequestHandler;
-import org.httpserver.handler.MethodNotAllowedHandler;
-import org.httpserver.handler.SimpleGetHandler;
+import org.httpserver.handler.*;
 import org.httpserver.request.Request;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -79,5 +76,16 @@ class RouterTest {
         assertEquals(expectedHandler.getClass(), actualHandler.getClass());
     }
 
+    @Test
+    void returnOptionsHandler_whenMethodOptionsRoute() {
+        requestLineStub.put("httpMethod", "OPTIONS");
+        requestLineStub.put("requestTarget", "/method_options");
+        Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
+        Router router = new Router();
 
+        OptionHandler expectedHandler = new OptionHandler();
+        Handler actualHandler = router.getHandler(requestMock);
+
+        assertEquals(expectedHandler.getClass(), actualHandler.getClass());
+    }
 }
