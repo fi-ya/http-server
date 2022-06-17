@@ -30,7 +30,7 @@ class SimpleGetHandlerTest {
     }
 
     @Test
-    void allowedMethods_returnsGe_AndHead_MethodsOnly() {
+    void returnsGetHeadAndMethodsOnly() {
         SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
 
         assertTrue(simpleGetHandler.allowedHttpMethods().contains("GET"));
@@ -38,7 +38,7 @@ class SimpleGetHandlerTest {
     }
 
     @Test
-    void handleResponse_ReturnsResponseWith_ResponseStatusLineOnly() {
+    void returnsResponseWithResponseStatusLineOnly() {
         requestLineStub.put("requestTarget", "/simple_get");
         Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
         SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
@@ -51,7 +51,7 @@ class SimpleGetHandlerTest {
     }
 
     @Test
-    void handleResponse_ReturnsResponseWith_ResponseStatusLine_AndBody() {
+    void returnsResponseWithResponseStatusLineAndBody() {
         requestLineStub.put("requestTarget", "/simple_get_with_body");
         Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
         SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
