@@ -29,7 +29,7 @@ public class Router {
     public Handler getHandler(Request request) {
         if (resourceTargetExists(request) && isHttpMethodAllowed(request)) {
             return resourceAndHandlerMap.get(request.getRequestTarget());
-        } else if (resourceTargetExists(request) && !isHttpMethodAllowed(request)){
+        } else if (resourceTargetExists(request) && !isHttpMethodAllowed(request)) {
             return new MethodNotAllowedHandler();
         } else {
             return new PageNotFoundHandler();
