@@ -30,9 +30,7 @@ class OptionsHandlerTwoTest {
             put("httpMethod", "OPTIONS");
             put("requestTarget", "/method_options2");
         }};
-        LinkedHashMap<String, String> requestHeadersStub = new LinkedHashMap<>();
-        String requestBodyStub = "";
-        Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
+        Request requestMock = new Request(requestLineStub, new LinkedHashMap<>(), "");
         OptionsHandlerTwo optionsHandlerTwo = new OptionsHandlerTwo();
 
         Response actualResponse = optionsHandlerTwo.handleResponse(requestMock);
