@@ -35,6 +35,7 @@ class SimpleGetHandlerTest {
 
         assertTrue(simpleGetHandler.allowedHttpMethods().contains("GET"));
         assertTrue(simpleGetHandler.allowedHttpMethods().contains("HEAD"));
+        assertEquals(2, simpleGetHandler.allowedHttpMethods().size());
     }
 
     @Test

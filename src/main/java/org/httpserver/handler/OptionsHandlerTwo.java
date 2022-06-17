@@ -8,15 +8,13 @@ import org.httpserver.server.HttpMethod;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
-public class OptionsHandler implements Handler {
+public class OptionsHandlerTwo implements Handler{
+
     @Override
     public List<String> allowedHttpMethods() {
-        return Arrays.asList(HttpMethod.GET.getHttpMethod(), HttpMethod.HEAD.getHttpMethod(), HttpMethod.OPTIONS.getHttpMethod());
+        return Arrays.asList(HttpMethod.GET.getHttpMethod(), HttpMethod.HEAD.getHttpMethod(), HttpMethod.OPTIONS.getHttpMethod(), HttpMethod.POST.getHttpMethod(), HttpMethod.PUT.getHttpMethod());
     }
-
-
     @Override
     public Response handleResponse(Request request) {
         String CRLF = "\r\n";
@@ -38,7 +36,7 @@ public class OptionsHandler implements Handler {
     }
 
     private String handleHeaders(Request request) {
-        return "Allow: GET, HEAD, OPTIONS";
+        return "Allow: GET, HEAD, OPTIONS, PUT, POST";
     }
 
     private String handleBody() {
