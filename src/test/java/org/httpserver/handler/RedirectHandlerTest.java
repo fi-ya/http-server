@@ -26,10 +26,9 @@ class RedirectHandlerTest {
             put("httpMethod", "GET");
             put("requestTarget", "/redirect");
         }};
-        Request requestMock = new Request(requestLineStub, new LinkedHashMap<>(), "");
         RedirectHandler redirectHandler = new RedirectHandler();
 
-        Response actualResponse = redirectHandler.handleResponse(requestMock);
+        Response actualResponse = redirectHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 301 MOVED PERMANENTLY\r\n", actualResponse.getResponseStatusLine());
         assertEquals("Location: http://127.0.0.1:5000/simple_get\r\n\r\n", actualResponse.getResponseHeaders());

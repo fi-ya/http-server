@@ -26,10 +26,9 @@ class PageNotFoundHandlerTest {
             put("httpMethod", "GET");
             put("requestTarget", "/page_not_exist");
         }};
-        Request requestMock = new Request(requestLineStub, new LinkedHashMap<>(), "");
         PageNotFoundHandler pageNotFoundHandler = new PageNotFoundHandler();
 
-        Response actualResponse = pageNotFoundHandler.handleResponse(requestMock);
+        Response actualResponse = pageNotFoundHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 404 NOT FOUND\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().isBlank());

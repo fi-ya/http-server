@@ -16,6 +16,7 @@ class HeadRequestHandlerTest {
         HeadRequestHandler headRequestHandler = new HeadRequestHandler();
 
         assertTrue(headRequestHandler.allowedHttpMethods().contains("HEAD"));
+        assertEquals(1, headRequestHandler.allowedHttpMethods().size());
     }
 
     @Test
