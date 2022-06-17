@@ -14,7 +14,6 @@ class MethodNotAllowedHandlerTest {
     void allowedMethods_returnsGetHeadAndOptionsMethodsOnly() {
         MethodNotAllowedHandler methodNotAllowedHandler = new MethodNotAllowedHandler();
 
-        assertTrue(methodNotAllowedHandler.allowedHttpMethods().contains("GET"));
         assertTrue(methodNotAllowedHandler.allowedHttpMethods().contains("HEAD"));
         assertTrue(methodNotAllowedHandler.allowedHttpMethods().contains("OPTIONS"));
         assertEquals(3, methodNotAllowedHandler.allowedHttpMethods().size());
