@@ -7,7 +7,7 @@ import org.httpserver.server.HttpMethod;
 import java.util.Arrays;
 import java.util.List;
 
-public class OptionHandler implements Handler{
+public class OptionsHandler implements Handler{
     @Override
     public List<String> allowedHttpMethods() {
         return Arrays.asList(HttpMethod.GET.getHttpMethod(), HttpMethod.HEAD.getHttpMethod(), HttpMethod.OPTIONS.getHttpMethod());

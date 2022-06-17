@@ -83,7 +83,7 @@ class RouterTest {
         Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
         Router router = new Router();
 
-        OptionHandler expectedHandler = new OptionHandler();
+        OptionsHandler expectedHandler = new OptionsHandler();
         Handler actualHandler = router.getHandler(requestMock);
 
         assertEquals(expectedHandler.getClass(), actualHandler.getClass());
