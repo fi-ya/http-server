@@ -28,10 +28,9 @@ class OptionsHandlerTest {
             put("httpMethod", "GET");
             put("requestTarget", "/method_options");
         }};
-        Request requestMock = new Request(requestLineStub, new LinkedHashMap<>(), "");
         OptionsHandler optionsHandler = new OptionsHandler();
 
-        Response actualResponse = optionsHandler.handleResponse(requestMock);
+        Response actualResponse = optionsHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertEquals("Allow: GET, HEAD, OPTIONS\r\n\r\n", actualResponse.getResponseHeaders());

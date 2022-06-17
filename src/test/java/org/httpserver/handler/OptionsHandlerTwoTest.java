@@ -30,10 +30,9 @@ class OptionsHandlerTwoTest {
             put("httpMethod", "OPTIONS");
             put("requestTarget", "/method_options2");
         }};
-        Request requestMock = new Request(requestLineStub, new LinkedHashMap<>(), "");
         OptionsHandlerTwo optionsHandlerTwo = new OptionsHandlerTwo();
 
-        Response actualResponse = optionsHandlerTwo.handleResponse(requestMock);
+        Response actualResponse = optionsHandlerTwo.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertEquals("Allow: GET, HEAD, OPTIONS, PUT, POST\r\n\r\n", actualResponse.getResponseHeaders());
