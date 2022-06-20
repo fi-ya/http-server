@@ -18,7 +18,7 @@ public class RedirectHandler implements Handler {
     @Override
     public Response handleResponse(Request request) {
         String responseStatusLine = handleStatusLine(request) + Constant.CRLF;
-        String responseHeaders = handleHeaders(request) + Constant.CRLF + Constant.CRLF;
+        String responseHeaders = handleHeaders() + Constant.CRLF + Constant.CRLF;
         String responseBody = handleBody();
 
         ResponseBuilder responseBuilder = new ResponseBuilder();
@@ -33,7 +33,7 @@ public class RedirectHandler implements Handler {
         return String.format("%s %s %s", httpVersion, statusCode, statusText);
     }
 
-    private String handleHeaders(Request request) {
+    private String handleHeaders() {
         return "Location: http://127.0.0.1:5000/simple_get";
     }
 
