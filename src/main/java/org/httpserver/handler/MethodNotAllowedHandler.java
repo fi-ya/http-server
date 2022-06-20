@@ -19,20 +19,10 @@ public class MethodNotAllowedHandler implements Handler {
     @Override
     public Response handleResponse(Request request) {
         String responseStatusLine = handleStatusLine(request, StatusCode.METHOD_NOT_ALLOWED) + Constant.CRLF;
-        String responseHeaders = handleHeaders() + Constant.CRLF + Constant.CRLF;
-        String responseBody = handleBody();
+        String responseHeaders = handleHeaders("Allow", "HEAD, OPTIONS") + Constant.CRLF + Constant.CRLF;
+        String responseBody = handleBody("");
 
         ResponseBuilder responseBuilder = new ResponseBuilder();
         return responseBuilder.buildResponse(responseStatusLine, responseHeaders, responseBody);
-    }
-
-
-
-    private String handleHeaders() {
-        return "Allow: HEAD, OPTIONS";
-    }
-
-    private String handleBody() {
-        return "";
     }
 }

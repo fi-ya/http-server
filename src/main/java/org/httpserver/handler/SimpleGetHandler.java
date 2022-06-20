@@ -9,7 +9,6 @@ import org.httpserver.server.HttpMethod;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class SimpleGetHandler implements Handler {
 
@@ -20,23 +19,10 @@ public class SimpleGetHandler implements Handler {
 
     public Response handleResponse(Request request) {
         String responseStatusLine = handleStatusLine(request, StatusCode.OK) + Constant.CRLF;
-        String responseHeaders = handleHeaders() + Constant.CRLF;
-        String responseBody = handleBody(request);
+        String responseHeaders = handleHeaders("", "") + Constant.CRLF;
+        String responseBody = handleBody("");
 
         ResponseBuilder responseBuilder = new ResponseBuilder();
         return responseBuilder.buildResponse(responseStatusLine, responseHeaders, responseBody);
-    }
-
-
-    private String handleHeaders() {
-        return "";
-    }
-
-    private String handleBody(Request request) {
-        if (Objects.equals(request.getRequestTarget(), "/simple_get_with_body")) {
-            return "Hello world";
-        } else {
-            return "";
-        }
     }
 }

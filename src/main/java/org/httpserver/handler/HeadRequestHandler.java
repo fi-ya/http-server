@@ -17,20 +17,11 @@ public class HeadRequestHandler implements Handler {
 
     public Response handleResponse(Request request) {
         String responseStatusLine = handleStatusLine(request, StatusCode.OK) + Constant.CRLF;
-        String responseHeaders = handleHeaders() + Constant.CRLF;
-        String responseBody = handleBody();
+        String responseHeaders = handleHeaders("", "") + Constant.CRLF;
+        String responseBody = handleBody("");
 
         ResponseBuilder responseBuilder = new ResponseBuilder();
 
         return responseBuilder.buildResponse(responseStatusLine, responseHeaders, responseBody);
-    }
-
-
-    private String handleHeaders() {
-        return "";
-    }
-
-    private String handleBody() {
-        return "";
     }
 }

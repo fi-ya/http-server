@@ -18,8 +18,8 @@ public class PageNotFoundHandler implements Handler {
     @Override
     public Response handleResponse(Request request) {
         String responseStatusLine = handleStatusLine(request, StatusCode.NOT_FOUND) + Constant.CRLF;
-        String responseHeaders = handleHeaders() + Constant.CRLF;
-        String responseBody = handleBody();
+        String responseHeaders = handleHeaders("", "") + Constant.CRLF;
+        String responseBody = handleBody("");
 
         ResponseBuilder responseBuilder = new ResponseBuilder();
         return responseBuilder.buildResponse(responseStatusLine, responseHeaders, responseBody);
@@ -27,11 +27,5 @@ public class PageNotFoundHandler implements Handler {
 
 
 
-    private String handleHeaders() {
-        return "";
-    }
 
-    private String handleBody() {
-        return "";
-    }
 }

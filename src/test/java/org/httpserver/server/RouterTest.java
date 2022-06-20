@@ -41,7 +41,7 @@ class RouterTest {
 
         Handler actualHandler = getActualHandler();
 
-        assertEquals(SimpleGetHandler.class, actualHandler.getClass());
+        assertEquals(SimpleGetWithBodyHandler.class, actualHandler.getClass());
     }
 
     @Test

@@ -7,28 +7,21 @@ import org.httpserver.response.ResponseBuilder;
 import org.httpserver.response.StatusCode;
 import org.httpserver.server.HttpMethod;
 
-import java.util.Arrays;
 import java.util.List;
 
-public class OptionsHandler implements Handler {
+public class SimpleGetWithBodyHandler implements Handler {
+
     @Override
     public List<String> allowedHttpMethods() {
-        return Arrays.asList(HttpMethod.GET.getHttpMethod(), HttpMethod.HEAD.getHttpMethod(), HttpMethod.OPTIONS.getHttpMethod());
+        return List.of(HttpMethod.GET.getHttpMethod());
     }
 
-
-    @Override
     public Response handleResponse(Request request) {
         String responseStatusLine = handleStatusLine(request, StatusCode.OK) + Constant.CRLF;
-        String responseHeaders = handleHeaders("Allow","GET, HEAD, OPTIONS" ) + Constant.CRLF + Constant.CRLF;
-        String responseBody = handleBody("");
+        String responseHeaders = handleHeaders("", "") + Constant.CRLF;
+        String responseBody = handleBody("Hello world");
 
         ResponseBuilder responseBuilder = new ResponseBuilder();
         return responseBuilder.buildResponse(responseStatusLine, responseHeaders, responseBody);
     }
-
-
-
-
-
 }
