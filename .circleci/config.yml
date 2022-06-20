@@ -1,7 +1,8 @@
 version: 2.1
 
 orbs:
-  codecov: codecov/codecov@3.2.2
+  codecov: codecov/codecov@3.2.3
+
 jobs:
   build-test:
     docker:
@@ -14,7 +15,6 @@ jobs:
       - run:
           name: Run test
           command: ./gradlew test
-      - codecov/upload
 
 test:
   post:
@@ -25,3 +25,7 @@ workflows:
   build-test-workflow:
     jobs:
       - build-test
+  upload-to-codecov:
+    jobs:
+      - checkout
+      - codecov/upload
