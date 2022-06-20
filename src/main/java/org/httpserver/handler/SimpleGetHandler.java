@@ -17,10 +17,6 @@ public class SimpleGetHandler implements Handler {
     }
 
     public Response handleResponse(Request request) {
-        String responseStatusLine = handleStatusLine(request, StatusCode.OK) + Constant.CRLF;
-        String responseHeaders = handleHeaders("", "") + Constant.CRLF;
-        String responseBody = handleBody("");
-
-        return new Response(responseStatusLine, responseHeaders, responseBody);
+        return new ResponseBuilder().build(request, StatusCode.OK, "", "", "");
     }
 }

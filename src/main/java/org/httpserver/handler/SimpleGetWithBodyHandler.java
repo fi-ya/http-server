@@ -16,12 +16,7 @@ public class SimpleGetWithBodyHandler implements Handler {
     }
 
     public Response handleResponse(Request request) {
-        StatusCode statusCode = StatusCode.OK;
-        String headerName = "";
-        String headerValue = "";
-        String body = "Hello world";
-
-        return new ResponseBuilder().build(request, statusCode, headerName, headerValue, body);
+        return new ResponseBuilder().build(request, StatusCode.OK, "", "", "Hello world");
     }
 
 
