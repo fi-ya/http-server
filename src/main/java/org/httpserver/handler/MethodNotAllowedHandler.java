@@ -18,7 +18,7 @@ public class MethodNotAllowedHandler implements Handler {
 
     @Override
     public Response handleResponse(Request request) {
-        String responseStatusLine = handleStatusLine(request) + Constant.CRLF;
+        String responseStatusLine = handleStatusLine(request, StatusCode.METHOD_NOT_ALLOWED) + Constant.CRLF;
         String responseHeaders = handleHeaders() + Constant.CRLF + Constant.CRLF;
         String responseBody = handleBody();
 
@@ -26,13 +26,7 @@ public class MethodNotAllowedHandler implements Handler {
         return responseBuilder.buildResponse(responseStatusLine, responseHeaders, responseBody);
     }
 
-    private String handleStatusLine(Request request) {
-        String httpVersion = request.getHttpVersion();
-        String statusCode = StatusCode.METHOD_NOT_ALLOWED.getStatusCode();
-        String statusText = String.valueOf(StatusCode.METHOD_NOT_ALLOWED).replace("_", " ");
 
-        return String.format("%s %s %s", httpVersion, statusCode, statusText);
-    }
 
     private String handleHeaders() {
         return "Allow: HEAD, OPTIONS";

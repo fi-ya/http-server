@@ -17,7 +17,7 @@ public class RedirectHandler implements Handler {
 
     @Override
     public Response handleResponse(Request request) {
-        String responseStatusLine = handleStatusLine(request) + Constant.CRLF;
+        String responseStatusLine = handleStatusLine(request, StatusCode.MOVED_PERMANENTLY) + Constant.CRLF;
         String responseHeaders = handleHeaders() + Constant.CRLF + Constant.CRLF;
         String responseBody = handleBody();
 
@@ -25,13 +25,6 @@ public class RedirectHandler implements Handler {
         return responseBuilder.buildResponse(responseStatusLine, responseHeaders, responseBody);
     }
 
-    private String handleStatusLine(Request request) {
-        String httpVersion = request.getHttpVersion();
-        String statusCode = StatusCode.MOVED_PERMANENTLY.getStatusCode();
-        String statusText = String.valueOf(StatusCode.MOVED_PERMANENTLY).replace("_", " ");
-
-        return String.format("%s %s %s", httpVersion, statusCode, statusText);
-    }
 
     private String handleHeaders() {
         return "Location: http://127.0.0.1:5000/simple_get";

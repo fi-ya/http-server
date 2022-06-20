@@ -19,20 +19,12 @@ public class OptionsHandlerTwo implements Handler {
 
     @Override
     public Response handleResponse(Request request) {
-        String responseStatusLine = handleStatusLine(request) + Constant.CRLF;
+        String responseStatusLine = handleStatusLine(request, StatusCode.OK) + Constant.CRLF;
         String responseHeaders = handleHeaders(request) + Constant.CRLF + Constant.CRLF;
         String responseBody = handleBody();
 
         ResponseBuilder responseBuilder = new ResponseBuilder();
         return responseBuilder.buildResponse(responseStatusLine, responseHeaders, responseBody);
-    }
-
-    private String handleStatusLine(Request request) {
-        String httpVersion = request.getHttpVersion();
-        String statusCode = StatusCode.OK.getStatusCode();
-        String statusText = String.valueOf(StatusCode.OK);
-
-        return String.format("%s %s %s", httpVersion, statusCode, statusText);
     }
 
     private String handleHeaders(Request request) {
