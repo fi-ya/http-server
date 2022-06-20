@@ -9,7 +9,32 @@ import java.util.Objects;
 
 public class ResponseBuilder {
 
-    public Response build(Request request, StatusCode statusCode, String headerName, String headerValue, String body) {
+    private StatusCode statusCode;
+    private String headerName;
+    private String headerValue;
+    private String body;
+
+    ResponseBuilder withStatusCode(StatusCode statusCode){
+        this.statusCode = statusCode;
+        return this;
+    }
+
+    ResponseBuilder withHeaderName(String headerName){
+        this.headerName = headerName;
+        return this;
+    }
+
+    ResponseBuilder withHeaderValue(String headerValue){
+        this.headerValue = headerValue;
+        return this;
+    }
+
+    ResponseBuilder withBody(String body){
+        this.body = body;
+        return this;
+    }
+
+    public Response build(Request request) {
         String responseStatusLine = handleStatusLine(request, statusCode) + Constant.CRLF;
         String responseHeaders = handleHeaders(headerName, headerValue) + Constant.CRLF;
         String responseBody = handleBody(body);

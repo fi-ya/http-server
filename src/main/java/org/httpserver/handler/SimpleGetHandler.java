@@ -1,6 +1,5 @@
 package org.httpserver.handler;
 
-import org.httpserver.Constant;
 import org.httpserver.request.Request;
 import org.httpserver.response.Response;
 import org.httpserver.response.StatusCode;
@@ -17,6 +16,6 @@ public class SimpleGetHandler implements Handler {
     }
 
     public Response handleResponse(Request request) {
-        return new ResponseBuilder().build(request, StatusCode.OK, "", "", "");
+        return new ResponseBuilder().withStatusCode(StatusCode.OK).withHeaderName("").withHeaderValue("").withBody("").build(request);
     }
 }

@@ -16,8 +16,6 @@ public class SimpleGetWithBodyHandler implements Handler {
     }
 
     public Response handleResponse(Request request) {
-        return new ResponseBuilder().build(request, StatusCode.OK, "", "", "Hello world");
+        return new ResponseBuilder().withStatusCode(StatusCode.OK).withHeaderName("").withHeaderValue("").withBody("Hello world").build(request);
     }
-
-
 }
