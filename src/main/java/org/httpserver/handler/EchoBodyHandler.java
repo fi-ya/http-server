@@ -15,12 +15,6 @@ public class EchoBodyHandler implements Handler {
     }
 
     public Response handleResponse(Request request) {
-        String responseStatusLine = handleStatusLine(request, StatusCode.OK) + Constant.CRLF;
-        String responseHeaders = handleHeaders("", "") + Constant.CRLF;
-        String responseBody = handleBody(request.getRequestBody());
-
-
-
-        return new Response(responseStatusLine, responseHeaders, responseBody);
+        return new ResponseBuilder().withStatusCode(StatusCode.OK).withHeaderName("").withHeaderValue("").withBody(request.getRequestBody()).build(request);
     }
 }
