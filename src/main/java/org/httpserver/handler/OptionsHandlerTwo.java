@@ -18,10 +18,6 @@ public class OptionsHandlerTwo implements Handler {
 
     @Override
     public Response handleResponse(Request request) {
-        String responseStatusLine = handleStatusLine(request, StatusCode.OK) + Constant.CRLF;
-        String responseHeaders = handleHeaders("Allow", "GET, HEAD, OPTIONS, PUT, POST") + Constant.CRLF + Constant.CRLF;
-        String responseBody = handleBody("");
-
-        return new Response(responseStatusLine, responseHeaders, responseBody);
+        return new ResponseBuilder().withStatusCode(StatusCode.OK).withHeaderName("Allow").withHeaderValue("GET, HEAD, OPTIONS, PUT, POST").withBody("").build(request);
     }
 }

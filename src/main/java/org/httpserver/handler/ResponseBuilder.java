@@ -50,7 +50,7 @@ public class ResponseBuilder {
     }
 
     private String handleHeaders(String headerName, String headerValue) {
-        return isNoHeader(headerName, headerValue) ? "" : headerName + ": " + headerValue;
+        return isNoHeader(headerName, headerValue) ? "" : headerName + ": " + headerValue + Constant.CRLF;
     }
 
     private boolean isNoHeader(String headerName, String headerValue) {
