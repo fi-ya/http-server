@@ -23,13 +23,30 @@ application {
 
 test {
     useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+//    finalizedBy jacocoTestReport
 }
 
-jacocoTestReport {
-    reports {
-        xml.enabled true
-        html.enabled false
+jacoco {
+    applyTo run
+    toolVersion = "0.8.7"
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.5
+            }
+        }
     }
 }
-
-check.dependsOn jacocoTestReport
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        csv.required = true
+    }
+}
