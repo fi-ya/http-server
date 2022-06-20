@@ -14,6 +14,10 @@ public class EchoBodyHandler implements Handler {
     }
 
     public Response handleResponse(Request request) {
-        return new ResponseBuilder().withStatusCode(StatusCode.OK).withBody(request.getRequestBody()).build(request);
+        return new ResponseBuilder()
+                .withStatusCode(StatusCode.OK)
+                .withStatusCodeText(StatusCode.OK.name())
+                .withBody(request.getRequestBody())
+                .build();
     }
 }

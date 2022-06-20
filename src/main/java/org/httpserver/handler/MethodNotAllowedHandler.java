@@ -16,6 +16,11 @@ public class MethodNotAllowedHandler implements Handler {
 
     @Override
     public Response handleResponse(Request request) {
-        return new ResponseBuilder().withStatusCode(StatusCode.METHOD_NOT_ALLOWED).withHeaderName("Allow").withHeaderValue("HEAD, OPTIONS").build(request);
+        return new ResponseBuilder()
+                .withStatusCode(StatusCode.METHOD_NOT_ALLOWED)
+                .withStatusCodeText(StatusCode.METHOD_NOT_ALLOWED.name().replace("_", " "))
+                .withHeaderName("Allow")
+                .withHeaderValue("HEAD, OPTIONS")
+                .build();
     }
 }

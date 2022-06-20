@@ -1,21 +1,31 @@
 package org.httpserver.handler;
 
 import org.httpserver.Constant;
-import org.httpserver.request.Request;
 import org.httpserver.response.Response;
 import org.httpserver.response.StatusCode;
 
 import java.util.Objects;
 
 public class ResponseBuilder {
+    private String httpVersion = "HTTP/1.1";
 
     private StatusCode statusCode;
     private String headerName = "";
     private String headerValue = "";
     private String body = "";
+    private String statusCodeText;
 
+    public ResponseBuilder withHttpVersion(String httpVersion) {
+        this.httpVersion = httpVersion;
+        return this;
+    }
     ResponseBuilder withStatusCode(StatusCode statusCode){
         this.statusCode = statusCode;
+        return this;
+    }
+
+    ResponseBuilder withStatusCodeText(String statusCodeText){
+        this.statusCodeText = statusCodeText;
         return this;
     }
 
@@ -34,30 +44,22 @@ public class ResponseBuilder {
         return this;
     }
 
-    public Response build(Request request) {
-        String responseStatusLine = handleStatusLine(request, statusCode) + Constant.CRLF;
-        String responseHeaders = handleHeaders(headerName, headerValue) + Constant.CRLF;
-        String responseBody = handleBody(body);
-        return new Response(responseStatusLine, responseHeaders, responseBody);
+    public Response build() {
+        return new Response(handleStatusLine(), handleHeaders(), handleBody());
     }
 
-    private String handleStatusLine(Request request, StatusCode statusText) {
-        String httpVersion = request.getHttpVersion();
-        String statusCode = statusText.getStatusCode();
-        String statusTextString = String.valueOf(statusText).replace("_", " ");
-
-        return String.format("%s %s %s", httpVersion, statusCode, statusTextString);
+    private String handleStatusLine() {
+        return String.format("%s %s %s", httpVersion, statusCode.getStatusCode(), statusCodeText) + Constant.CRLF;
+    }
+    private String handleHeaders() {
+        return (isNoHeader() ? "" : headerName + ": " + headerValue + Constant.CRLF) + Constant.CRLF;
     }
 
-    private String handleHeaders(String headerName, String headerValue) {
-        return isNoHeader(headerName, headerValue) ? "" : headerName + ": " + headerValue + Constant.CRLF;
-    }
-
-    private boolean isNoHeader(String headerName, String headerValue) {
+    private boolean isNoHeader() {
         return Objects.equals(headerName, "") && Objects.equals(headerValue, "");
     }
 
-    private String handleBody(String responseBody) {
-        return Objects.equals(responseBody, "") ? "" : responseBody;
+    private String handleBody() {
+        return Objects.equals(body, "") ? "" : body;
     }
 }

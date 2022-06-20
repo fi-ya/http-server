@@ -15,6 +15,10 @@ public class RedirectHandler implements Handler {
 
     @Override
     public Response handleResponse(Request request) {
-        return new ResponseBuilder().withStatusCode(StatusCode.MOVED_PERMANENTLY).withHeaderName("Location").withHeaderValue("http://127.0.0.1:5000/simple_get").build(request);
+        return new ResponseBuilder()
+                .withStatusCode(StatusCode.MOVED_PERMANENTLY)
+                .withStatusCodeText(StatusCode.MOVED_PERMANENTLY.name().replace("_", " "))
+                .withHeaderName("Location").withHeaderValue("http://127.0.0.1:5000/simple_get")
+                .build();
     }
 }

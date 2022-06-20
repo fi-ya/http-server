@@ -16,6 +16,11 @@ public class OptionsHandler implements Handler {
 
     @Override
     public Response handleResponse(Request request) {
-        return new ResponseBuilder().withStatusCode(StatusCode.OK).withHeaderName("Allow").withHeaderValue("GET, HEAD, OPTIONS").build(request);
+        return new ResponseBuilder()
+                .withStatusCode(StatusCode.OK)
+                .withStatusCodeText(StatusCode.OK.name())
+                .withHeaderName("Allow")
+                .withHeaderValue("GET, HEAD, OPTIONS")
+                .build();
     }
 }
