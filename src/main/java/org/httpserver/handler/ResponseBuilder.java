@@ -10,9 +10,9 @@ import java.util.Objects;
 public class ResponseBuilder {
 
     private StatusCode statusCode;
-    private String headerName;
-    private String headerValue;
-    private String body;
+    private String headerName = "";
+    private String headerValue = "";
+    private String body = "";
 
     ResponseBuilder withStatusCode(StatusCode statusCode){
         this.statusCode = statusCode;
