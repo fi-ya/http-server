@@ -20,19 +20,19 @@ public interface Handler {
         return String.format("%s %s %s", httpVersion, statusCode, statusTextString);
     }
 
-    default String handleHeaders(String header, String value) {
-        if (Objects.equals(header, "") && Objects.equals(value, "")) {
+    default String handleHeaders(String headerName, String headerValue) {
+        if (Objects.equals(headerName, "") && Objects.equals(headerValue, "")) {
             return "";
         } else {
-            return header + ": " + value;
+            return headerName + ": " + headerValue;
         }
     }
 
-    default String handleBody(String body) {
-        if (Objects.equals(body, "")) {
+    default String handleBody(String responseBody) {
+        if (Objects.equals(responseBody, "")) {
             return "";
         } else {
-            return body;
+            return responseBody;
         }
     }
 
