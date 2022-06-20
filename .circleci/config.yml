@@ -16,6 +16,13 @@ jobs:
           name: Run test
           command: ./gradlew test
 
+  upload-to-codecov:
+    docker:
+      - image: cimg/openjdk:17.0.3
+    steps:
+      - checkout
+      - codecov/upload
+
 test:
   post:
     - if [ -e ./gradlew ]; then ./gradlew jacocoTestReport;else gradle jacocoTestReport;fi
@@ -27,4 +34,4 @@ workflows:
       - build-test
   upload-to-codecov:
     jobs:
-      - codecov/upload
+      - upload-to-codecov
