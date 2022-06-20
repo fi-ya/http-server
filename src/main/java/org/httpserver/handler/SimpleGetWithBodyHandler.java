@@ -7,17 +7,18 @@ import org.httpserver.server.HttpMethod;
 
 import java.util.List;
 
-public class EchoBodyHandler implements Handler {
+public class SimpleGetWithBodyHandler implements Handler {
+
     @Override
     public List<String> allowedHttpMethods() {
-        return List.of(HttpMethod.POST.getHttpMethod());
+        return List.of(HttpMethod.GET.getHttpMethod());
     }
 
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(StatusCode.OK)
                 .withStatusCodeText(StatusCode.OK.name())
-                .withBody(request.getRequestBody())
+                .withBody("Hello world")
                 .build();
     }
 }

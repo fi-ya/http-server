@@ -12,12 +12,12 @@ class RequestParserTest {
 
     @Test
     void parseRequestThatHasRequestLineOnly() throws IOException {
-        String mockRequestString = "GET /simple_get HTTP/1.1\n" +
-                "\n";
-        ByteArrayInputStream mockInputStream = new ByteArrayInputStream(mockRequestString.getBytes());
-        RequestParser requestParser = new RequestParser();
+        String mockRequestString = """
+                GET /simple_get HTTP/1.1
 
-        Request request = requestParser.parseRequest(mockInputStream);
+                """;
+        Request request = getRequest(mockRequestString);
+
 
         assertEquals("HTTP/1.1", request.getHttpVersion());
         assertEquals("GET", request.getHttpMethod());
@@ -28,12 +28,11 @@ class RequestParserTest {
 
     @Test
     void parseRequestThatHasRequestLineAndHeadersOnly() throws IOException {
-        String mockRequestString = "GET /simple_get HTTP/1.1\n" +
-                "Host: 0.0.0.0:5000\n";
-        ByteArrayInputStream mockInputStream = new ByteArrayInputStream(mockRequestString.getBytes());
-        RequestParser requestParser = new RequestParser();
-
-        Request request = requestParser.parseRequest(mockInputStream);
+        String mockRequestString = """
+                GET /simple_get HTTP/1.1
+                Host: 0.0.0.0:5000
+                """;
+        Request request = getRequest(mockRequestString);
 
         assertEquals("HTTP/1.1", request.getHttpVersion());
         assertEquals("GET", request.getHttpMethod());
@@ -44,4 +43,10 @@ class RequestParserTest {
         assertNull(request.getRequestBody());
     }
 
+    private Request getRequest(String mockRequestString) throws IOException {
+        ByteArrayInputStream mockInputStream = new ByteArrayInputStream(mockRequestString.getBytes());
+        RequestParser requestParser = new RequestParser();
+
+        return requestParser.parseRequest(mockInputStream);
+    }
 }
