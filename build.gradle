@@ -46,8 +46,9 @@ jacocoTestCoverageVerification {
 jacocoTestReport {
 //    dependsOn test
     reports {
-        xml.required = true
-        csv.required = true
+        html.enabled true
+        xml.enabled true
+        csv.enabled false
         html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
     }
 }
