@@ -16,10 +16,13 @@ public class SimpleGetWithBodyHandler implements Handler {
     }
 
     public Response handleResponse(Request request) {
-        String responseStatusLine = handleStatusLine(request, StatusCode.OK) + Constant.CRLF;
-        String responseHeaders = handleHeaders("", "") + Constant.CRLF;
-        String responseBody = handleBody("Hello world");
+        StatusCode statusCode = StatusCode.OK;
+        String headerName = "";
+        String headerValue = "";
+        String body = "Hello world";
 
-        return new Response(responseStatusLine, responseHeaders, responseBody);
+        return new ResponseBuilder().build(request, statusCode, headerName, headerValue, body);
     }
+
+
 }
