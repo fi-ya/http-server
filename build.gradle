@@ -26,12 +26,12 @@ test {
     testLogging {
         events "passed", "skipped", "failed"
     }
-//    finalizedBy jacocoTestReport
 }
 
 jacoco {
     applyTo run
     toolVersion = "0.8.7"
+    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
 }
 
 jacocoTestCoverageVerification {
@@ -48,5 +48,6 @@ jacocoTestReport {
     reports {
         xml.required = true
         csv.required = true
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
     }
 }
