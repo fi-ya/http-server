@@ -3,7 +3,6 @@ package org.httpserver.handler;
 import org.httpserver.Constant;
 import org.httpserver.request.Request;
 import org.httpserver.response.Response;
-import org.httpserver.response.ResponseBuilder;
 import org.httpserver.response.StatusCode;
 import org.httpserver.server.HttpMethod;
 
@@ -22,7 +21,7 @@ public class MethodNotAllowedHandler implements Handler {
         String responseHeaders = handleHeaders("Allow", "HEAD, OPTIONS") + Constant.CRLF + Constant.CRLF;
         String responseBody = handleBody("");
 
-        ResponseBuilder responseBuilder = new ResponseBuilder();
-        return responseBuilder.buildResponse(responseStatusLine, responseHeaders, responseBody);
+
+        return new Response(responseStatusLine, responseHeaders, responseBody);
     }
 }

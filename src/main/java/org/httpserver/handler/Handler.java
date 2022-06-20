@@ -21,19 +21,14 @@ public interface Handler {
     }
 
     default String handleHeaders(String headerName, String headerValue) {
-        if (Objects.equals(headerName, "") && Objects.equals(headerValue, "")) {
-            return "";
-        } else {
-            return headerName + ": " + headerValue;
-        }
+        return isNoHeader(headerName, headerValue) ? "" : headerName + ": " + headerValue;
+    }
+
+    private boolean isNoHeader(String headerName, String headerValue) {
+        return Objects.equals(headerName, "") && Objects.equals(headerValue, "");
     }
 
     default String handleBody(String responseBody) {
-        if (Objects.equals(responseBody, "")) {
-            return "";
-        } else {
-            return responseBody;
-        }
+        return Objects.equals(responseBody, "") ? "" : responseBody;
     }
-
 }
