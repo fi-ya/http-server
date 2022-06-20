@@ -11,4 +11,5 @@ public interface Handler {
     List<String> allowedHttpMethods();
 
     Response handleResponse(Request request);
+
 }
