@@ -15,13 +15,16 @@ jobs:
       - run:
           name: Run test
           command: ./gradlew test
+
   upload-to-codecov:
     docker:
       - image: cimg/openjdk:17.0.3
     steps:
       - checkout
       - codecov/upload
-
+      - curl -Os https://uploader.codecov.io/latest/macos/codecov
+      - chmod +x codecov
+      - ./codecov
 #test:
 #  post:
 #    - if [ -e ./gradlew ]; then ./gradlew jacocoTestReport;else gradle jacocoTestReport;fi
