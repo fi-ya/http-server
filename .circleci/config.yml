@@ -1,9 +1,9 @@
 version: 2.1
 
-# orbs:
-  # codecov: codecov/codecov@3.2.3
-orbs:
-  codecov: codecov/codecov@3.0.0
+ orbs:
+   codecov: codecov/codecov@3.2.3
+#orbs:
+#  codecov: codecov/codecov@3.0.0
 
 jobs:
   build-test:
@@ -22,19 +22,12 @@ jobs:
     docker:
       - image: cimg/openjdk:17.0.3
     steps:
-      # - checkout
+       - checkout
       - codecov/upload
-#      - run:
-#          name: coverage
-#          command: bash <(curl -s https://codecov.io/bash)
-  
-test:
-  post:
-    - if [ -e ./gradlew ]; then ./gradlew jacocoTestReport;else gradle jacocoTestReport;fi
-    - run:
+      - run:
           name: coverage
           command: bash <(curl -s https://codecov.io/bash)
-
+  
 
 workflows:
   build-test-workflow:
