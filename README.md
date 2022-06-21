@@ -1,5 +1,5 @@
 [![fi-ya](https://circleci.com/gh/fi-ya/http-server.svg?style=shield)](https://circleci.com/docs/)
-[![codecov](https://codecov.io/gh/fi-ya/http-server/branch/codecov-badge/graph/badge.svg?token=V2G4O5CC1W)](https://codecov.io/gh/fi-ya/http-server)
+[![codecov](https://codecov.io/gh/fi-ya/http-server/branch/main/graph/badge.svg?token=QS61AKNVG9)](https://codecov.io/gh/fi-ya/http-server)
 # HTTP Server
 This is an 8th Light apprenticeship project.
 ## Project requirements
