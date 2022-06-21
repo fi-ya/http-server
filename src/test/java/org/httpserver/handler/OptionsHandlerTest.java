@@ -23,7 +23,7 @@ class OptionsHandlerTest {
 
     @Test
     void returnsResponseWithStatusLineHeadersAndEmptyBody_whenMethodOptions() {
-        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<String, String>() {{
+        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
             put("httpVersion", "HTTP/1.1");
             put("httpMethod", "GET");
             put("requestTarget", "/method_options");

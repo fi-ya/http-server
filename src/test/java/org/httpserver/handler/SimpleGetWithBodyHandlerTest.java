@@ -9,29 +9,30 @@ import java.util.LinkedHashMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class SimpleGetHandlerTest {
+class SimpleGetWithBodyHandlerTest {
+
     @Test
     void returnsGetHeadAndMethodsOnly() {
-        SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
+        SimpleGetWithBodyHandler simpleGetWithBodyHandler = new SimpleGetWithBodyHandler();
 
-        assertTrue(simpleGetHandler.allowedHttpMethods().contains("GET"));
-        assertTrue(simpleGetHandler.allowedHttpMethods().contains("HEAD"));
-        assertEquals(2, simpleGetHandler.allowedHttpMethods().size());
+        assertTrue(simpleGetWithBodyHandler.allowedHttpMethods().contains("GET"));
+        assertEquals(1, simpleGetWithBodyHandler.allowedHttpMethods().size());
     }
 
     @Test
-    void returnsResponseWithStatusLineOnly() {
+    void returnsResponseWithResponseStatusLineAndBody() {
         LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
             put("httpVersion", "HTTP/1.1");
             put("httpMethod", "GET");
-            put("requestTarget", "/simple_get");
+            put("requestTarget", "/simple_get_with_body");
         }};
-        SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
+        SimpleGetWithBodyHandler simpleGetWithBodyHandler = new SimpleGetWithBodyHandler();
 
-        Response actualResponse = simpleGetHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
+        Response actualResponse = simpleGetWithBodyHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().isBlank());
-        assertTrue(actualResponse.getResponseBody().isEmpty());
+        assertEquals("Hello world", actualResponse.getResponseBody());
     }
+
 }

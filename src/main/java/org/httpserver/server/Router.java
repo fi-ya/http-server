@@ -17,19 +17,23 @@ public class Router {
     public Map<String, Handler> createResourceAndHandlerMap() {
         return new HashMap<>() {{
             put("/simple_get", new SimpleGetHandler());
-            put("/simple_get_with_body", new SimpleGetHandler());
+            put("/simple_get_with_body", new SimpleGetWithBodyHandler());
             put("/head_request", new HeadRequestHandler());
             put("/method_options", new OptionsHandler());
             put("/method_options2", new OptionsHandlerTwo());
             put("/echo_body", new EchoBodyHandler());
+            put("/redirect", new RedirectHandler());
         }};
     }
 
     public Handler getHandler(Request request) {
         if (resourceTargetExists(request) && isHttpMethodAllowed(request)) {
             return resourceAndHandlerMap.get(request.getRequestTarget());
+        } else if (resourceTargetExists(request) && !isHttpMethodAllowed(request)) {
+            return new MethodNotAllowedHandler();
+        } else {
+            return new PageNotFoundHandler();
         }
-        return new MethodNotAllowedHandler();
     }
 
     private boolean resourceTargetExists(Request request) {
@@ -40,6 +44,4 @@ public class Router {
         Handler handler = resourceAndHandlerMap.get(request.getRequestTarget());
         return handler.allowedHttpMethods().contains(request.getHttpMethod());
     }
-
-
 }
