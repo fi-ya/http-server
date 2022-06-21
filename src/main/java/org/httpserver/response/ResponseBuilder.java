@@ -1,45 +1,37 @@
-package org.httpserver.handler;
+package org.httpserver.response;
 
 import org.httpserver.Constant;
-import org.httpserver.response.Response;
-import org.httpserver.response.StatusCode;
 
 import java.util.Objects;
 
 public class ResponseBuilder {
     private String httpVersion = "HTTP/1.1";
-
     private StatusCode statusCode;
     private String headerName = "";
     private String headerValue = "";
     private String body = "";
-    private String statusCodeText;
 
     public ResponseBuilder withHttpVersion(String httpVersion) {
         this.httpVersion = httpVersion;
         return this;
     }
-    ResponseBuilder withStatusCode(StatusCode statusCode){
+
+    public ResponseBuilder withStatusCode(StatusCode statusCode) {
         this.statusCode = statusCode;
         return this;
     }
 
-    ResponseBuilder withStatusCodeText(String statusCodeText){
-        this.statusCodeText = statusCodeText;
-        return this;
-    }
-
-    ResponseBuilder withHeaderName(String headerName){
+    public ResponseBuilder withHeaderName(String headerName) {
         this.headerName = headerName;
         return this;
     }
 
-    ResponseBuilder withHeaderValue(String headerValue){
+    public ResponseBuilder withHeaderValue(String headerValue) {
         this.headerValue = headerValue;
         return this;
     }
 
-    ResponseBuilder withBody(String body){
+    public ResponseBuilder withBody(String body) {
         this.body = body;
         return this;
     }
@@ -49,8 +41,9 @@ public class ResponseBuilder {
     }
 
     private String handleStatusLine() {
-        return String.format("%s %s %s", httpVersion, statusCode.getStatusCode(), statusCodeText) + Constant.CRLF;
+        return String.format("%s %s %s", httpVersion, statusCode.getStatusCode(), statusCode.name().replace("_", " ")) + Constant.CRLF;
     }
+
     private String handleHeaders() {
         return (isNoHeader() ? "" : headerName + ": " + headerValue + Constant.CRLF) + Constant.CRLF;
     }
