@@ -1,7 +1,7 @@
 version: 2.1
 
- orbs:
-   codecov: codecov/codecov@3.2.3
+orbs:
+  codecov: codecov/codecov@3.2.3
 #orbs:
 #  codecov: codecov/codecov@3.0.0
 
@@ -22,7 +22,7 @@ jobs:
     docker:
       - image: cimg/openjdk:17.0.3
     steps:
-       - checkout
+      - checkout
       - codecov/upload
       - run:
           name: coverage
