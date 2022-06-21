@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class SimpleGetWithBodyHandlerTest {
 
     @Test
-    void returnsGetHeadAndMethodsOnly() {
+    void returnsGetMethodOnly() {
         SimpleGetWithBodyHandler simpleGetWithBodyHandler = new SimpleGetWithBodyHandler();
 
         assertTrue(simpleGetWithBodyHandler.allowedHttpMethods().contains("GET"));
