@@ -46,9 +46,10 @@ jacocoTestCoverageVerification {
 jacocoTestReport {
     dependsOn test
     reports {
-        html.enabled true
         xml.enabled true
+        xml.destination file("${buildDir}/reports/jacoco/report.xml")
+        html.enabled false
         csv.enabled false
-        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
     }
 }
+check.dependsOn jacocoTestReport
