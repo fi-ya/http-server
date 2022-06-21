@@ -17,7 +17,7 @@ public class TextHandler implements Handler{
         return new ResponseBuilder()
                 .withStatusCode(StatusCode.OK)
                 .withHeaderName("Content-Type")
-                .withHeaderValue("text/plain")
+                .withHeaderValue("text/plain;charset=utf-8")
                 .withBody("text response")
                 .build();
     }

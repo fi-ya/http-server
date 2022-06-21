@@ -31,7 +31,7 @@ class TextHandlerTest {
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().contains("Content-Type"));
-        assertTrue(actualResponse.getResponseHeaders().contains("text/plain"));
+        assertTrue(actualResponse.getResponseHeaders().contains("text/plain;charset=utf-8"));
         assertEquals("text response", actualResponse.getResponseBody());
     }
 
