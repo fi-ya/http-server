@@ -15,17 +15,27 @@ jobs:
       - run:
           name: Run test
           command: ./gradlew test
+#      - codecov/upload
+#      - run:
+#          name: coverage
+#          command: bash <(curl -s https://codecov.io/bash)
 
   upload-to-codecov:
     docker:
       - image: cimg/openjdk:17.0.3
     steps:
       - checkout
+#      - codecov/upload
+      - run:
+          name: Run test
+          command: ./gradlew test
       - codecov/upload
       - run:
           name: coverage
           command: bash <(curl -s https://codecov.io/bash)
-  
+#          with:
+#            file: ./coverage.xml
+#            verbose: true
 
 workflows:
   build-test-workflow:
