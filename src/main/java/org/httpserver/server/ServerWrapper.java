@@ -3,10 +3,12 @@ package org.httpserver.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ServerWrapper {
     private final ServerLogger serverLogger;
-
+    private static boolean clientSocketStatus = false;
     public ServerWrapper(ServerLogger serverLogger) {
         this.serverLogger = serverLogger;
     }
@@ -29,10 +31,19 @@ public class ServerWrapper {
         try {
             clientSocket = serverSocket.accept();
             serverLogger.printConnectedClientSocket(clientSocket.getPort());
+            if (clientSocketStatus) {
+                clientSocketStatus = false;
+                ExecutorService es = Executors.newSingleThreadExecutor();
+                es.shutdownNow();
+            };
         } catch (IOException ioException) {
             ioException.printStackTrace();
             serverLogger.printFailedClientSocketConnection();
         }
         return clientSocket;
+    }
+
+    public static boolean handleClientSocketStatus(boolean status) {
+        return clientSocketStatus = true;
     }
 }

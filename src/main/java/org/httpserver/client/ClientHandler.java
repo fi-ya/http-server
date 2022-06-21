@@ -1,6 +1,10 @@
 package org.httpserver.client;
 
+import org.httpserver.handler.Handler;
+import org.httpserver.request.Request;
+import org.httpserver.request.RequestParser;
 import org.httpserver.response.Response;
+import org.httpserver.server.Router;
 import org.httpserver.server.ServerLogger;
 
 import java.io.IOException;
@@ -8,10 +12,13 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ClientHandler {
+import static org.httpserver.server.ServerWrapper.handleClientSocketStatus;
+
+public class ClientHandler implements Runnable{
 
     private final Socket clientSocket;
     private final ServerLogger serverLogger;
+
 
     public int clientConnectionCounter;
     //    BufferedReader clientRequestReader;
@@ -21,8 +28,30 @@ public class ClientHandler {
         this.clientSocket = clientSocket;
         this.serverLogger = serverLogger;
     }
+    @Override
+    public void run() {
 
+        try {
+            InputStream clientRequestInputStream = clientRequestInputStream();
+            updateClientConnectionLogger();
+
+            RequestParser requestParser = new RequestParser();
+            Request request = requestParser.parseRequest(clientRequestInputStream);
+
+            Router router = new Router();
+            Handler handler = router.getHandler(request);
+            serverLogger.printHandlerBuildingResponse(handler);
+
+            Response response = handler.handleResponse(request);
+            processSendResponse(response);
+//            closeClientConnection();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
     public InputStream clientRequestInputStream() throws IOException {
+        handleClientSocketStatus(true);
         return clientSocket.getInputStream();
     }
 
@@ -50,9 +79,11 @@ public class ClientHandler {
     }
 
     public void closeClientConnection() throws IOException {
-        clientSocket.close();
-        serverLogger.printClosedClientConnection(clientSocket.getPort());
-        clientConnectionCounter--;
+//        clientSocket.close();
+//        serverLogger.printClosedClientConnection(clientSocket.getPort());
+//        clientConnectionCounter--;
         serverLogger.printNumberOfClientsConnected(clientConnectionCounter);
     }
+
+
 }

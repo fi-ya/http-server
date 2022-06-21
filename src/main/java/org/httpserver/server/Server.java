@@ -6,11 +6,12 @@ import org.httpserver.request.Request;
 import org.httpserver.request.RequestParser;
 import org.httpserver.response.Response;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Server {
     private final int portNumber;
@@ -30,20 +31,22 @@ public class Server {
             Socket clientSocket = serverWrapper.createClientSocket(serverSocket);
 
             ClientHandler clientHandler = new ClientHandler(clientSocket, serverLogger);
-            InputStream clientRequestInputStream = clientHandler.clientRequestInputStream();
-            clientHandler.updateClientConnectionLogger();
+            ExecutorService es = Executors.newSingleThreadExecutor();
+            es.execute(clientHandler);
 
-            RequestParser requestParser = new RequestParser();
-
-            Request request = requestParser.parseRequest(clientRequestInputStream);
-
-            Router router = new Router();
-            Handler handler = router.getHandler(request);
-            serverLogger.printHandlerBuildingResponse(handler);
-
-            Response response = handler.handleResponse(request);
-            clientHandler.processSendResponse(response);
-            clientHandler.closeClientConnection();
+//            InputStream clientRequestInputStream = clientHandler.clientRequestInputStream();
+//            clientHandler.updateClientConnectionLogger();
+//            RequestParser requestParser = new RequestParser();
+//
+//            Request request = requestParser.parseRequest(clientRequestInputStream);
+//
+//            Router router = new Router();
+//            Handler handler = router.getHandler(request);
+//            serverLogger.printHandlerBuildingResponse(handler);
+//
+//            Response response = handler.handleResponse(request);
+//            clientHandler.processSendResponse(response);
+//            clientHandler.closeClientConnection();
         }
     }
 
