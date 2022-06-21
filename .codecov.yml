@@ -4,5 +4,5 @@ coverage:
       default:
         target: 60%
         threshold: 1%
-fixes:
-  - "before/test-*::after/"
+#fixes:
+#  - "before/test-*::after/"
