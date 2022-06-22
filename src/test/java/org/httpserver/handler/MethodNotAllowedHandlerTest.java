@@ -32,7 +32,7 @@ class MethodNotAllowedHandlerTest {
 
         Response actual = methodNotAllowedHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
-        assertEquals("HTTP/1.1 405 METHOD NOT ALLOWED\r\n", actual.getResponseStatusLine());
+        assertEquals("HTTP/1.1 405 Method Not Allowed\r\n", actual.getResponseStatusLine());
         assertEquals("Allow: HEAD, OPTIONS\r\n\r\n", actual.getResponseHeaders());
         assertTrue(actual.getResponseBody().isEmpty());
     }

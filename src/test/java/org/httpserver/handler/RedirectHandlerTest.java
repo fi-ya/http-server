@@ -32,7 +32,7 @@ class RedirectHandlerTest {
 
         Response actualResponse = redirectHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
-        assertEquals("HTTP/1.1 301 MOVED PERMANENTLY\r\n", actualResponse.getResponseStatusLine());
+        assertEquals("HTTP/1.1 301 Moved Permanently\r\n", actualResponse.getResponseStatusLine());
         assertEquals("Location: http://127.0.0.1:5000/simple_get\r\n\r\n", actualResponse.getResponseHeaders());
         assertTrue(actualResponse.getResponseBody().isEmpty());
     }

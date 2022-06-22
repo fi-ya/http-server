@@ -32,7 +32,7 @@ class PageNotFoundHandlerTest {
 
         Response actualResponse = pageNotFoundHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
-        assertEquals("HTTP/1.1 404 NOT FOUND\r\n", actualResponse.getResponseStatusLine());
+        assertEquals("HTTP/1.1 404 Not Found\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().isBlank());
         assertTrue(actualResponse.getResponseBody().isEmpty());
     }

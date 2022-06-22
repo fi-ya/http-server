@@ -41,7 +41,7 @@ public class ResponseBuilder {
     }
 
     private String handleStatusLine() {
-        return String.format("%s %s %s", httpVersion, statusCode.getStatusCode(), statusCode.name().replace("_", " ")) + Constant.CRLF;
+        return String.format("%s %s %s", httpVersion, statusCode.getStatusCode(), statusCode.statusCodeName) + Constant.CRLF;
     }
 
     private String handleHeaders() {

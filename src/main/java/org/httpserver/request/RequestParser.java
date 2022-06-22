@@ -63,7 +63,7 @@ public class RequestParser {
     }
 
     private String getContentLengthHeaderValue(LinkedHashMap<String, String> requestHeadersMap) {
-        return requestHeadersMap.isEmpty() ? null : requestHeadersMap.get(ResponseHeader.CONTENT_LENGTH_HEADER.name());
+        return requestHeadersMap.isEmpty() ? null : requestHeadersMap.get(ResponseHeader.CONTENT_LENGTH_HEADER.getResponseHeader());
     }
 
     private String getRequestMessageBody(String contentLengthValue, BufferedReader requestReader) throws IOException {

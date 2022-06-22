@@ -19,7 +19,7 @@ public class TextHandler implements Handler{
         return new ResponseBuilder()
                 .withStatusCode(StatusCode.OK)
                 .withHeaderName(ResponseHeader.CONTENT_TYPE_HEADER.getResponseHeader())
-                .withHeaderValue(ResponseHeader.TEXT_TYPE.name())
+                .withHeaderValue(ResponseHeader.TEXT_TYPE.getResponseHeader())
                 .withBody("text response")
                 .build();
     }
