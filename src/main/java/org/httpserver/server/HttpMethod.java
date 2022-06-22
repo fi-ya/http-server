@@ -17,4 +17,8 @@ public enum HttpMethod {
     public String getHttpMethod() {
         return httpMethod;
     }
+
+    public static HttpMethod findHttpMethod(String httpMethod){
+        return HttpMethod.valueOf(httpMethod);
+    }
 }

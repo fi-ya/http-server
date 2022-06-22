@@ -1,6 +1,7 @@
 package org.httpserver.request;
 
 import org.httpserver.Constant;
+import org.httpserver.server.HttpMethod;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -34,7 +35,10 @@ public class RequestParser {
             requestLineMap.put(Constant.HTTP_METHOD, arrOfSplitRequestLineStr[0]);
             requestLineMap.put(Constant.REQUEST_TARGET, arrOfSplitRequestLineStr[1]);
             requestLineMap.put(Constant.HTTP_VERSION, arrOfSplitRequestLineStr[2]);
+//            HttpMethod.findHttpMethod(arrOfSplitRequestLineStr[0]);
         }
+
+
         return requestLineMap;
     }
 
