@@ -2,7 +2,6 @@ package org.httpserver.request;
 
 import org.httpserver.Constant;
 import org.httpserver.response.ResponseHeader;
-import org.httpserver.server.HttpMethod;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,14 +17,10 @@ public class RequestParser {
         String requestLineRead = requestReader.readLine();
 
         LinkedHashMap<String, String> requestLineMap = getRequestLine(requestLineRead);
-        // RequestLine requestLine = getRequestLine(requestLineRead)
-
         LinkedHashMap<String, String> requestHeadersMap = getRequestHeaders(requestReader);
         String contentLengthHeaderValue = getContentLengthHeaderValue(requestHeadersMap);
-
         String requestBody = getRequestMessageBody(contentLengthHeaderValue, requestReader);
 
-        // return buildRequest(httpMethod, reqesutTraget, body, requestHeadersMap, requestBody);
         return buildRequest(requestLineMap, requestHeadersMap, requestBody);
     }
 
@@ -33,15 +28,13 @@ public class RequestParser {
     private LinkedHashMap<String, String> getRequestLine(String requestLineRead) throws IOException {
         String clientRequestLine;
         LinkedHashMap<String, String> requestLineMap = new LinkedHashMap<>();
+
         if ((clientRequestLine = requestLineRead) != null) {
             String[] arrOfSplitRequestLineStr = clientRequestLine.split(" ", 3);
-            requestLineMap.put(Constant.HTTP_METHOD, arrOfSplitRequestLineStr[0]);
-            requestLineMap.put(Constant.REQUEST_TARGET, arrOfSplitRequestLineStr[1]);
-            requestLineMap.put(Constant.HTTP_VERSION, arrOfSplitRequestLineStr[2]);
-//            HttpMethod.findHttpMethod(arrOfSplitRequestLineStr[0]);
+            requestLineMap.put(RequestLine.HTTP_METHOD.value, arrOfSplitRequestLineStr[0]);
+            requestLineMap.put(RequestLine.REQUEST_TARGET.value, arrOfSplitRequestLineStr[1]);
+            requestLineMap.put(RequestLine.HTTP_VERSION.value, arrOfSplitRequestLineStr[2]);
         }
-
-
         return requestLineMap;
     }
 

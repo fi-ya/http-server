@@ -15,7 +15,6 @@ public class EchoBodyHandler implements Handler {
     }
 
     public Response handleResponse(Request request) {
-        System.out.println("req body "+ request.getRequestBody());
         return new ResponseBuilder()
                 .withStatusCode(StatusCode.OK)
                 .withBody(request.getRequestBody())
