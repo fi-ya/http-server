@@ -6,8 +6,8 @@ public enum StatusCode {
     NOT_FOUND("404", "Not Found"),
     METHOD_NOT_ALLOWED("405", "Method Not Allowed");
 
-    final String statusCodeNumber;
-    final String statusCodeName;
+    private final String statusCodeNumber;
+    private final String statusCodeName;
 
     StatusCode(String statusCodeNumber, String statusCodeName) {
         this.statusCodeNumber = statusCodeNumber;

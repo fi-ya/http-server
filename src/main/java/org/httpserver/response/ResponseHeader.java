@@ -8,7 +8,7 @@ public enum ResponseHeader {
     CONTENT_TYPE_HEADER("Content-Type"),
     TEXT_TYPE("text/plain;charset=utf-8");
 
-    final String responseHeader;
+    private final String responseHeader;
 
     ResponseHeader(String responseHeader) {
         this.responseHeader = responseHeader;
