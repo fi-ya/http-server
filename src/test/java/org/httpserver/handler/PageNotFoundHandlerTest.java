@@ -17,20 +17,20 @@ class PageNotFoundHandlerTest {
     void returnsGetMethodOnly(){
         PageNotFoundHandler pageNotFoundHandler = new PageNotFoundHandler();
 
-        assertTrue(pageNotFoundHandler.allowedHttpMethods().contains(HttpMethod.GET.getHttpMethod()));
+        assertTrue(pageNotFoundHandler.allowedHttpMethods().contains("GET"));
         assertEquals(1, pageNotFoundHandler.allowedHttpMethods().size());
     }
 
     @Test
     void returnsResponseWithStatusLineOnly(){
         LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
-            put(Constant.HTTP_VERSION, Constant.HTTP_VERSION_NUMBER);
-            put(Constant.HTTP_METHOD, HttpMethod.GET.getHttpMethod());
-            put(Constant.REQUEST_TARGET, "/page_not_exist");
+            put("httpVersion", "HTTP/1.1");
+            put("httpMethod", "GET");
+            put("requestTarget", "/page_not_exist");
         }};
         PageNotFoundHandler pageNotFoundHandler = new PageNotFoundHandler();
 
-        Response actualResponse = pageNotFoundHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), Constant.EMPTY_STRING));
+        Response actualResponse = pageNotFoundHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 404 NOT FOUND\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().isBlank());

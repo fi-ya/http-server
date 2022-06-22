@@ -4,6 +4,7 @@ import org.httpserver.Constant;
 import org.httpserver.request.Request;
 import org.httpserver.response.Response;
 import org.httpserver.response.ResponseBuilder;
+import org.httpserver.response.ResponseHeader;
 import org.httpserver.response.StatusCode;
 import org.httpserver.server.HttpMethod;
 
@@ -20,7 +21,7 @@ public class MethodNotAllowedHandler implements Handler {
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(StatusCode.METHOD_NOT_ALLOWED)
-                .withHeaderName(Constant.ALLOW_HEADER)
+                .withHeaderName(ResponseHeader.ALLOW_HEADER.getResponseHeader())
                 .withHeaderValue(String.format("%s, %s", HttpMethod.HEAD, HttpMethod.OPTIONS))
                 .build();
     }

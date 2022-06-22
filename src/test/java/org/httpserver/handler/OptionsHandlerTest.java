@@ -17,22 +17,22 @@ class OptionsHandlerTest {
     void returnsGetHeadAndOptionsMethodsOnly() {
         OptionsHandler optionsHandler = new OptionsHandler();
 
-        assertTrue(optionsHandler.allowedHttpMethods().contains(HttpMethod.GET.getHttpMethod()));
-        assertTrue(optionsHandler.allowedHttpMethods().contains(HttpMethod.HEAD.getHttpMethod()));
-        assertTrue(optionsHandler.allowedHttpMethods().contains(HttpMethod.OPTIONS.getHttpMethod()));
+        assertTrue(optionsHandler.allowedHttpMethods().contains("GET"));
+        assertTrue(optionsHandler.allowedHttpMethods().contains("HEAD"));
+        assertTrue(optionsHandler.allowedHttpMethods().contains("OPTIONS"));
         assertEquals(3, optionsHandler.allowedHttpMethods().size());
     }
 
     @Test
     void returnsResponseWithStatusLineHeadersAndEmptyBody_whenMethodOptions() {
         LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
-            put(Constant.HTTP_VERSION, Constant.HTTP_VERSION_NUMBER);
-            put(Constant.HTTP_METHOD, HttpMethod.GET.getHttpMethod());
-            put(Constant.REQUEST_TARGET, "/method_options");
+            put("httpVersion", "HTTP/1.1");
+            put("httpMethod", "GET");
+            put("requestTarget", "/method_options");
         }};
         OptionsHandler optionsHandler = new OptionsHandler();
 
-        Response actualResponse = optionsHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), Constant.EMPTY_STRING));
+        Response actualResponse = optionsHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertEquals("Allow: GET, HEAD, OPTIONS\r\n\r\n", actualResponse.getResponseHeaders());

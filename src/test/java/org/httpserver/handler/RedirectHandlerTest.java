@@ -17,20 +17,20 @@ class RedirectHandlerTest {
     void returnsGetOnly() {
         RedirectHandler redirectHandler = new RedirectHandler();
 
-        assertTrue(redirectHandler.allowedHttpMethods().contains(HttpMethod.GET.getHttpMethod()));
+        assertTrue(redirectHandler.allowedHttpMethods().contains("GET"));
         assertEquals(1, redirectHandler.allowedHttpMethods().size());
     }
 
     @Test
     void returnsResponseWithStatusLineAndHeaderOnly() {
         LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
-            put(Constant.HTTP_VERSION, Constant.HTTP_VERSION_NUMBER);
-            put(Constant.HTTP_METHOD, HttpMethod.GET.getHttpMethod());
-            put(Constant.REQUEST_TARGET, "/redirect");
+            put("httpVersion", "HTTP/1.1");
+            put("httpMethod", "GET");
+            put("requestTarget", "/redirect");
         }};
         RedirectHandler redirectHandler = new RedirectHandler();
 
-        Response actualResponse = redirectHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), Constant.EMPTY_STRING));
+        Response actualResponse = redirectHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 301 MOVED PERMANENTLY\r\n", actualResponse.getResponseStatusLine());
         assertEquals("Location: http://127.0.0.1:5000/simple_get\r\n\r\n", actualResponse.getResponseHeaders());

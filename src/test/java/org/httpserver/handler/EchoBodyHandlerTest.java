@@ -17,16 +17,16 @@ class EchoBodyHandlerTest {
     void returnsPostOnly() {
         EchoBodyHandler echoBodyHandler = new EchoBodyHandler();
 
-        assertTrue(echoBodyHandler.allowedHttpMethods().contains(HttpMethod.POST.getHttpMethod()));
+        assertTrue(echoBodyHandler.allowedHttpMethods().contains("POST"));
         assertEquals(1, echoBodyHandler.allowedHttpMethods().size());
     }
 
     @Test
     void returnsResponseWithStatusLineAndBodyOnly() {
         LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
-            put(Constant.HTTP_VERSION, Constant.HTTP_VERSION_NUMBER);
-            put(Constant.HTTP_METHOD, HttpMethod.POST.getHttpMethod());
-            put(Constant.REQUEST_TARGET, "/echo_body");
+            put("httpVersion", "HTTP/1.1");
+            put("httpMethod", "POST");
+            put("requestTarget", "/echo_body");
         }};
         EchoBodyHandler echoBodyHandler = new EchoBodyHandler();
 

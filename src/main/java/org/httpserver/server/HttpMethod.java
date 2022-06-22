@@ -7,7 +7,6 @@ public enum HttpMethod {
     OPTIONS("OPTIONS"),
     PUT("PUT");
 
-
     private final String httpMethod;
 
     HttpMethod(String httpMethod) {

@@ -1,6 +1,7 @@
 package org.httpserver.request;
 
 import org.httpserver.Constant;
+import org.httpserver.response.ResponseHeader;
 import org.httpserver.server.HttpMethod;
 
 import java.io.BufferedReader;
@@ -17,12 +18,14 @@ public class RequestParser {
         String requestLineRead = requestReader.readLine();
 
         LinkedHashMap<String, String> requestLineMap = getRequestLine(requestLineRead);
+        // RequestLine requestLine = getRequestLine(requestLineRead)
 
         LinkedHashMap<String, String> requestHeadersMap = getRequestHeaders(requestReader);
         String contentLengthHeaderValue = getContentLengthHeaderValue(requestHeadersMap);
 
         String requestBody = getRequestMessageBody(contentLengthHeaderValue, requestReader);
 
+        // return buildRequest(httpMethod, reqesutTraget, body, requestHeadersMap, requestBody);
         return buildRequest(requestLineMap, requestHeadersMap, requestBody);
     }
 
@@ -60,7 +63,7 @@ public class RequestParser {
     }
 
     private String getContentLengthHeaderValue(LinkedHashMap<String, String> requestHeadersMap) {
-        return requestHeadersMap.isEmpty() ? null : requestHeadersMap.get(Constant.CONTENT_LENGTH_HEADER);
+        return requestHeadersMap.isEmpty() ? null : requestHeadersMap.get(ResponseHeader.CONTENT_LENGTH_HEADER.name());
     }
 
     private String getRequestMessageBody(String contentLengthValue, BufferedReader requestReader) throws IOException {

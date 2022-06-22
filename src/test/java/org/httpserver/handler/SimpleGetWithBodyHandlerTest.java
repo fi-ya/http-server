@@ -17,20 +17,20 @@ class SimpleGetWithBodyHandlerTest {
     void returnsGetMethodOnly() {
         SimpleGetWithBodyHandler simpleGetWithBodyHandler = new SimpleGetWithBodyHandler();
 
-        assertTrue(simpleGetWithBodyHandler.allowedHttpMethods().contains(HttpMethod.GET.getHttpMethod()));
+        assertTrue(simpleGetWithBodyHandler.allowedHttpMethods().contains("GET"));
         assertEquals(1, simpleGetWithBodyHandler.allowedHttpMethods().size());
     }
 
     @Test
     void returnsResponseWithResponseStatusLineAndBody() {
         LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
-            put(Constant.HTTP_VERSION, Constant.HTTP_VERSION_NUMBER);
-            put(Constant.HTTP_METHOD, HttpMethod.GET.getHttpMethod());
-            put(Constant.REQUEST_TARGET, "/simple_get_with_body");
+            put("httpVersion", "HTTP/1.1");
+            put("httpMethod", "GET");
+            put("requestTarget", "/simple_get_with_body");
         }};
         SimpleGetWithBodyHandler simpleGetWithBodyHandler = new SimpleGetWithBodyHandler();
 
-        Response actualResponse = simpleGetWithBodyHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), Constant.EMPTY_STRING));
+        Response actualResponse = simpleGetWithBodyHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().isBlank());

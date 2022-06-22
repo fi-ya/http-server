@@ -17,21 +17,21 @@ class SimpleGetHandlerTest {
     void returnsGetHeadAndMethodsOnly() {
         SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
 
-        assertTrue(simpleGetHandler.allowedHttpMethods().contains(HttpMethod.GET.getHttpMethod()));
-        assertTrue(simpleGetHandler.allowedHttpMethods().contains(HttpMethod.HEAD.getHttpMethod()));
+        assertTrue(simpleGetHandler.allowedHttpMethods().contains("GET"));
+        assertTrue(simpleGetHandler.allowedHttpMethods().contains("HEAD"));
         assertEquals(2, simpleGetHandler.allowedHttpMethods().size());
     }
 
     @Test
     void returnsResponseWithStatusLineOnly() {
         LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
-            put(Constant.HTTP_VERSION, Constant.HTTP_VERSION_NUMBER);
-            put(Constant.HTTP_METHOD, HttpMethod.GET.getHttpMethod());
-            put(Constant.REQUEST_TARGET, "/simple_get");
+            put("httpVersion", "HTTP/1.1");
+            put("httpMethod", "GET");
+            put("requestTarget", "/simple_get");
         }};
         SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
 
-        Response actualResponse = simpleGetHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), Constant.EMPTY_STRING));
+        Response actualResponse = simpleGetHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().isBlank());

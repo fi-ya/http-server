@@ -17,20 +17,20 @@ class HeadRequestHandlerTest {
     void allowedHttpMethods_ReturnsHeadOnly() {
         HeadRequestHandler headRequestHandler = new HeadRequestHandler();
 
-        assertTrue(headRequestHandler.allowedHttpMethods().contains(HttpMethod.HEAD.getHttpMethod()));
+        assertTrue(headRequestHandler.allowedHttpMethods().contains("HEAD"));
         assertEquals(1, headRequestHandler.allowedHttpMethods().size());
     }
 
     @Test
     void handleResponse_ReturnsResponseWith_ResponseStatusLineOnly() {
         LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
-            put(Constant.HTTP_VERSION, Constant.HTTP_VERSION_NUMBER);
-            put(Constant.HTTP_METHOD, HttpMethod.HEAD.getHttpMethod());
-            put(Constant.REQUEST_TARGET, "/head_request");
+            put("httpVersion", "HTTP/1.1");
+            put("httpMethod", "HEAD");
+            put("requestTarget", "/head_request");
         }};
         HeadRequestHandler headRequestHandler = new HeadRequestHandler();
 
-        Response actual = headRequestHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), Constant.EMPTY_STRING));
+        Response actual = headRequestHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 200 OK\r\n", actual.getResponseStatusLine());
         assertTrue(actual.getResponseHeaders().isBlank());
