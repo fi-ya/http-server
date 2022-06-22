@@ -6,7 +6,8 @@ public enum ResponseHeader {
     LOCATION_HEADER("Location"),
     CONTENT_LENGTH_HEADER("Content-Length"),
     CONTENT_TYPE_HEADER("Content-Type"),
-    TEXT_TYPE("text/plain;charset=utf-8");
+    TEXT_TYPE("text/plain;charset=utf-8"),
+    HTML_TYPE("text/html;charset=utf-8");
 
     private final String responseHeader;
 

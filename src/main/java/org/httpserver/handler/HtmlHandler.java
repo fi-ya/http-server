@@ -3,6 +3,7 @@ package org.httpserver.handler;
 import org.httpserver.request.Request;
 import org.httpserver.response.Response;
 import org.httpserver.response.ResponseBuilder;
+import org.httpserver.response.ResponseHeader;
 import org.httpserver.response.StatusCode;
 import org.httpserver.server.HttpMethod;
 
@@ -18,8 +19,8 @@ public class HtmlHandler implements Handler{
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(StatusCode.OK)
-                .withHeaderName("Content-Type")
-                .withHeaderValue("text/html;charset=utf-8")
+                .withHeaderName(ResponseHeader.CONTENT_TYPE_HEADER.getResponseHeader())
+                .withHeaderValue(ResponseHeader.HTML_TYPE.getResponseHeader())
                 .withBody("<html><body><p>HTML Response</p></body></html>")
                 .build();
     }
