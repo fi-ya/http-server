@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'jacoco'
 }
 
 group 'org.httpserver'
@@ -22,4 +23,31 @@ application {
 
 test {
     useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+    finalizedBy jacocoTestReport
 }
+
+jacoco {
+    applyTo run
+    toolVersion = "0.8.7"
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.5
+            }
+        }
+    }
+}
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+        csv.enabled false
+    }
+}
+check.dependsOn jacocoTestReport
