@@ -7,7 +7,6 @@ public enum HttpMethod {
     OPTIONS("OPTIONS"),
     PUT("PUT");
 
-
     private final String httpMethod;
 
     HttpMethod(String httpMethod) {
@@ -16,5 +15,9 @@ public enum HttpMethod {
 
     public String getHttpMethod() {
         return httpMethod;
+    }
+
+    public static HttpMethod findHttpMethod(String httpMethod) {
+        return HttpMethod.valueOf(httpMethod);
     }
 }

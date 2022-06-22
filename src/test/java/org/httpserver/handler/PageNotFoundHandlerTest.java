@@ -1,7 +1,9 @@
 package org.httpserver.handler;
 
+import org.httpserver.Constant;
 import org.httpserver.request.Request;
 import org.httpserver.response.Response;
+import org.httpserver.server.HttpMethod;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashMap;
@@ -30,7 +32,7 @@ class PageNotFoundHandlerTest {
 
         Response actualResponse = pageNotFoundHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
-        assertEquals("HTTP/1.1 404 NOT FOUND\r\n", actualResponse.getResponseStatusLine());
+        assertEquals("HTTP/1.1 404 Not Found\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().isBlank());
         assertTrue(actualResponse.getResponseBody().isEmpty());
     }
