@@ -31,9 +31,9 @@ public class RequestParser {
 
         if ((clientRequestLine = requestLineRead) != null) {
             String[] arrOfSplitRequestLineStr = clientRequestLine.split(" ", 3);
-            requestLineMap.put(RequestLine.HTTP_METHOD.value, arrOfSplitRequestLineStr[0]);
-            requestLineMap.put(RequestLine.REQUEST_TARGET.value, arrOfSplitRequestLineStr[1]);
-            requestLineMap.put(RequestLine.HTTP_VERSION.value, arrOfSplitRequestLineStr[2]);
+            requestLineMap.put(Constant.HTTP_METHOD, arrOfSplitRequestLineStr[0]);
+            requestLineMap.put(Constant.REQUEST_TARGET, arrOfSplitRequestLineStr[1]);
+            requestLineMap.put(Constant.HTTP_VERSION, arrOfSplitRequestLineStr[2]);
         }
         return requestLineMap;
     }

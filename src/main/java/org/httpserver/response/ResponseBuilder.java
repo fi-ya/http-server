@@ -1,12 +1,11 @@
 package org.httpserver.response;
 
 import org.httpserver.Constant;
-import org.httpserver.request.RequestLine;
 
 import java.util.Objects;
 
 public class ResponseBuilder {
-    private String httpVersion = RequestLine.HTTP_VERSION_NUMBER.getValue();
+    private String httpVersion = Constant.HTTP_VERSION_NUMBER;
     private StatusCode statusCode;
     private String headerName = Constant.EMPTY_STRING;
     private String headerValue = Constant.EMPTY_STRING;
