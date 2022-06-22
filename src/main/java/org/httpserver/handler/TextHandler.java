@@ -1,5 +1,6 @@
 package org.httpserver.handler;
 
+import org.httpserver.Constant;
 import org.httpserver.request.Request;
 import org.httpserver.response.Response;
 import org.httpserver.response.ResponseBuilder;
@@ -16,8 +17,8 @@ public class TextHandler implements Handler{
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(StatusCode.OK)
-                .withHeaderName("Content-Type")
-                .withHeaderValue("text/plain;charset=utf-8")
+                .withHeaderName(Constant.CONTENT_TYPE_HEADER)
+                .withHeaderValue(Constant.TEXT_TYPE)
                 .withBody("text response")
                 .build();
     }

@@ -1,7 +1,9 @@
 package org.httpserver.handler;
 
+import org.httpserver.Constant;
 import org.httpserver.request.Request;
 import org.httpserver.response.Response;
+import org.httpserver.server.HttpMethod;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashMap;
@@ -15,16 +17,16 @@ class EchoBodyHandlerTest {
     void returnsPostOnly() {
         EchoBodyHandler echoBodyHandler = new EchoBodyHandler();
 
-        assertTrue(echoBodyHandler.allowedHttpMethods().contains("POST"));
+        assertTrue(echoBodyHandler.allowedHttpMethods().contains(HttpMethod.POST.getHttpMethod()));
         assertEquals(1, echoBodyHandler.allowedHttpMethods().size());
     }
 
     @Test
     void returnsResponseWithStatusLineAndBodyOnly() {
         LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
-            put("httpVersion", "HTTP/1.1");
-            put("httpMethod", "POST");
-            put("requestTarget", "/echo_body");
+            put(Constant.HTTP_VERSION, Constant.HTTP_VERSION_NUMBER);
+            put(Constant.HTTP_METHOD, HttpMethod.POST.getHttpMethod());
+            put(Constant.REQUEST_TARGET, "/echo_body");
         }};
         EchoBodyHandler echoBodyHandler = new EchoBodyHandler();
 

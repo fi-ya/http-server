@@ -1,5 +1,6 @@
 package org.httpserver.handler;
 
+import org.httpserver.Constant;
 import org.httpserver.request.Request;
 import org.httpserver.response.Response;
 import org.httpserver.response.ResponseBuilder;
@@ -19,8 +20,8 @@ public class OptionsHandler implements Handler {
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(StatusCode.OK)
-                .withHeaderName("Allow")
-                .withHeaderValue("GET, HEAD, OPTIONS")
+                .withHeaderName(Constant.ALLOW_HEADER)
+                .withHeaderValue(String.format("%s, %s, %s", HttpMethod.GET, HttpMethod.HEAD, HttpMethod.OPTIONS))
                 .build();
     }
 }

@@ -1,5 +1,6 @@
 package org.httpserver.handler;
 
+import org.httpserver.Constant;
 import org.httpserver.request.Request;
 import org.httpserver.response.Response;
 import org.httpserver.response.ResponseBuilder;
@@ -18,7 +19,7 @@ public class RedirectHandler implements Handler {
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(StatusCode.MOVED_PERMANENTLY)
-                .withHeaderName("Location")
+                .withHeaderName(Constant.LOCATION_HEADER)
                 .withHeaderValue("http://127.0.0.1:5000/simple_get")
                 .build();
     }

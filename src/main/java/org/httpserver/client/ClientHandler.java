@@ -14,7 +14,6 @@ public class ClientHandler {
     private final ServerLogger serverLogger;
 
     public int clientConnectionCounter;
-    //    BufferedReader clientRequestReader;
     PrintWriter clientResponseWriter;
 
     public ClientHandler(Socket clientSocket, ServerLogger serverLogger) {

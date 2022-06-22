@@ -5,11 +5,11 @@ import org.httpserver.Constant;
 import java.util.Objects;
 
 public class ResponseBuilder {
-    private String httpVersion = "HTTP/1.1";
+    private String httpVersion = Constant.HTTP_VERSION_NUMBER;
     private StatusCode statusCode;
-    private String headerName = "";
-    private String headerValue = "";
-    private String body = "";
+    private String headerName = Constant.EMPTY_STRING;
+    private String headerValue = Constant.EMPTY_STRING;
+    private String body = Constant.EMPTY_STRING;
 
     public ResponseBuilder withHttpVersion(String httpVersion) {
         this.httpVersion = httpVersion;
@@ -45,14 +45,14 @@ public class ResponseBuilder {
     }
 
     private String handleHeaders() {
-        return (isNoHeader() ? "" : headerName + ": " + headerValue + Constant.CRLF) + Constant.CRLF;
+        return (isNoHeader() ? Constant.EMPTY_STRING : headerName + ": " + headerValue + Constant.CRLF) + Constant.CRLF;
     }
 
     private boolean isNoHeader() {
-        return Objects.equals(headerName, "") && Objects.equals(headerValue, "");
+        return Objects.equals(headerName, Constant.EMPTY_STRING) && Objects.equals(headerValue, Constant.EMPTY_STRING);
     }
 
     private String handleBody() {
-        return Objects.equals(body, "") ? "" : body;
+        return Objects.equals(body, Constant.EMPTY_STRING) ? Constant.EMPTY_STRING : body;
     }
 }
