@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  codecov: codecov/codecov@3.0.0
+
 jobs:
   build-test:
     docker:
@@ -13,7 +16,23 @@ jobs:
           name: Run test
           command: ./gradlew test
 
+  upload-to-codecov:
+    docker:
+      - image: cimg/openjdk:17.0.3
+    steps:
+      - checkout
+      - run:
+          name: Run test
+          command: ./gradlew test
+      - codecov/upload
+      - run:
+          name: coverage
+          command: bash <(curl -s https://codecov.io/bash)
+
 workflows:
   build-test-workflow:
     jobs:
       - build-test
+  upload-to-codecov-workflow:
+    jobs:
+      - upload-to-codecov
