@@ -18,7 +18,7 @@ class OptionsHandlerTest {
         OptionsHandler optionsHandler = new OptionsHandler();
 
         assertTrue(optionsHandler.allowedHttpMethods().contains(HttpMethod.GET.getHttpMethod()));
-        assertTrue(optionsHandler.allowedHttpMethods().contains(HttpMethod.HEAD.getHttpMethod());
+        assertTrue(optionsHandler.allowedHttpMethods().contains(HttpMethod.HEAD.getHttpMethod()));
         assertTrue(optionsHandler.allowedHttpMethods().contains(HttpMethod.OPTIONS.getHttpMethod()));
         assertEquals(3, optionsHandler.allowedHttpMethods().size());
     }
