@@ -17,4 +17,8 @@ public enum StatusCode {
     public String getStatusCodeNumber() {
         return statusCodeNumber;
     }
+
+    public String getStatusCodeName() {
+        return statusCodeName;
+    }
 }
