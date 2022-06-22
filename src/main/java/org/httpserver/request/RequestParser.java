@@ -1,5 +1,8 @@
 package org.httpserver.request;
 
+import org.httpserver.Constant;
+import org.httpserver.response.ResponseHeader;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,10 +17,8 @@ public class RequestParser {
         String requestLineRead = requestReader.readLine();
 
         LinkedHashMap<String, String> requestLineMap = getRequestLine(requestLineRead);
-
         LinkedHashMap<String, String> requestHeadersMap = getRequestHeaders(requestReader);
         String contentLengthHeaderValue = getContentLengthHeaderValue(requestHeadersMap);
-
         String requestBody = getRequestMessageBody(contentLengthHeaderValue, requestReader);
 
         return buildRequest(requestLineMap, requestHeadersMap, requestBody);
@@ -27,11 +28,12 @@ public class RequestParser {
     private LinkedHashMap<String, String> getRequestLine(String requestLineRead) throws IOException {
         String clientRequestLine;
         LinkedHashMap<String, String> requestLineMap = new LinkedHashMap<>();
+
         if ((clientRequestLine = requestLineRead) != null) {
             String[] arrOfSplitRequestLineStr = clientRequestLine.split(" ", 3);
-            requestLineMap.put("httpMethod", arrOfSplitRequestLineStr[0]);
-            requestLineMap.put("requestTarget", arrOfSplitRequestLineStr[1]);
-            requestLineMap.put("httpVersion", arrOfSplitRequestLineStr[2]);
+            requestLineMap.put(Constant.HTTP_METHOD, arrOfSplitRequestLineStr[0]);
+            requestLineMap.put(Constant.REQUEST_TARGET, arrOfSplitRequestLineStr[1]);
+            requestLineMap.put(Constant.HTTP_VERSION, arrOfSplitRequestLineStr[2]);
         }
         return requestLineMap;
     }
@@ -41,7 +43,7 @@ public class RequestParser {
         String headerLine;
 
         while ((headerLine = requestReader.readLine()) != null) {
-            if (headerLine.equals("")) {
+            if (headerLine.equals(Constant.EMPTY_STRING)) {
                 break;
             } else {
                 String[] splitHeader = headerLine.split(": ", 2);
@@ -54,7 +56,7 @@ public class RequestParser {
     }
 
     private String getContentLengthHeaderValue(LinkedHashMap<String, String> requestHeadersMap) {
-        return requestHeadersMap.isEmpty() ? null : requestHeadersMap.get("Content-Length");
+        return requestHeadersMap.isEmpty() ? null : requestHeadersMap.get(ResponseHeader.CONTENT_LENGTH_HEADER.getResponseHeader());
     }
 
     private String getRequestMessageBody(String contentLengthValue, BufferedReader requestReader) throws IOException {

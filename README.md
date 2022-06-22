@@ -21,18 +21,18 @@ The following steps will allow you to run the server in your terminal.
 ## Project features
 | **Request**     |                       |           | **Response**               |                                            |             |
 |:-----------:|:---------------------:|:---------:|:----------------------:|:------------------------------------------:|:-----------:|
-| **Http Method** |      **Target**       | **Body**      | **Status Code/Text**       | **Headers**  | **Body**        |
+| **Http Method** |      **Target**       | **Body**      | **Status Code/Text**       |                **Headers**                 |  **Body**   |
 | GET         |      /simple_get      |           | 200 OK                 |                                            |             |
 | HEAD        |      /simple_get      |           | 200 OK                 |                                            |             |
 | HEAD        |     /head_request     |           | 200 OK                 |                                            |             |
-| GET         |     /head_request     |           | 405 Method Not Allowed | Allow: HEAD, OPTIONS                       |             |
+| GET         |     /head_request     |           | 405 Method Not Allowed |            Allow: HEAD, OPTIONS            |             |
 | GET         |    /page_not_exist    |           | 404 Not Found          |                                            |             |
 | GET         | /simple_get_with_body |           | 200 OK                 |                                            | Hello world |
-| OPTIONS     |    /method_options    |           | 200 OK                 | Allow: GET, HEAD, OPTIONS                  |             |
-| OPTIONS     |   /method_options2    |           | 200 OK                 | Allow: GET, HEAD, OPTIONS, PUT, POST       |             |
-| POST        |      /echo_body       | some body | 200 OK                 |                                            | some body   |
+| OPTIONS     |    /method_options    |           | 200 OK                 |         Allow: GET, HEAD, OPTIONS          |             |
+| OPTIONS     |   /method_options2    |           | 200 OK                 |    Allow: GET, HEAD, OPTIONS, PUT, POST    |             |
+| POST        |      /echo_body       | some body | 200 OK                 |                                            |  some body  |
 | GET         |       /redirect       |           | 301 Moved Permanently  | Location: http://127.0.0.1:5000/simple_get |             |
-
+| GET         |    /text_response     |           | 200 OK  |          Content-Type: text/plain          |  text response   |
 
 ## Run tests
 You can find all tests in `src/test/java` and run the test suite using either of the following steps.
@@ -58,14 +58,15 @@ A user should be able to interact with the HTTP server as follows:
 
 - [x] When a client sends a properly formatted request to the server, the server sends an appropriate response back to the client. 
 - [x] A client can send different HTTP requests to the server and get the appropriate response back each time. 
-- Different clients can send messages to server and get back their proper responses. 
-- The server should be able to handle 200, 300, and 400-level responses. Not every response code needs to be complete, but there should be a few representative response codes implemented for each level.
+- [x] Different clients can send messages to server and get back their proper responses. 
+- [x] The server should be able to handle 200, 300, and 400-level responses. Not every response code needs to be complete, but there should be a few representative response codes implemented for each level.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Implementation Requirements
 - [x] The server should establish a socket connection with the client using a low-level socket library. The goal of this exercise is to work with sockets directly.
 - [x] The server should accept and return streams of data rather than raw strings.
 - [x] Although not strictly speaking necessary, the HTTP server is a good time to introduce statically typed languages like Java, C#, or Swift.
-- The HTTP server should be covered by a robust suite of unit tests.
-- The HTTP server should pass all of the tests covered in 01_getting_started in the [HTTP Server Spec](https://github.com/8thlight/http_server_spec).
+- [x] The HTTP server should be covered by a robust suite of unit tests.
+- [x] The HTTP server should pass all the tests covered in [01_getting_started HTTP Server Spec](https://github.com/8thlight/http_server_spec/tree/master/features/01_getting_started).
+- [ ] The HTTP server should pass all the tests covered in [02_structured_data HTTP Server Spec](https://github.com/8thlight/http_server_spec/blob/master/features/02_structured_data/structured_data.feature).
 <p align="right">(<a href="#top">back to top</a>)</p>

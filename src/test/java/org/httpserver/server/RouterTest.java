@@ -114,6 +114,16 @@ class RouterTest {
         assertEquals(PageNotFoundHandler.class, actualHandler.getClass());
     }
 
+    @Test
+    void returnTextHandler_whenTextResponseRoute() {
+        requestLineStub.put("httpMethod", "GET");
+        requestLineStub.put("requestTarget", "/text_response");
+
+        Handler actualHandler = getActualHandler();
+
+        assertEquals(TextHandler.class, actualHandler.getClass());
+    }
+
     private Handler getActualHandler() {
         Request requestMock = new Request(requestLineStub, requestHeadersStub, requestBodyStub);
         Router router = new Router();

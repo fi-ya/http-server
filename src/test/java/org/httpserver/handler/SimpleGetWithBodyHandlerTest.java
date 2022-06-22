@@ -1,7 +1,9 @@
 package org.httpserver.handler;
 
+import org.httpserver.Constant;
 import org.httpserver.request.Request;
 import org.httpserver.response.Response;
+import org.httpserver.server.HttpMethod;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashMap;
@@ -12,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class SimpleGetWithBodyHandlerTest {
 
     @Test
-    void returnsGetHeadAndMethodsOnly() {
+    void returnsGetMethodOnly() {
         SimpleGetWithBodyHandler simpleGetWithBodyHandler = new SimpleGetWithBodyHandler();
 
         assertTrue(simpleGetWithBodyHandler.allowedHttpMethods().contains("GET"));

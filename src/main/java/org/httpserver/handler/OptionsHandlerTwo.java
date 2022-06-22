@@ -1,10 +1,14 @@
 package org.httpserver.handler;
 
+import org.httpserver.Constant;
 import org.httpserver.request.Request;
 import org.httpserver.response.Response;
+import org.httpserver.response.ResponseBuilder;
+import org.httpserver.response.ResponseHeader;
 import org.httpserver.response.StatusCode;
 import org.httpserver.server.HttpMethod;
 
+import java.lang.constant.Constable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,9 +23,8 @@ public class OptionsHandlerTwo implements Handler {
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(StatusCode.OK)
-                .withStatusCodeText(StatusCode.OK.name())
-                .withHeaderName("Allow")
-                .withHeaderValue("GET, HEAD, OPTIONS, PUT, POST")
+                .withHeaderName(ResponseHeader.ALLOW_HEADER.getResponseHeader())
+                .withHeaderValue(String.format("%s, %s, %s, %s, %s", HttpMethod.GET, HttpMethod.HEAD, HttpMethod.OPTIONS, HttpMethod.POST, HttpMethod.PUT))
                 .build();
     }
 }

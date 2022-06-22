@@ -8,21 +8,19 @@ import org.httpserver.response.ResponseHeader;
 import org.httpserver.response.StatusCode;
 import org.httpserver.server.HttpMethod;
 
-import java.util.Arrays;
 import java.util.List;
 
-public class OptionsHandler implements Handler {
-    @Override
+public class TextHandler implements Handler{
     public List<String> allowedHttpMethods() {
-        return Arrays.asList(HttpMethod.GET.getHttpMethod(), HttpMethod.HEAD.getHttpMethod(), HttpMethod.OPTIONS.getHttpMethod());
+        return List.of(HttpMethod.GET.getHttpMethod());
     }
 
-    @Override
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(StatusCode.OK)
-                .withHeaderName(ResponseHeader.ALLOW_HEADER.getResponseHeader())
-                .withHeaderValue(String.format("%s, %s, %s", HttpMethod.GET, HttpMethod.HEAD, HttpMethod.OPTIONS))
+                .withHeaderName(ResponseHeader.CONTENT_TYPE_HEADER.getResponseHeader())
+                .withHeaderValue(ResponseHeader.TEXT_TYPE.getResponseHeader())
+                .withBody("text response")
                 .build();
     }
 }

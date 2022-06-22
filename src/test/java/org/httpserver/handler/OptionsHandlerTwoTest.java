@@ -1,7 +1,9 @@
 package org.httpserver.handler;
 
+import org.httpserver.Constant;
 import org.httpserver.request.Request;
 import org.httpserver.response.Response;
+import org.httpserver.server.HttpMethod;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashMap;
@@ -35,7 +37,7 @@ class OptionsHandlerTwoTest {
         Response actualResponse = optionsHandlerTwo.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
-        assertEquals("Allow: GET, HEAD, OPTIONS, PUT, POST\r\n\r\n", actualResponse.getResponseHeaders());
+        assertEquals("Allow: GET, HEAD, OPTIONS, POST, PUT\r\n\r\n", actualResponse.getResponseHeaders());
         assertTrue(actualResponse.getResponseBody().isEmpty());
     }
 }
