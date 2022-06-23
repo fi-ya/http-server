@@ -6,7 +6,7 @@ import org.httpserver.response.ResponseBuilder;
 
 import java.util.List;
 
-import static org.httpserver.response.ResponseHeaderName.LOCATION_HEADER;
+import static org.httpserver.response.ResponseHeaderName.LOCATION;
 import static org.httpserver.response.StatusCode.MOVED_PERMANENTLY;
 import static org.httpserver.server.HttpMethod.GET;
 
@@ -20,7 +20,7 @@ public class RedirectHandler implements Handler {
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(MOVED_PERMANENTLY)
-                .withHeaderName(LOCATION_HEADER.getResponseHeaderName())
+                .withHeaderName(LOCATION)
                 .withHeaderValue("http://127.0.0.1:5000/simple_get")
                 .build();
     }

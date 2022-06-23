@@ -7,7 +7,7 @@ import org.httpserver.response.ResponseBuilder;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.httpserver.response.ResponseHeaderName.ALLOW_HEADER;
+import static org.httpserver.response.ResponseHeaderName.ALLOW;
 import static org.httpserver.response.StatusCode.OK;
 import static org.httpserver.server.HttpMethod.*;
 
@@ -22,7 +22,7 @@ public class OptionsHandlerTwo implements Handler {
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(OK)
-                .withHeaderName(ALLOW_HEADER.getResponseHeaderName())
+                .withHeaderName(ALLOW)
                 .withHeaderValue(String.format("%s, %s, %s, %s, %s", GET, HEAD, OPTIONS, POST, PUT))
                 .build();
     }

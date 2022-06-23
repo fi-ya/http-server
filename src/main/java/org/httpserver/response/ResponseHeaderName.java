@@ -1,20 +1,9 @@
 package org.httpserver.response;
 
-public enum ResponseHeaderName {
+public class ResponseHeaderName {
 
-    ALLOW_HEADER("Allow"),
-    LOCATION_HEADER("Location"),
-    CONTENT_LENGTH_HEADER("Content-Length"),
-    CONTENT_TYPE_HEADER("Content-Type");
-
-
-    private final String responseHeader;
-
-    ResponseHeaderName(String responseHeader) {
-        this.responseHeader = responseHeader;
-    }
-
-    public String getResponseHeaderName() {
-        return responseHeader;
-    }
+    public static final String ALLOW = "Allow";
+    public static final String LOCATION = "Location";
+    public static final String CONTENT_LENGTH = "Content-Length";
+    public static final String CONTENT_TYPE = "Content-Type";
 }
