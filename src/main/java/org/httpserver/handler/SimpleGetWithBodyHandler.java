@@ -1,22 +1,35 @@
 package org.httpserver.handler;
 
 import org.httpserver.request.Request;
+import org.httpserver.response.ContentType;
 import org.httpserver.response.Response;
 import org.httpserver.response.ResponseBuilder;
+import org.httpserver.response.ResponseHeaderName;
 import org.httpserver.server.HttpMethod;
 
 import java.util.List;
 
+import static org.httpserver.response.ResponseHeaderName.CONTENT_TYPE;
 import static org.httpserver.response.StatusCode.OK;
 import static org.httpserver.server.HttpMethod.GET;
+import static org.httpserver.server.HttpMethod.HEAD;
 
 public class SimpleGetWithBodyHandler implements Handler {
 
     public List<HttpMethod> allowedHttpMethods() {
-        return List.of(GET);
+        return List.of(GET, HEAD);
     }
 
     public Response handleResponse(Request request) {
+        if (request.getHttpMethod() == HEAD) {
+            return new ResponseBuilder()
+                    .withStatusCode(OK)
+                    .withHeaderName(CONTENT_TYPE)
+                    .withHeaderValue(ContentType.TEXT.getValue())
+                    .withHeaderName(ResponseHeaderName.CONTENT_LENGTH)
+                    .withHeaderValue(String.valueOf(request.getRequestBody().length()))
+                    .build();
+        }
         return new ResponseBuilder()
                 .withStatusCode(OK)
                 .withBody("Hello world")
