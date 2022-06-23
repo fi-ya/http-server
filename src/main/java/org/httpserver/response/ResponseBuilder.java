@@ -4,12 +4,15 @@ import org.httpserver.Constant;
 
 import java.util.Objects;
 
+import static org.httpserver.Constant.CRLF;
+import static org.httpserver.Constant.HTTP_VERSION_NUMBER;
+
 public class ResponseBuilder {
-    private String httpVersion = Constant.HTTP_VERSION_NUMBER;
+    private String httpVersion = HTTP_VERSION_NUMBER;
     private StatusCode statusCode;
-    private String headerName = Constant.EMPTY_STRING;
-    private String headerValue = Constant.EMPTY_STRING;
-    private String body = Constant.EMPTY_STRING;
+    private String headerName = "";
+    private String headerValue = "";
+    private String body = "";
 
     public ResponseBuilder withHttpVersion(String httpVersion) {
         this.httpVersion = httpVersion;
@@ -41,18 +44,18 @@ public class ResponseBuilder {
     }
 
     private String handleStatusLine() {
-        return String.format("%s %s %s", httpVersion, statusCode.getStatusCodeNumber(), statusCode.getStatusCodeName()) + Constant.CRLF;
+        return String.format("%s %s %s", httpVersion, statusCode.getStatusCodeNumber(), statusCode.getStatusCodeName()) + CRLF;
     }
 
     private String handleHeaders() {
-        return (isNoHeader() ? Constant.EMPTY_STRING : headerName + ": " + headerValue + Constant.CRLF) + Constant.CRLF;
+        return (isNoHeader() ? "" : headerName + ": " + headerValue + CRLF) + CRLF;
     }
 
     private boolean isNoHeader() {
-        return Objects.equals(headerName, Constant.EMPTY_STRING) && Objects.equals(headerValue, Constant.EMPTY_STRING);
+        return Objects.equals(headerName, "") && Objects.equals(headerValue, "");
     }
 
     private String handleBody() {
-        return Objects.equals(body, Constant.EMPTY_STRING) ? Constant.EMPTY_STRING : body;
+        return Objects.equals(body, "") ? "" : body;
     }
 }

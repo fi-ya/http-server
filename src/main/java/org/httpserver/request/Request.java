@@ -1,8 +1,8 @@
 package org.httpserver.request;
 
-import org.httpserver.Constant;
-
 import java.util.LinkedHashMap;
+
+import static org.httpserver.Constant.*;
 
 public class Request {
 
@@ -13,9 +13,9 @@ public class Request {
     private final String requestBody;
 
     public Request(LinkedHashMap<String, String> requestLine, LinkedHashMap<String, String> requestHeaders, String requestBody) {
-        this.httpMethod = requestLine.get(Constant.HTTP_METHOD);
-        this.requestTarget = requestLine.get(Constant.REQUEST_TARGET);
-        this.httpVersion = requestLine.get(Constant.HTTP_VERSION);
+        this.httpMethod = requestLine.get(HTTP_METHOD);
+        this.requestTarget = requestLine.get(REQUEST_TARGET);
+        this.httpVersion = requestLine.get(HTTP_VERSION);
         this.requestHeaders = requestHeaders;
         this.requestBody = requestBody;
     }
