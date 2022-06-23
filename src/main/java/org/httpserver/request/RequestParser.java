@@ -43,7 +43,7 @@ public class RequestParser {
         String headerLine;
 
         while ((headerLine = requestReader.readLine()) != null) {
-            if (headerLine.equals(Constant.EMPTY_STRING)) {
+            if (headerLine.equals("")) {
                 break;
             } else {
                 String[] splitHeader = headerLine.split(": ", 2);
