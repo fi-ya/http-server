@@ -24,6 +24,7 @@ public class Router {
             put("/echo_body", new EchoBodyHandler());
             put("/redirect", new RedirectHandler());
             put("/text_response", new TextHandler());
+            put("/html_response", new HtmlHandler());
         }};
     }
 

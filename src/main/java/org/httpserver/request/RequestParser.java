@@ -1,7 +1,5 @@
 package org.httpserver.request;
 
-import org.httpserver.Constant;
-import org.httpserver.response.ResponseHeader;
 import org.httpserver.server.HttpMethod;
 
 import java.io.BufferedReader;
@@ -9,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.LinkedHashMap;
+
+import static org.httpserver.response.ResponseHeaderName.CONTENT_LENGTH;
 
 public class RequestParser {
 
@@ -37,7 +37,7 @@ public class RequestParser {
             requestTarget = arrOfSplitRequestLineStr[1];
             requestHttpVersion = arrOfSplitRequestLineStr[2];
         }
-        return new RequestLine(requestHttpMethod,requestTarget, requestHttpVersion);
+        return new RequestLine(requestHttpMethod, requestTarget, requestHttpVersion);
     }
 
     private LinkedHashMap<String, String> getRequestHeaders(BufferedReader requestReader) throws IOException {
@@ -45,7 +45,7 @@ public class RequestParser {
         String headerLine;
 
         while ((headerLine = requestReader.readLine()) != null) {
-            if (headerLine.equals(Constant.EMPTY_STRING)) {
+            if (headerLine.equals("")) {
                 break;
             } else {
                 String[] splitHeader = headerLine.split(": ", 2);
@@ -58,7 +58,7 @@ public class RequestParser {
     }
 
     private String getContentLengthHeaderValue(LinkedHashMap<String, String> requestHeadersMap) {
-        return requestHeadersMap.isEmpty() ? null : requestHeadersMap.get(ResponseHeader.CONTENT_LENGTH_HEADER.getResponseHeader());
+        return requestHeadersMap.isEmpty() ? null : requestHeadersMap.get(CONTENT_LENGTH);
     }
 
     private String getRequestMessageBody(String contentLengthValue, BufferedReader requestReader) throws IOException {

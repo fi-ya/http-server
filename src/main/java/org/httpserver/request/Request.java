@@ -1,6 +1,5 @@
 package org.httpserver.request;
 
-import org.httpserver.Constant;
 import org.httpserver.server.HttpMethod;
 
 import java.util.LinkedHashMap;

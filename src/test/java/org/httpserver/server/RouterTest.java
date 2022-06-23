@@ -114,6 +114,15 @@ class RouterTest {
         assertEquals(TextHandler.class, actualHandler.getClass());
     }
 
+    @Test
+    void returnHtmlHandler_whenHtmlResponseRoute(){
+        mockRequestLine = new RequestLine(GET, "/html_response", "HTTP/1.1");
+
+        Handler actualHandler = getActualHandler();
+
+        assertEquals(HtmlHandler.class, actualHandler.getClass());
+    }
+
     private Handler getActualHandler() {
         Request requestMock = new Request(mockRequestLine, requestHeadersStub, requestBodyStub);
         Router router = new Router();

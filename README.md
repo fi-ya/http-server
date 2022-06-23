@@ -3,8 +3,9 @@
 # HTTP Server
 This is an 8th Light apprenticeship project.
 ## Project requirements
-- To build an HTTP server which includes routes, requests, and responses. 
-- The routes must be customizable with a URL, a verb, and an action to take when the route is called. 
+- [x] To build an HTTP server which includes routes, requests, and responses. 
+- [x] The routes must be customizable with a URL, a verb, and an action to take when the route is called. 
+- [ ] The server will be able to return structured data in formats such as HTML, JSON, and XML, each with the appropriate MIME type.
 ## Run project
 The following steps will allow you to run the server in your terminal.
 1. Clone repository and htt_server_spec submodule by running `git clone --recurse-submodules git@github.com:fi-ya/http-server.git`
@@ -15,7 +16,7 @@ The following steps will allow you to run the server in your terminal.
 3. Send client request to request URL listed in [project features](#project-features)
    - using netcat by running `nc localhost 5000` followed by the client request, ie. `GET /simple_get HTTP/1.1` and wait for server response.
    - using [postman](https://www.postman.com/) 
-   - using cURL in the terminal
+   - using `cURL` in the terminal
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Project features
@@ -33,6 +34,7 @@ The following steps will allow you to run the server in your terminal.
 | POST        |      /echo_body       | some body | 200 OK                 |                                            |  some body  |
 | GET         |       /redirect       |           | 301 Moved Permanently  | Location: http://127.0.0.1:5000/simple_get |             |
 | GET         |    /text_response     |           | 200 OK  |          Content-Type: text/plain          |  text response   |
+| GET         |    /html_response     |           | 200 OK  |          Content-Type: text/html           |  `<html><body><p>HTML Response</p></body></html>`   |
 
 ## Run tests
 You can find all tests in `src/test/java` and run the test suite using either of the following steps.
@@ -55,11 +57,14 @@ You can find all tests in `src/test/java` and run the test suite using either of
 
 ## Functional Requirements
 A user should be able to interact with the HTTP server as follows:
-
 - [x] When a client sends a properly formatted request to the server, the server sends an appropriate response back to the client. 
 - [x] A client can send different HTTP requests to the server and get the appropriate response back each time. 
 - [x] Different clients can send messages to server and get back their proper responses. 
 - [x] The server should be able to handle 200, 300, and 400-level responses. Not every response code needs to be complete, but there should be a few representative response codes implemented for each level.
+
+The HTTP server should have the following behavior:
+- [ ] It should be able to return structured data in a variety of formats including HTML, JSON, and XML.
+- [ ] The HTTP response should have the appropriate content type headers to specify what type of data is being returned.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Implementation Requirements
