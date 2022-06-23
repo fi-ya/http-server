@@ -20,8 +20,7 @@ public class TextHandler implements Handler {
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(OK)
-                .withHeaderName(CONTENT_TYPE)
-                .withHeaderValue(ContentType.TEXT.getValue())
+                .withHeader(CONTENT_TYPE, ContentType.TEXT.getValue())
                 .withBody("text response")
                 .build();
     }

@@ -9,6 +9,7 @@ import org.httpserver.server.HttpMethod;
 
 import java.util.List;
 
+import static org.httpserver.response.ResponseHeaderName.CONTENT_LENGTH;
 import static org.httpserver.response.ResponseHeaderName.CONTENT_TYPE;
 import static org.httpserver.response.StatusCode.OK;
 import static org.httpserver.server.HttpMethod.GET;
@@ -21,18 +22,21 @@ public class SimpleGetWithBodyHandler implements Handler {
     }
 
     public Response handleResponse(Request request) {
+        String body = "Hello world";
+
         if (request.getHttpMethod() == HEAD) {
             return new ResponseBuilder()
                     .withStatusCode(OK)
-                    .withHeaderName(CONTENT_TYPE)
-                    .withHeaderValue(ContentType.TEXT.getValue())
-                    .withHeaderName(ResponseHeaderName.CONTENT_LENGTH)
-                    .withHeaderValue(String.valueOf(request.getRequestBody().length()))
+                    .withHeader(CONTENT_TYPE, ContentType.TEXT.getValue())
+                    .withHeader(CONTENT_LENGTH, String.valueOf(body.length()))
                     .build();
         }
+
         return new ResponseBuilder()
                 .withStatusCode(OK)
-                .withBody("Hello world")
+                .withHeader(CONTENT_TYPE, ContentType.TEXT.getValue())
+                .withHeader(CONTENT_LENGTH, String.valueOf(body.length()))
+                .withBody(body)
                 .build();
     }
 }

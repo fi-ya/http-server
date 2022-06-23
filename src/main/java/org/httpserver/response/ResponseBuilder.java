@@ -1,7 +1,7 @@
 package org.httpserver.response;
 
-import org.httpserver.Constant;
-
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import static org.httpserver.Constant.CRLF;
@@ -12,7 +12,10 @@ public class ResponseBuilder {
     private StatusCode statusCode;
     private String headerName = "";
     private String headerValue = "";
+
+    private final HashMap<String, String> headers = new HashMap<>();
     private String body = "";
+    private HashMap<String, String> headerMap;
 
     public ResponseBuilder withHttpVersion(String httpVersion) {
         this.httpVersion = httpVersion;
@@ -24,15 +27,15 @@ public class ResponseBuilder {
         return this;
     }
 
-    public ResponseBuilder withHeaderName(String headerName) {
-        this.headerName = headerName;
+    public ResponseBuilder withHeader(String headerName, String headerValue) {
+        headers.put(headerName, headerValue);
         return this;
     }
 
-    public ResponseBuilder withHeaderValue(String headerValue) {
-        this.headerValue = headerValue;
-        return this;
-    }
+//    public ResponseBuilder withHeaderValue(String headerValue, String head) {
+//        this.headerValue = headerValue;
+//        return this;
+//    }
 
     public ResponseBuilder withBody(String body) {
         this.body = body;
@@ -48,11 +51,21 @@ public class ResponseBuilder {
     }
 
     private String handleHeaders() {
-        return (isNoHeader() ? "" : headerName + ": " + headerValue + CRLF) + CRLF;
+        StringBuilder allHeaders = new StringBuilder();
+
+        if (isNoHeader()) {
+            return CRLF;
+        }
+
+        for (Map.Entry<String, String> header : headers.entrySet()) {
+            allHeaders.append(String.format("%s: %s", header.getKey(), header.getValue())).append(CRLF);
+        }
+
+        return allHeaders + CRLF;
     }
 
     private boolean isNoHeader() {
-        return Objects.equals(headerName, "") && Objects.equals(headerValue, "");
+        return headers.isEmpty();
     }
 
     private String handleBody() {
