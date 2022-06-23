@@ -2,6 +2,7 @@ package org.httpserver.request;
 
 import org.httpserver.Constant;
 import org.httpserver.response.ResponseHeader;
+import org.httpserver.server.HttpMethod;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,11 +14,9 @@ public class RequestParser {
 
     public Request parseRequest(InputStream clientRequestInputStream) throws IOException {
         BufferedReader requestReader = new BufferedReader(new InputStreamReader(clientRequestInputStream));
-
         String requestLineRead = requestReader.readLine();
 
         RequestLine requestLine = getRequestLine(requestLineRead);
-//        LinkedHashMap<String, String> requestLineMap = getRequestLine(requestLineRead);
         LinkedHashMap<String, String> requestHeadersMap = getRequestHeaders(requestReader);
         String contentLengthHeaderValue = getContentLengthHeaderValue(requestHeadersMap);
         String requestBody = getRequestMessageBody(contentLengthHeaderValue, requestReader);
@@ -28,33 +27,18 @@ public class RequestParser {
     private RequestLine getRequestLine(String requestLineRead) {
         String clientRequestLine;
 
-        String requestHttpMethod = null;
+        HttpMethod requestHttpMethod = null;
         String requestTarget = null;
         String requestHttpVersion = null;
 
         if ((clientRequestLine = requestLineRead) != null) {
             String[] arrOfSplitRequestLineStr = clientRequestLine.split(" ", 3);
-            requestHttpMethod = arrOfSplitRequestLineStr[0];
+            requestHttpMethod = HttpMethod.findHttpMethod(arrOfSplitRequestLineStr[0]);
             requestTarget = arrOfSplitRequestLineStr[1];
             requestHttpVersion = arrOfSplitRequestLineStr[2];
         }
         return new RequestLine(requestHttpMethod,requestTarget, requestHttpVersion);
-
     }
-
-
-//    private LinkedHashMap<String, String> getRequestLine(String requestLineRead) throws IOException {
-//        String clientRequestLine;
-//        LinkedHashMap<String, String> requestLineMap = new LinkedHashMap<>();
-//
-//        if ((clientRequestLine = requestLineRead) != null) {
-//            String[] arrOfSplitRequestLineStr = clientRequestLine.split(" ", 3);
-//            requestLineMap.put(Constant.HTTP_METHOD, arrOfSplitRequestLineStr[0]);
-//            requestLineMap.put(Constant.REQUEST_TARGET, arrOfSplitRequestLineStr[1]);
-//            requestLineMap.put(Constant.HTTP_VERSION, arrOfSplitRequestLineStr[2]);
-//        }
-//        return requestLineMap;
-//    }
 
     private LinkedHashMap<String, String> getRequestHeaders(BufferedReader requestReader) throws IOException {
         LinkedHashMap<String, String> headersMap = new LinkedHashMap<>();

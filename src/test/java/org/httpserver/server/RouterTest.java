@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashMap;
 
+import static org.httpserver.server.HttpMethod.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RouterTest {
@@ -25,9 +26,7 @@ class RouterTest {
 
     @Test
     void returnGetHandler_whenGetRoute() {
-        mockRequestLine = new RequestLine("GET", "/simple_get", "HTTP/1.1");
-//        requestLineStub.put("httpMethod", "GET");
-//        requestLineStub.put("requestTarget", "/simple_get");
+        mockRequestLine = new RequestLine(GET, "/simple_get", "HTTP/1.1");
 
         Handler actualHandler = getActualHandler();
 
@@ -36,9 +35,7 @@ class RouterTest {
 
     @Test
     void returnGetHandler_whenSimpleGetWithBodyRoute() {
-        mockRequestLine = new RequestLine("GET", "/simple_get_with_body", "HTTP/1.1");
-//        requestLineStub.put("httpMethod", "GET");
-//        requestLineStub.put("requestTarget", "/simple_get_with_body");
+        mockRequestLine = new RequestLine(GET, "/simple_get_with_body", "HTTP/1.1");
 
         Handler actualHandler = getActualHandler();
 
@@ -47,9 +44,7 @@ class RouterTest {
 
     @Test
     void returnHeadHandler_whenHeadRequestRoute() {
-        mockRequestLine = new RequestLine("HEAD", "/head_request", "HTTP/1.1");
-//        requestLineStub.put("httpMethod", "HEAD");
-//        requestLineStub.put("requestTarget", "/head_request");
+        mockRequestLine = new RequestLine(HEAD, "/head_request", "HTTP/1.1");
 
         Handler actualHandler = getActualHandler();
 
@@ -58,9 +53,7 @@ class RouterTest {
 
     @Test
     void returnMethodNotAllowedHandler_whenHttpMethodIncorrect() {
-        mockRequestLine = new RequestLine("GET", "/head_request", "HTTP/1.1");
-//        requestLineStub.put("httpMethod", "GET");
-//        requestLineStub.put("requestTarget", "/head_request");
+        mockRequestLine = new RequestLine(GET, "/head_request", "HTTP/1.1");
 
         Handler actualHandler = getActualHandler();
 
@@ -69,9 +62,7 @@ class RouterTest {
 
     @Test
     void returnOptionsHandler_whenMethodOptionsRoute() {
-        mockRequestLine = new RequestLine("OPTIONS", "/method_options", "HTTP/1.1");
-//        requestLineStub.put("httpMethod", "OPTIONS");
-//        requestLineStub.put("requestTarget", "/method_options");
+        mockRequestLine = new RequestLine(OPTIONS, "/method_options", "HTTP/1.1");
 
         Handler actualHandler = getActualHandler();
 
@@ -80,9 +71,7 @@ class RouterTest {
 
     @Test
     void returnOptionsHandlerTwo_whenMethodOptions2Route() {
-        mockRequestLine = new RequestLine("OPTIONS", "/method_options2", "HTTP/1.1");
-//        requestLineStub.put("httpMethod", "OPTIONS");
-//        requestLineStub.put("requestTarget", "/method_options2");
+        mockRequestLine = new RequestLine(OPTIONS, "/method_options2", "HTTP/1.1");
 
         Handler actualHandler = getActualHandler();
 
@@ -91,9 +80,7 @@ class RouterTest {
 
     @Test
     void returnPostHandler_whenEchoBodyRoute() {
-        mockRequestLine = new RequestLine("POST", "/echo_body", "HTTP/1.1");
-//        requestLineStub.put("httpMethod", "POST");
-//        requestLineStub.put("requestTarget", "/echo_body");
+        mockRequestLine = new RequestLine(POST, "/echo_body", "HTTP/1.1");
 
         Handler actualHandler = getActualHandler();
 
@@ -102,9 +89,7 @@ class RouterTest {
 
     @Test
     void returnRedirectHandler_whenRedirectRoute() {
-        mockRequestLine = new RequestLine("GET", "/redirect", "HTTP/1.1");
-//        requestLineStub.put("httpMethod", "GET");
-//        requestLineStub.put("requestTarget", "/redirect");
+        mockRequestLine = new RequestLine(GET, "/redirect", "HTTP/1.1");
 
         Handler actualHandler = getActualHandler();
 
@@ -113,9 +98,7 @@ class RouterTest {
 
     @Test
     void returnPageNotFoundHandler_whenResourceNotAvailable() {
-        mockRequestLine = new RequestLine("GET", "/page_not_exist", "HTTP/1.1");
-//        requestLineStub.put("httpMethod", "GET");
-//        requestLineStub.put("requestTarget", "/page_not_exist");
+        mockRequestLine = new RequestLine(GET, "/page_not_exist", "HTTP/1.1");
 
         Handler actualHandler = getActualHandler();
 
@@ -124,9 +107,7 @@ class RouterTest {
 
     @Test
     void returnTextHandler_whenTextResponseRoute() {
-        mockRequestLine = new RequestLine("GET", "/text_response", "HTTP/1.1");
-//        requestLineStub.put("httpMethod", "GET");
-//        requestLineStub.put("requestTarget", "/text_response");
+        mockRequestLine = new RequestLine(GET, "/text_response", "HTTP/1.1");
 
         Handler actualHandler = getActualHandler();
 

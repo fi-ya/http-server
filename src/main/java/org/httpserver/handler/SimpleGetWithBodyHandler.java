@@ -8,11 +8,13 @@ import org.httpserver.server.HttpMethod;
 
 import java.util.List;
 
+import static org.httpserver.server.HttpMethod.GET;
+
 public class SimpleGetWithBodyHandler implements Handler {
 
     @Override
-    public List<String> allowedHttpMethods() {
-        return List.of(HttpMethod.GET.getHttpMethod());
+    public List<HttpMethod> allowedHttpMethods() {
+        return List.of(GET);
     }
 
     public Response handleResponse(Request request) {

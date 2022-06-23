@@ -1,18 +1,20 @@
 package org.httpserver.request;
 
+import org.httpserver.server.HttpMethod;
+
 public class RequestLine {
 
-    private final String httpMethod;
+    private final HttpMethod httpMethod;
     private final String requestTarget;
     private final String httpVersion;
 
-   public RequestLine(String httpMethod, String requestTarget, String httpVersion){
+   public RequestLine(HttpMethod httpMethod, String requestTarget, String httpVersion){
         this.httpMethod = httpMethod;
         this.requestTarget = requestTarget;
         this.httpVersion = httpVersion;
     }
 
-    public String getHttpMethod(){
+    public HttpMethod getHttpMethod(){
         return httpMethod;
     }
 

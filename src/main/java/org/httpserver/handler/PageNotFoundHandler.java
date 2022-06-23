@@ -8,10 +8,12 @@ import org.httpserver.server.HttpMethod;
 
 import java.util.List;
 
+import static org.httpserver.server.HttpMethod.GET;
+
 public class PageNotFoundHandler implements Handler {
     @Override
-    public List<String> allowedHttpMethods() {
-        return List.of(HttpMethod.GET.getHttpMethod());
+    public List<HttpMethod> allowedHttpMethods() {
+        return List.of(GET);
     }
 
     @Override

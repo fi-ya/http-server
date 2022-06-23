@@ -1,12 +1,13 @@
 package org.httpserver.request;
 
 import org.httpserver.Constant;
+import org.httpserver.server.HttpMethod;
 
 import java.util.LinkedHashMap;
 
 public class Request {
 
-    private final String httpMethod;
+    private final HttpMethod httpMethod;
     private final String requestTarget;
     private final String httpVersion;
     private final LinkedHashMap<String, String> requestHeaders;
@@ -20,7 +21,7 @@ public class Request {
         this.requestBody = requestBody;
     }
 
-    public String getHttpMethod() {
+    public HttpMethod getHttpMethod() {
         return httpMethod;
     }
 

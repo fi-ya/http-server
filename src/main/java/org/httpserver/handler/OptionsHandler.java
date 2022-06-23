@@ -1,6 +1,5 @@
 package org.httpserver.handler;
 
-import org.httpserver.Constant;
 import org.httpserver.request.Request;
 import org.httpserver.response.Response;
 import org.httpserver.response.ResponseBuilder;
@@ -11,10 +10,12 @@ import org.httpserver.server.HttpMethod;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.httpserver.server.HttpMethod.*;
+
 public class OptionsHandler implements Handler {
     @Override
-    public List<String> allowedHttpMethods() {
-        return Arrays.asList(HttpMethod.GET.getHttpMethod(), HttpMethod.HEAD.getHttpMethod(), HttpMethod.OPTIONS.getHttpMethod());
+    public List<HttpMethod> allowedHttpMethods() {
+        return Arrays.asList(GET, HEAD, OPTIONS);
     }
 
     @Override
@@ -22,7 +23,7 @@ public class OptionsHandler implements Handler {
         return new ResponseBuilder()
                 .withStatusCode(StatusCode.OK)
                 .withHeaderName(ResponseHeader.ALLOW_HEADER.getResponseHeader())
-                .withHeaderValue(String.format("%s, %s, %s", HttpMethod.GET, HttpMethod.HEAD, HttpMethod.OPTIONS))
+                .withHeaderValue(String.format("%s, %s, %s", GET, HEAD, OPTIONS))
                 .build();
     }
 }
