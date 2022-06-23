@@ -1,26 +1,26 @@
 package org.httpserver.request;
 
-import java.util.LinkedHashMap;
+import org.httpserver.server.HttpMethod;
 
-import static org.httpserver.Constant.*;
+import java.util.LinkedHashMap;
 
 public class Request {
 
-    private final String httpMethod;
+    private final HttpMethod httpMethod;
     private final String requestTarget;
     private final String httpVersion;
     private final LinkedHashMap<String, String> requestHeaders;
     private final String requestBody;
 
-    public Request(LinkedHashMap<String, String> requestLine, LinkedHashMap<String, String> requestHeaders, String requestBody) {
-        this.httpMethod = requestLine.get(HTTP_METHOD);
-        this.requestTarget = requestLine.get(REQUEST_TARGET);
-        this.httpVersion = requestLine.get(HTTP_VERSION);
+    public Request(RequestLine requestLine, LinkedHashMap<String, String> requestHeaders, String requestBody) {
+        this.httpMethod = requestLine.getHttpMethod();
+        this.requestTarget = requestLine.getRequestTarget();
+        this.httpVersion = requestLine.getHttpVersion();
         this.requestHeaders = requestHeaders;
         this.requestBody = requestBody;
     }
 
-    public String getHttpMethod() {
+    public HttpMethod getHttpMethod() {
         return httpMethod;
     }
 

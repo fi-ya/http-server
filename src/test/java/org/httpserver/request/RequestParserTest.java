@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 
+import static org.httpserver.server.HttpMethod.GET;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RequestParserTest {
@@ -20,7 +21,7 @@ class RequestParserTest {
 
 
         assertEquals("HTTP/1.1", request.getHttpVersion());
-        assertEquals("GET", request.getHttpMethod());
+        assertEquals(GET, request.getHttpMethod());
         assertEquals("/simple_get", request.getRequestTarget());
         assertTrue(request.getRequestHeaders().isEmpty());
         assertNull(request.getRequestBody());
@@ -35,7 +36,7 @@ class RequestParserTest {
         Request request = getRequest(mockRequestString);
 
         assertEquals("HTTP/1.1", request.getHttpVersion());
-        assertEquals("GET", request.getHttpMethod());
+        assertEquals(GET, request.getHttpMethod());
         assertEquals("/simple_get", request.getRequestTarget());
         assertEquals(new LinkedHashMap<String, String>() {{
             put("Host", "0.0.0.0:5000");

@@ -1,41 +1,43 @@
 package org.httpserver.request;
 
+import org.httpserver.server.HttpMethod;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.LinkedHashMap;
 
-import static org.httpserver.Constant.*;
 import static org.httpserver.response.ResponseHeaderName.CONTENT_LENGTH;
 
 public class RequestParser {
 
     public Request parseRequest(InputStream clientRequestInputStream) throws IOException {
         BufferedReader requestReader = new BufferedReader(new InputStreamReader(clientRequestInputStream));
-
         String requestLineRead = requestReader.readLine();
 
-        LinkedHashMap<String, String> requestLineMap = getRequestLine(requestLineRead);
+        RequestLine requestLine = getRequestLine(requestLineRead);
         LinkedHashMap<String, String> requestHeadersMap = getRequestHeaders(requestReader);
         String contentLengthHeaderValue = getContentLengthHeaderValue(requestHeadersMap);
         String requestBody = getRequestMessageBody(contentLengthHeaderValue, requestReader);
 
-        return buildRequest(requestLineMap, requestHeadersMap, requestBody);
+        return buildRequest(requestLine, requestHeadersMap, requestBody);
     }
 
-
-    private LinkedHashMap<String, String> getRequestLine(String requestLineRead) throws IOException {
+    private RequestLine getRequestLine(String requestLineRead) {
         String clientRequestLine;
-        LinkedHashMap<String, String> requestLineMap = new LinkedHashMap<>();
+
+        HttpMethod requestHttpMethod = null;
+        String requestTarget = null;
+        String requestHttpVersion = null;
 
         if ((clientRequestLine = requestLineRead) != null) {
             String[] arrOfSplitRequestLineStr = clientRequestLine.split(" ", 3);
-            requestLineMap.put(HTTP_METHOD, arrOfSplitRequestLineStr[0]);
-            requestLineMap.put(REQUEST_TARGET, arrOfSplitRequestLineStr[1]);
-            requestLineMap.put(HTTP_VERSION, arrOfSplitRequestLineStr[2]);
+            requestHttpMethod = HttpMethod.findHttpMethod(arrOfSplitRequestLineStr[0]);
+            requestTarget = arrOfSplitRequestLineStr[1];
+            requestHttpVersion = arrOfSplitRequestLineStr[2];
         }
-        return requestLineMap;
+        return new RequestLine(requestHttpMethod, requestTarget, requestHttpVersion);
     }
 
     private LinkedHashMap<String, String> getRequestHeaders(BufferedReader requestReader) throws IOException {
@@ -76,7 +78,7 @@ public class RequestParser {
         return requestBody;
     }
 
-    public Request buildRequest(LinkedHashMap<String, String> requestLineMap, LinkedHashMap<String, String> requestHeadersMap, String requestBody) {
+    public Request buildRequest(RequestLine requestLineMap, LinkedHashMap<String, String> requestHeadersMap, String requestBody) {
         return new Request(requestLineMap, requestHeadersMap, requestBody);
     }
 }

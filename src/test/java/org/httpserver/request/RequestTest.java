@@ -1,12 +1,11 @@
 package org.httpserver.request;
 
-import org.httpserver.server.HttpMethod;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashMap;
 
+import static org.httpserver.server.HttpMethod.GET;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RequestTest {
@@ -15,21 +14,16 @@ class RequestTest {
 
     @BeforeEach
     void setup() {
-        LinkedHashMap<String, String> requestLine = new LinkedHashMap<>() {{
-            put("httpMethod", "GET");
-            put("requestTarget", "/simple_get");
-            put("httpVersion", "HTTP/1.1");
-        }};
-
+        RequestLine mockRequestLine = new RequestLine(GET, "/simple_get", "HTTP/1.1");
         LinkedHashMap<String, String> requestHeaders = new LinkedHashMap<>();
         String requestBody = "";
 
-        request = new Request(requestLine, requestHeaders, requestBody);
+        request = new Request(mockRequestLine, requestHeaders, requestBody);
     }
 
     @Test
     void returnsHttpMethod() {
-        assertEquals(HttpMethod.GET.getHttpMethod(), request.getHttpMethod());
+        assertEquals(GET, request.getHttpMethod());
     }
 
     @Test

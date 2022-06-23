@@ -4,6 +4,7 @@ import org.httpserver.request.Request;
 import org.httpserver.response.ContentType;
 import org.httpserver.response.Response;
 import org.httpserver.response.ResponseBuilder;
+import org.httpserver.server.HttpMethod;
 
 import java.util.List;
 
@@ -13,8 +14,8 @@ import static org.httpserver.server.HttpMethod.GET;
 
 public class HtmlHandler implements Handler {
 
-    public List<String> allowedHttpMethods() {
-        return List.of(GET.getHttpMethod());
+    public List<HttpMethod> allowedHttpMethods() {
+        return List.of(GET);
     }
 
     @Override
