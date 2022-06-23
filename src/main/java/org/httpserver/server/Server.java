@@ -42,7 +42,7 @@ public class Server {
             serverLogger.printHandlerBuildingResponse(handler);
 
             Response response = handler.handleResponse(request);
-            System.out.println("res"+ response.getResponseHeaders());
+
             clientHandler.processSendResponse(response);
             clientHandler.closeClientConnection();
         }
