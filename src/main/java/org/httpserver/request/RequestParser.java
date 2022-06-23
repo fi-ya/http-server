@@ -1,6 +1,6 @@
 package org.httpserver.request;
 
-import org.httpserver.response.ResponseHeader;
+import org.httpserver.response.ResponseHeaderName;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.util.LinkedHashMap;
 
 import static org.httpserver.Constant.*;
+import static org.httpserver.response.ResponseHeaderName.CONTENT_LENGTH_HEADER;
 
 public class RequestParser {
 
@@ -57,7 +58,7 @@ public class RequestParser {
     }
 
     private String getContentLengthHeaderValue(LinkedHashMap<String, String> requestHeadersMap) {
-        return requestHeadersMap.isEmpty() ? null : requestHeadersMap.get(ResponseHeader.CONTENT_LENGTH_HEADER.getResponseHeader());
+        return requestHeadersMap.isEmpty() ? null : requestHeadersMap.get(CONTENT_LENGTH_HEADER.getResponseHeaderName());
     }
 
     private String getRequestMessageBody(String contentLengthValue, BufferedReader requestReader) throws IOException {
