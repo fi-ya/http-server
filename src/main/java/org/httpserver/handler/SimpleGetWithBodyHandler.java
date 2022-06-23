@@ -24,19 +24,11 @@ public class SimpleGetWithBodyHandler implements Handler {
     public Response handleResponse(Request request) {
         String body = "Hello world";
 
-        if (request.getHttpMethod() == HEAD) {
-            return new ResponseBuilder()
-                    .withStatusCode(OK)
-                    .withHeader(CONTENT_TYPE, ContentType.TEXT.getValue())
-                    .withHeader(CONTENT_LENGTH, String.valueOf(body.length()))
-                    .build();
-        }
-
-        return new ResponseBuilder()
+        ResponseBuilder responseBuilder =  new ResponseBuilder()
                 .withStatusCode(OK)
                 .withHeader(CONTENT_TYPE, ContentType.TEXT.getValue())
-                .withHeader(CONTENT_LENGTH, String.valueOf(body.length()))
-                .withBody(body)
-                .build();
+                .withHeader(CONTENT_LENGTH, String.valueOf(body.length()));
+
+        return (request.getHttpMethod() == HEAD) ? responseBuilder.build() : responseBuilder.withBody(body).build();
     }
 }
