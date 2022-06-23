@@ -18,7 +18,9 @@ public class RequestParser {
 
         RequestLine requestLine = getRequestLine(requestLineRead);
         LinkedHashMap<String, String> requestHeadersMap = getRequestHeaders(requestReader);
+        System.out.println("h"+requestHeadersMap);
         String contentLengthHeaderValue = getContentLengthHeaderValue(requestHeadersMap);
+        System.out.println("cv"+contentLengthHeaderValue);
         String requestBody = getRequestMessageBody(contentLengthHeaderValue, requestReader);
 
         return buildRequest(requestLine, requestHeadersMap, requestBody);
