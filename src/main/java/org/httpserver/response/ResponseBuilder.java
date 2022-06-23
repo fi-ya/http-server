@@ -4,8 +4,11 @@ import org.httpserver.Constant;
 
 import java.util.Objects;
 
+import static org.httpserver.Constant.CRLF;
+import static org.httpserver.Constant.HTTP_VERSION_NUMBER;
+
 public class ResponseBuilder {
-    private String httpVersion = Constant.HTTP_VERSION_NUMBER;
+    private String httpVersion = HTTP_VERSION_NUMBER;
     private StatusCode statusCode;
     private String headerName = "";
     private String headerValue = "";
@@ -41,11 +44,11 @@ public class ResponseBuilder {
     }
 
     private String handleStatusLine() {
-        return String.format("%s %s %s", httpVersion, statusCode.getStatusCodeNumber(), statusCode.getStatusCodeName()) + Constant.CRLF;
+        return String.format("%s %s %s", httpVersion, statusCode.getStatusCodeNumber(), statusCode.getStatusCodeName()) + CRLF;
     }
 
     private String handleHeaders() {
-        return (isNoHeader() ? "" : headerName + ": " + headerValue + Constant.CRLF) + Constant.CRLF;
+        return (isNoHeader() ? "" : headerName + ": " + headerValue + CRLF) + CRLF;
     }
 
     private boolean isNoHeader() {

@@ -1,6 +1,5 @@
 package org.httpserver.request;
 
-import org.httpserver.Constant;
 import org.httpserver.response.ResponseHeader;
 
 import java.io.BufferedReader;
@@ -8,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.LinkedHashMap;
+
+import static org.httpserver.Constant.*;
 
 public class RequestParser {
 
@@ -31,9 +32,9 @@ public class RequestParser {
 
         if ((clientRequestLine = requestLineRead) != null) {
             String[] arrOfSplitRequestLineStr = clientRequestLine.split(" ", 3);
-            requestLineMap.put(Constant.HTTP_METHOD, arrOfSplitRequestLineStr[0]);
-            requestLineMap.put(Constant.REQUEST_TARGET, arrOfSplitRequestLineStr[1]);
-            requestLineMap.put(Constant.HTTP_VERSION, arrOfSplitRequestLineStr[2]);
+            requestLineMap.put(HTTP_METHOD, arrOfSplitRequestLineStr[0]);
+            requestLineMap.put(REQUEST_TARGET, arrOfSplitRequestLineStr[1]);
+            requestLineMap.put(HTTP_VERSION, arrOfSplitRequestLineStr[2]);
         }
         return requestLineMap;
     }
