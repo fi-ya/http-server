@@ -2,6 +2,7 @@ package org.httpserver.handler;
 
 import org.httpserver.Constant;
 import org.httpserver.request.Request;
+import org.httpserver.request.RequestLine;
 import org.httpserver.response.Response;
 import org.httpserver.server.HttpMethod;
 import org.junit.jupiter.api.Test;
@@ -23,14 +24,16 @@ class EchoBodyHandlerTest {
 
     @Test
     void returnsResponseWithStatusLineAndBodyOnly() {
-        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
-            put("httpVersion", "HTTP/1.1");
-            put("httpMethod", "POST");
-            put("requestTarget", "/echo_body");
-        }};
+//        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
+//            put("httpVersion", "HTTP/1.1");
+//            put("httpMethod", "POST");
+//            put("requestTarget", "/echo_body");
+//        }};
+        RequestLine mockRequestLine = new RequestLine("POST", "/echo_body", "HTTP/1.1");
+
         EchoBodyHandler echoBodyHandler = new EchoBodyHandler();
 
-        Response actualResponse = echoBodyHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), "some body"));
+        Response actualResponse = echoBodyHandler.handleResponse(new Request(mockRequestLine, new LinkedHashMap<>(), "some body"));
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().isBlank());

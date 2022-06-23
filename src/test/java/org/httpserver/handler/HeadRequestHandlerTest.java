@@ -2,6 +2,7 @@ package org.httpserver.handler;
 
 import org.httpserver.Constant;
 import org.httpserver.request.Request;
+import org.httpserver.request.RequestLine;
 import org.httpserver.response.Response;
 import org.httpserver.server.HttpMethod;
 import org.junit.jupiter.api.Test;
@@ -23,14 +24,16 @@ class HeadRequestHandlerTest {
 
     @Test
     void handleResponse_ReturnsResponseWith_ResponseStatusLineOnly() {
-        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
-            put("httpVersion", "HTTP/1.1");
-            put("httpMethod", "HEAD");
-            put("requestTarget", "/head_request");
-        }};
+//        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
+//            put("httpVersion", "HTTP/1.1");
+//            put("httpMethod", "HEAD");
+//            put("requestTarget", "/head_request");
+//        }};
+        RequestLine mockRequestLine = new RequestLine("HEAD", "/head_request", "HTTP/1.1");
+
         HeadRequestHandler headRequestHandler = new HeadRequestHandler();
 
-        Response actual = headRequestHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
+        Response actual = headRequestHandler.handleResponse(new Request(mockRequestLine, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 200 OK\r\n", actual.getResponseStatusLine());
         assertTrue(actual.getResponseHeaders().isBlank());

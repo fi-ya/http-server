@@ -15,16 +15,19 @@ class RequestTest {
 
     @BeforeEach
     void setup() {
-        LinkedHashMap<String, String> requestLine = new LinkedHashMap<>() {{
-            put("httpMethod", "GET");
-            put("requestTarget", "/simple_get");
-            put("httpVersion", "HTTP/1.1");
-        }};
+
+
+       RequestLine mockRequestLine = new RequestLine("GET", "/simple_get", "HTTP/1.1");
+//        LinkedHashMap<String, String> requestLine = new LinkedHashMap<>() {{
+//            put("httpMethod", "GET");
+//            put("requestTarget", "/simple_get");
+//            put("httpVersion", "HTTP/1.1");
+//        }};
 
         LinkedHashMap<String, String> requestHeaders = new LinkedHashMap<>();
         String requestBody = "";
 
-        request = new Request(requestLine, requestHeaders, requestBody);
+        request = new Request(mockRequestLine, requestHeaders, requestBody);
     }
 
     @Test

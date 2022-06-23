@@ -2,6 +2,7 @@ package org.httpserver.handler;
 
 import org.httpserver.Constant;
 import org.httpserver.request.Request;
+import org.httpserver.request.RequestLine;
 import org.httpserver.response.Response;
 import org.httpserver.server.HttpMethod;
 import org.junit.jupiter.api.Test;
@@ -24,14 +25,16 @@ class SimpleGetHandlerTest {
 
     @Test
     void returnsResponseWithStatusLineOnly() {
-        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
-            put("httpVersion", "HTTP/1.1");
-            put("httpMethod", "GET");
-            put("requestTarget", "/simple_get");
-        }};
+//        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
+//            put("httpVersion", "HTTP/1.1");
+//            put("httpMethod", "GET");
+//            put("requestTarget", "/simple_get");
+//        }};
+        RequestLine mockRequestLine = new RequestLine("GET", "/simple_get", "HTTP/1.1");
+
         SimpleGetHandler simpleGetHandler = new SimpleGetHandler();
 
-        Response actualResponse = simpleGetHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
+        Response actualResponse = simpleGetHandler.handleResponse(new Request(mockRequestLine, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().isBlank());

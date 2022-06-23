@@ -2,6 +2,7 @@ package org.httpserver.handler;
 
 import org.httpserver.Constant;
 import org.httpserver.request.Request;
+import org.httpserver.request.RequestLine;
 import org.httpserver.response.Response;
 import org.httpserver.server.HttpMethod;
 import org.junit.jupiter.api.Test;
@@ -25,14 +26,16 @@ class OptionsHandlerTest {
 
     @Test
     void returnsResponseWithStatusLineHeadersAndEmptyBody_whenMethodOptions() {
-        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
-            put("httpVersion", "HTTP/1.1");
-            put("httpMethod", "GET");
-            put("requestTarget", "/method_options");
-        }};
+//        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
+//            put("httpVersion", "HTTP/1.1");
+//            put("httpMethod", "GET");
+//            put("requestTarget", "/method_options");
+//        }};
+
+        RequestLine mockRequestLine = new RequestLine("OPTIONS", "/method_options", "HTTP/1.1");
         OptionsHandler optionsHandler = new OptionsHandler();
 
-        Response actualResponse = optionsHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
+        Response actualResponse = optionsHandler.handleResponse(new Request(mockRequestLine, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertEquals("Allow: GET, HEAD, OPTIONS\r\n\r\n", actualResponse.getResponseHeaders());

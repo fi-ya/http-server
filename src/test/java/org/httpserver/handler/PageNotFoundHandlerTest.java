@@ -2,6 +2,7 @@ package org.httpserver.handler;
 
 import org.httpserver.Constant;
 import org.httpserver.request.Request;
+import org.httpserver.request.RequestLine;
 import org.httpserver.response.Response;
 import org.httpserver.server.HttpMethod;
 import org.junit.jupiter.api.Test;
@@ -23,14 +24,15 @@ class PageNotFoundHandlerTest {
 
     @Test
     void returnsResponseWithStatusLineOnly(){
-        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
-            put("httpVersion", "HTTP/1.1");
-            put("httpMethod", "GET");
-            put("requestTarget", "/page_not_exist");
-        }};
+//        LinkedHashMap<String, String> requestLineStub = new LinkedHashMap<>() {{
+//            put("httpVersion", "HTTP/1.1");
+//            put("httpMethod", "GET");
+//            put("requestTarget", "/page_not_exist");
+//        }};
+        RequestLine mockRequestLine = new RequestLine("GET", "/page_not_exist", "HTTP/1.1");
         PageNotFoundHandler pageNotFoundHandler = new PageNotFoundHandler();
 
-        Response actualResponse = pageNotFoundHandler.handleResponse(new Request(requestLineStub, new LinkedHashMap<>(), ""));
+        Response actualResponse = pageNotFoundHandler.handleResponse(new Request(mockRequestLine, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 404 Not Found\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().isBlank());

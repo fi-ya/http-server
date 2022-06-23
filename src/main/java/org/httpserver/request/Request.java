@@ -12,10 +12,10 @@ public class Request {
     private final LinkedHashMap<String, String> requestHeaders;
     private final String requestBody;
 
-    public Request(LinkedHashMap<String, String> requestLine, LinkedHashMap<String, String> requestHeaders, String requestBody) {
-        this.httpMethod = requestLine.get(Constant.HTTP_METHOD);
-        this.requestTarget = requestLine.get(Constant.REQUEST_TARGET);
-        this.httpVersion = requestLine.get(Constant.HTTP_VERSION);
+    public Request(RequestLine requestLine, LinkedHashMap<String, String> requestHeaders, String requestBody) {
+        this.httpMethod = requestLine.getHttpMethod();
+        this.requestTarget = requestLine.getRequestTarget();
+        this.httpVersion = requestLine.getHttpVersion();
         this.requestHeaders = requestHeaders;
         this.requestBody = requestBody;
     }
