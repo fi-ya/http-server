@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class SimpleGetWithBodyHandlerTest {
 
     @Test
-    void returnsGetMethodOnly() {
+    void returnsGet_andHeadMethodsOnly() {
         SimpleGetWithBodyHandler simpleGetWithBodyHandler = new SimpleGetWithBodyHandler();
 
         assertTrue(simpleGetWithBodyHandler.allowedHttpMethods().contains(GET));
@@ -32,7 +32,6 @@ class SimpleGetWithBodyHandlerTest {
         Response actualResponse = simpleGetWithBodyHandler.handleResponse(new Request(mockRequestLine, new LinkedHashMap<>(), ""));
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
-        System.out.println("header"+ actualResponse.getResponseHeaders());
         assertTrue(actualResponse.getResponseHeaders().contains("Content-Length"));
         assertTrue(actualResponse.getResponseHeaders().contains("11"));
         assertEquals("Hello world", actualResponse.getResponseBody());
