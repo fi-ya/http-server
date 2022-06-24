@@ -10,17 +10,10 @@ import static org.httpserver.Constant.HTTP_VERSION_NUMBER;
 public class ResponseBuilder {
     private String httpVersion = HTTP_VERSION_NUMBER;
     private StatusCode statusCode;
-    private String headerName = "";
-    private String headerValue = "";
 
     private final HashMap<String, String> headers = new HashMap<>();
     private String body = "";
     private HashMap<String, String> headerMap;
-
-    public ResponseBuilder withHttpVersion(String httpVersion) {
-        this.httpVersion = httpVersion;
-        return this;
-    }
 
     public ResponseBuilder withStatusCode(StatusCode statusCode) {
         this.statusCode = statusCode;
@@ -31,11 +24,6 @@ public class ResponseBuilder {
         headers.put(headerName, headerValue);
         return this;
     }
-
-//    public ResponseBuilder withHeaderValue(String headerValue, String head) {
-//        this.headerValue = headerValue;
-//        return this;
-//    }
 
     public ResponseBuilder withBody(String body) {
         this.body = body;
@@ -53,7 +41,7 @@ public class ResponseBuilder {
     private String handleHeaders() {
         StringBuilder allHeaders = new StringBuilder();
 
-        if (isNoHeader()) {
+        if (headers.isEmpty()) {
             return CRLF;
         }
 
@@ -62,10 +50,6 @@ public class ResponseBuilder {
         }
 
         return allHeaders + CRLF;
-    }
-
-    private boolean isNoHeader() {
-        return headers.isEmpty();
     }
 
     private String handleBody() {
