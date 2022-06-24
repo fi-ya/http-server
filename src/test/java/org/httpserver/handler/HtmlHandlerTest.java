@@ -22,7 +22,7 @@ class HtmlHandlerTest {
     }
 
     @Test
-    void returnsResponse_withStatusLineAndBody_withText() {
+    void returnsResponse_withStatusLine_withHeaders_AndBody_withText() {
         RequestLine mockRequestLine = new RequestLine(GET, "/html_response", "HTTP/1.1");
         HtmlHandler htmlHandler = new HtmlHandler();
 

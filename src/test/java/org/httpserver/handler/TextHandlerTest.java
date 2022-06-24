@@ -22,7 +22,7 @@ class TextHandlerTest {
     }
 
     @Test
-    void returnsResponse_withStatusLineAndBody_withText() {
+    void returnsResponse_withStatusLine_withHeaders_andBody_withText() {
         RequestLine mockRequestLine = new RequestLine(GET, "/text_response", "HTTP/1.1");
         TextHandler textHandler = new TextHandler();
 
