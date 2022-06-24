@@ -21,8 +21,7 @@ public class XmlHandler implements Handler {
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(OK)
-                .withHeaderName(CONTENT_TYPE)
-                .withHeaderValue(ContentType.XML.getValue())
+                .withHeader(CONTENT_TYPE, ContentType.XML.getValue())
                 .withBody("<note><body>XML Response</body></note>")
                 .build();
     }
