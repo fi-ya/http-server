@@ -123,6 +123,14 @@ class RouterTest {
         assertEquals(HtmlHandler.class, actualHandler.getClass());
     }
 
+    @Test
+    void returnJsonHandler_whenJsonResponseRoute(){
+        mockRequestLine = new RequestLine(GET, "/json_response", "HTTP/1.1");
+
+        Handler actualHandler = getActualHandler();
+
+        assertEquals(JsonHandler.class, actualHandler.getClass());
+    }
     private Handler getActualHandler() {
         Request requestMock = new Request(mockRequestLine, requestHeadersStub, requestBodyStub);
         Router router = new Router();
