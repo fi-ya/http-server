@@ -5,6 +5,7 @@ import org.httpserver.request.Request;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PropertyPermission;
 
 public class Router {
 
@@ -25,6 +26,7 @@ public class Router {
             put("/redirect", new RedirectHandler());
             put("/text_response", new TextHandler());
             put("/html_response", new HtmlHandler());
+            put("/xml_response", new XmlHandler());
         }};
     }
 
