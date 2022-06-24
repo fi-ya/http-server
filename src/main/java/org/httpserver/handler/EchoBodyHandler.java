@@ -1,12 +1,15 @@
 package org.httpserver.handler;
 
 import org.httpserver.request.Request;
+import org.httpserver.response.ContentType;
 import org.httpserver.response.Response;
 import org.httpserver.response.ResponseBuilder;
 import org.httpserver.server.HttpMethod;
 
 import java.util.List;
 
+import static org.httpserver.response.ResponseHeaderName.CONTENT_LENGTH;
+import static org.httpserver.response.ResponseHeaderName.CONTENT_TYPE;
 import static org.httpserver.response.StatusCode.OK;
 import static org.httpserver.server.HttpMethod.POST;
 
@@ -19,6 +22,8 @@ public class EchoBodyHandler implements Handler {
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(OK)
+                .withHeader(CONTENT_TYPE, ContentType.TEXT.getValue())
+                .withHeader(CONTENT_LENGTH, String.valueOf(request.getRequestBody().length()))
                 .withBody(request.getRequestBody())
                 .build();
     }

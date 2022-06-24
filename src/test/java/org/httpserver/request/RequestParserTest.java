@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 
 import static org.httpserver.server.HttpMethod.GET;
+import static org.httpserver.server.HttpMethod.POST;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RequestParserTest {
@@ -42,6 +43,26 @@ class RequestParserTest {
             put("Host", "0.0.0.0:5000");
         }}, request.getRequestHeaders());
         assertNull(request.getRequestBody());
+    }
+
+    @Test
+    void parseRequestThatHas_requestLine_headers_andBody() throws IOException {
+        String mockRequestString = """
+                POST /echo_body HTTP/1.1
+                Content-Type: text/plain;charset=utf-8;
+                Content-Length: 9
+
+                some body
+                """;
+        Request request = getRequest(mockRequestString);
+
+        assertEquals("HTTP/1.1", request.getHttpVersion());
+        assertEquals(POST, request.getHttpMethod());
+        assertEquals("/echo_body", request.getRequestTarget());
+        assertTrue(request.getRequestHeaders().containsKey("Content-Length"));
+        assertTrue(request.getRequestHeaders().containsKey("Content-Type"));
+        assertEquals("9", request.getRequestHeaders().get("Content-Length"));
+        assertEquals("some body",request.getRequestBody());
     }
 
     private Request getRequest(String mockRequestString) throws IOException {

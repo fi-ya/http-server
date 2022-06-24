@@ -22,8 +22,7 @@ public class HtmlHandler implements Handler {
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(OK)
-                .withHeaderName(CONTENT_TYPE)
-                .withHeaderValue(ContentType.HTML.getValue())
+                .withHeader(CONTENT_TYPE, ContentType.HTML.getValue())
                 .withBody("<html><body><p>HTML Response</p></body></html>")
                 .build();
     }

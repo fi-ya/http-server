@@ -1,7 +1,7 @@
 package org.httpserver.response;
 
-import org.httpserver.Constant;
-
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import static org.httpserver.Constant.CRLF;
@@ -10,27 +10,18 @@ import static org.httpserver.Constant.HTTP_VERSION_NUMBER;
 public class ResponseBuilder {
     private String httpVersion = HTTP_VERSION_NUMBER;
     private StatusCode statusCode;
-    private String headerName = "";
-    private String headerValue = "";
-    private String body = "";
 
-    public ResponseBuilder withHttpVersion(String httpVersion) {
-        this.httpVersion = httpVersion;
-        return this;
-    }
+    private final HashMap<String, String> headers = new HashMap<>();
+    private String body = "";
+    private HashMap<String, String> headerMap;
 
     public ResponseBuilder withStatusCode(StatusCode statusCode) {
         this.statusCode = statusCode;
         return this;
     }
 
-    public ResponseBuilder withHeaderName(String headerName) {
-        this.headerName = headerName;
-        return this;
-    }
-
-    public ResponseBuilder withHeaderValue(String headerValue) {
-        this.headerValue = headerValue;
+    public ResponseBuilder withHeader(String headerName, String headerValue) {
+        headers.put(headerName, headerValue);
         return this;
     }
 
@@ -48,11 +39,17 @@ public class ResponseBuilder {
     }
 
     private String handleHeaders() {
-        return (isNoHeader() ? "" : headerName + ": " + headerValue + CRLF) + CRLF;
-    }
+        StringBuilder allHeaders = new StringBuilder();
 
-    private boolean isNoHeader() {
-        return Objects.equals(headerName, "") && Objects.equals(headerValue, "");
+        if (headers.isEmpty()) {
+            return CRLF;
+        }
+
+        for (Map.Entry<String, String> header : headers.entrySet()) {
+            allHeaders.append(String.format("%s: %s", header.getKey(), header.getValue())).append(CRLF);
+        }
+
+        return allHeaders + CRLF;
     }
 
     private String handleBody() {

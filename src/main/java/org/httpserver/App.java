@@ -9,6 +9,4 @@ public class App {
         var server = new Server(5000);
         server.start();
     }
-
-
 }

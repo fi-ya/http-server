@@ -20,8 +20,7 @@ public class OptionsHandler implements Handler {
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(OK)
-                .withHeaderName(ALLOW)
-                .withHeaderValue(String.format("%s, %s, %s", GET, HEAD, OPTIONS))
+                .withHeader(ALLOW, String.format("%s, %s, %s", GET, HEAD, OPTIONS))
                 .build();
     }
 }

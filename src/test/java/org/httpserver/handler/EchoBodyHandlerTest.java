@@ -29,7 +29,8 @@ class EchoBodyHandlerTest {
         Response actualResponse = echoBodyHandler.handleResponse(new Request(mockRequestLine, new LinkedHashMap<>(), "some body"));
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
-        assertTrue(actualResponse.getResponseHeaders().isBlank());
+        assertTrue(actualResponse.getResponseHeaders().contains("Content-Length"));
+        assertTrue(actualResponse.getResponseHeaders().contains("9"));
         assertEquals("some body", actualResponse.getResponseBody());
     }
 }

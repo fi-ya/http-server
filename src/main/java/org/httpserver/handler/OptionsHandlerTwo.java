@@ -21,8 +21,7 @@ public class OptionsHandlerTwo implements Handler {
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(OK)
-                .withHeaderName(ALLOW)
-                .withHeaderValue(String.format("%s, %s, %s, %s, %s", GET, HEAD, OPTIONS, POST, PUT))
+                .withHeader(ALLOW, String.format("%s, %s, %s, %s, %s", GET, HEAD, OPTIONS, POST, PUT))
                 .build();
     }
 }
