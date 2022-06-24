@@ -8,7 +8,8 @@ import org.junit.jupiter.api.Test;
 import java.util.LinkedHashMap;
 
 import static org.httpserver.server.HttpMethod.GET;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class XmlHandlerTest {
 

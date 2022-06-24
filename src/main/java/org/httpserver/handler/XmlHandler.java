@@ -12,7 +12,7 @@ import static org.httpserver.response.ResponseHeaderName.CONTENT_TYPE;
 import static org.httpserver.response.StatusCode.OK;
 import static org.httpserver.server.HttpMethod.GET;
 
-public class XmlHandler implements Handler{
+public class XmlHandler implements Handler {
 
     public List<HttpMethod> allowedHttpMethods() {
         return List.of(GET);

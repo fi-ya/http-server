@@ -5,7 +5,6 @@ import org.httpserver.request.Request;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.PropertyPermission;
 
 public class Router {
 
