@@ -19,7 +19,6 @@ public class MethodNotAllowedHandler implements Handler {
         return List.of(HEAD, OPTIONS);
     }
 
-    @Override
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(METHOD_NOT_ALLOWED)

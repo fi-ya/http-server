@@ -15,7 +15,6 @@ public class PageNotFoundHandler implements Handler {
         return List.of(GET);
     }
 
-    @Override
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(NOT_FOUND)

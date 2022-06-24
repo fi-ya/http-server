@@ -17,7 +17,6 @@ public class OptionsHandlerTwo implements Handler {
         return List.of(GET, HEAD, OPTIONS, POST, PUT);
     }
 
-    @Override
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(OK)

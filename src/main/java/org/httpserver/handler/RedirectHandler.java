@@ -13,11 +13,11 @@ import static org.httpserver.response.StatusCode.MOVED_PERMANENTLY;
 import static org.httpserver.server.HttpMethod.*;
 
 public class RedirectHandler implements Handler {
+    @Override
     public List<HttpMethod> allowedHttpMethods() {
         return List.of(GET);
     }
 
-    @Override
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(MOVED_PERMANENTLY)
