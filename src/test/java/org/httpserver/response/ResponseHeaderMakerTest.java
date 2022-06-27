@@ -1,6 +1,5 @@
 package org.httpserver.response;
 
-import org.httpserver.server.HttpMethod;
 import org.junit.jupiter.api.Test;
 
 import static org.httpserver.server.HttpMethod.*;
@@ -15,6 +14,10 @@ class ResponseHeaderMakerTest {
 
         String [] actualHeader = ResponseHeaderMaker.plainTextHeader();
 
+        assertExpectedHeaderNameAndValueEqualsActual(expectedHeader, actualHeader);
+    }
+
+    private void assertExpectedHeaderNameAndValueEqualsActual(String[] expectedHeader, String[] actualHeader) {
         assertEquals(expectedHeader[0], actualHeader[0]);
         assertEquals(expectedHeader[1], actualHeader[1]);
     }
@@ -26,8 +29,7 @@ class ResponseHeaderMakerTest {
 
         String [] actualHeader = ResponseHeaderMaker.contentLengthHeader("Hello world");
 
-        assertEquals(expectedHeader[0], actualHeader[0]);
-        assertEquals(expectedHeader[1], actualHeader[1]);
+        assertExpectedHeaderNameAndValueEqualsActual(expectedHeader, actualHeader);
     }
 
     @Test
@@ -37,8 +39,7 @@ class ResponseHeaderMakerTest {
 
         String [] actualHeader = ResponseHeaderMaker.allowHeader(GET, HEAD, OPTIONS);
 
-        assertEquals(expectedHeader[0], actualHeader[0]);
-        assertEquals(expectedHeader[1], actualHeader[1]);
+        assertExpectedHeaderNameAndValueEqualsActual(expectedHeader, actualHeader);
     }
 
     @Test
@@ -48,18 +49,16 @@ class ResponseHeaderMakerTest {
 
         String [] actualHeader = ResponseHeaderMaker.allowHeader(GET, HEAD, OPTIONS, POST, PUT);
 
-        assertEquals(expectedHeader[0], actualHeader[0]);
-        assertEquals(expectedHeader[1], actualHeader[1]);
+        assertExpectedHeaderNameAndValueEqualsActual(expectedHeader, actualHeader);
     }
 
     @Test
     void returnsLocationHeader(){
         String[] expectedHeader = new String[] {"Location", "http://127.0.0.1:5000/simple_get"};
 
-        String[] actualHeader = ResponseHeaderMaker.locationHeader("http://127.0.0.1:5000/simple_get");
+        String[] actualHeader = ResponseHeaderMaker.locationHeader("/simple_get");
 
-        assertEquals(expectedHeader[0], actualHeader[0]);
-        assertEquals(expectedHeader[1], actualHeader[1]);
+        assertExpectedHeaderNameAndValueEqualsActual(expectedHeader, actualHeader);
     }
 
     @Test
@@ -69,7 +68,6 @@ class ResponseHeaderMakerTest {
 
         String [] actualHeader = ResponseHeaderMaker.htmlTextHeader();
 
-        assertEquals(expectedHeader[0], actualHeader[0]);
-        assertEquals(expectedHeader[1], actualHeader[1]);
+        assertExpectedHeaderNameAndValueEqualsActual(expectedHeader, actualHeader);
     }
 }
