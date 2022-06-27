@@ -8,12 +8,10 @@ import static org.httpserver.Constant.CRLF;
 import static org.httpserver.Constant.HTTP_VERSION_NUMBER;
 
 public class ResponseBuilder {
-    private String httpVersion = HTTP_VERSION_NUMBER;
+    private final String httpVersion = HTTP_VERSION_NUMBER;
     private StatusCode statusCode;
-
     private final HashMap<String, String> headers = new HashMap<>();
     private String body = "";
-    private HashMap<String, String> headerMap;
 
     public ResponseBuilder withStatusCode(StatusCode statusCode) {
         this.statusCode = statusCode;
