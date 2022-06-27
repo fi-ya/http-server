@@ -19,8 +19,8 @@ public class ResponseBuilder {
         return this;
     }
 
-    public ResponseBuilder withHeader(String headerName, String headerValue) {
-        headers.put(headerName, headerValue);
+    public ResponseBuilder withHeader(String[] headerElements) {
+        headers.put(headerElements[0], headerElements[1]);
         return this;
     }
 

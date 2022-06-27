@@ -7,7 +7,6 @@ import org.httpserver.server.HttpMethod;
 
 import java.util.List;
 
-import static org.httpserver.response.ResponseHeaderName.ALLOW;
 import static org.httpserver.response.StatusCode.OK;
 import static org.httpserver.server.HttpMethod.*;
 
@@ -20,7 +19,7 @@ public class OptionsHandler implements Handler {
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(OK)
-                .withHeader(ALLOW, String.format("%s, %s, %s", GET, HEAD, OPTIONS))
+//                .withHeader(ALLOW, String.format("%s, %s, %s", GET, HEAD, OPTIONS))
                 .build();
     }
 }
