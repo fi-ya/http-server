@@ -12,7 +12,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
-    private final int portNumber;
+    public static int portNumber = 5000;
 
     public Server(int portNumber) {
         this.portNumber = portNumber;
