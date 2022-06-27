@@ -7,6 +7,7 @@ import org.httpserver.server.HttpMethod;
 
 import java.util.List;
 
+import static org.httpserver.response.ResponseHeaderMaker.*;
 import static org.httpserver.response.StatusCode.OK;
 import static org.httpserver.server.HttpMethod.GET;
 
@@ -22,8 +23,8 @@ public class HtmlHandler implements Handler {
 
         return new ResponseBuilder()
                 .withStatusCode(OK)
-//                .withHeader(CONTENT_TYPE, ContentType.HTML.getValue())
-//                .withHeader(CONTENT_LENGTH, contentLengthHeaderValue(body))
+                .withHeader(htmlTextHeader())
+                .withHeader(contentLengthHeader(body))
                 .withBody(body)
                 .build();
     }

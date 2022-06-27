@@ -61,4 +61,15 @@ class ResponseHeaderMakerTest {
         assertEquals(expectedHeader[0], actualHeader[0]);
         assertEquals(expectedHeader[1], actualHeader[1]);
     }
+
+    @Test
+    void returnsHtmlTextHeaderStringArray(){
+
+        String[] expectedHeader = new String[] {"Content-Type", "text/html;charset=utf-8"};
+
+        String [] actualHeader = ResponseHeaderMaker.htmlTextHeader();
+
+        assertEquals(expectedHeader[0], actualHeader[0]);
+        assertEquals(expectedHeader[1], actualHeader[1]);
+    }
 }
