@@ -8,6 +8,8 @@ import org.httpserver.server.HttpMethod;
 
 import java.util.List;
 
+import static org.httpserver.response.ResponseHeaderMaker.contentLengthHeaderValue;
+import static org.httpserver.response.ResponseHeaderName.CONTENT_LENGTH;
 import static org.httpserver.response.ResponseHeaderName.CONTENT_TYPE;
 import static org.httpserver.response.StatusCode.OK;
 import static org.httpserver.server.HttpMethod.GET;
@@ -18,10 +20,13 @@ public class TextHandler implements Handler {
     }
 
     public Response handleResponse(Request request) {
+        String body = "text response";
+
         return new ResponseBuilder()
                 .withStatusCode(OK)
                 .withHeader(CONTENT_TYPE, ContentType.TEXT.getValue())
-                .withBody("text response")
+                .withHeader(CONTENT_LENGTH, contentLengthHeaderValue(body))
+                .withBody(body)
                 .build();
     }
 }

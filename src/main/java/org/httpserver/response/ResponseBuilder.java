@@ -1,5 +1,6 @@
 package org.httpserver.response;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -53,4 +54,6 @@ public class ResponseBuilder {
     private String handleBody() {
         return Objects.equals(body, "") ? "" : body;
     }
+
+    private String bodyLength(){ return String.valueOf(body.length());}
 }
