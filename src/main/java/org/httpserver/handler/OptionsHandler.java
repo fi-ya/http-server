@@ -12,11 +12,13 @@ import static org.httpserver.response.StatusCode.OK;
 import static org.httpserver.server.HttpMethod.*;
 
 public class OptionsHandler implements Handler {
+    @Override
     public List<HttpMethod> allowedHttpMethods() {
         return List.of(GET, HEAD, OPTIONS);
     }
 
 
+    @Override
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(OK)

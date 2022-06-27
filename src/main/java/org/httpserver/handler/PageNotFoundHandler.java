@@ -11,10 +11,12 @@ import static org.httpserver.response.StatusCode.NOT_FOUND;
 import static org.httpserver.server.HttpMethod.GET;
 
 public class PageNotFoundHandler implements Handler {
+    @Override
     public List<HttpMethod> allowedHttpMethods() {
         return List.of(GET);
     }
 
+    @Override
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(NOT_FOUND)

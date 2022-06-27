@@ -7,10 +7,9 @@ import org.httpserver.server.HttpMethod;
 
 import java.util.List;
 
-import static org.httpserver.response.ResponseHeaderName.ALLOW;
 import static org.httpserver.response.ResponseHeaderName.LOCATION;
 import static org.httpserver.response.StatusCode.MOVED_PERMANENTLY;
-import static org.httpserver.server.HttpMethod.*;
+import static org.httpserver.server.HttpMethod.GET;
 
 public class RedirectHandler implements Handler {
     @Override
@@ -18,6 +17,7 @@ public class RedirectHandler implements Handler {
         return List.of(GET);
     }
 
+    @Override
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(MOVED_PERMANENTLY)
