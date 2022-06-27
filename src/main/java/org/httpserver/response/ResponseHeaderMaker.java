@@ -25,4 +25,7 @@ public class ResponseHeaderMaker {
         return new String[] {ResponseHeaderName.ALLOW, String.valueOf(finalAllowedHeaders)};
     }
 
+    public static String[] locationHeader(String newLocation) {
+        return new String[] {ResponseHeaderName.LOCATION, newLocation};
+    }
 }

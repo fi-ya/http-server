@@ -51,4 +51,14 @@ class ResponseHeaderMakerTest {
         assertEquals(expectedHeader[0], actualHeader[0]);
         assertEquals(expectedHeader[1], actualHeader[1]);
     }
+
+    @Test
+    void returnsLocationHeader(){
+        String[] expectedHeader = new String[] {"Location", "http://127.0.0.1:5000/simple_get"};
+
+        String[] actualHeader = ResponseHeaderMaker.locationHeader("http://127.0.0.1:5000/simple_get");
+
+        assertEquals(expectedHeader[0], actualHeader[0]);
+        assertEquals(expectedHeader[1], actualHeader[1]);
+    }
 }
