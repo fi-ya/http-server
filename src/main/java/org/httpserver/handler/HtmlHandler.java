@@ -1,6 +1,7 @@
 package org.httpserver.handler;
 
 import org.httpserver.request.Request;
+import org.httpserver.response.Body;
 import org.httpserver.response.Response;
 import org.httpserver.response.ResponseBuilder;
 import org.httpserver.server.HttpMethod;
@@ -19,13 +20,11 @@ public class HtmlHandler implements Handler {
 
     @Override
     public Response handleResponse(Request request) {
-        String body = "<html><body><p>HTML Response</p></body></html>";
-
         return new ResponseBuilder()
                 .withStatusCode(OK)
                 .withHeader(htmlTextHeader())
-                .withHeader(contentLengthHeader(body))
-                .withBody(body)
+                .withHeader(contentLengthHeader(Body.html_response_body()))
+                .withBody(Body.html_response_body())
                 .build();
     }
 }
