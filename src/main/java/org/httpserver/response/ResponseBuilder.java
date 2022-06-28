@@ -8,20 +8,18 @@ import static org.httpserver.Constant.CRLF;
 import static org.httpserver.Constant.HTTP_VERSION_NUMBER;
 
 public class ResponseBuilder {
-    private String httpVersion = HTTP_VERSION_NUMBER;
+    private final String httpVersion = HTTP_VERSION_NUMBER;
     private StatusCode statusCode;
-
     private final HashMap<String, String> headers = new HashMap<>();
     private String body = "";
-    private HashMap<String, String> headerMap;
 
     public ResponseBuilder withStatusCode(StatusCode statusCode) {
         this.statusCode = statusCode;
         return this;
     }
 
-    public ResponseBuilder withHeader(String headerName, String headerValue) {
-        headers.put(headerName, headerValue);
+    public ResponseBuilder withHeader(String[] headerElements) {
+        headers.put(headerElements[0], headerElements[1]);
         return this;
     }
 
@@ -55,4 +53,5 @@ public class ResponseBuilder {
     private String handleBody() {
         return Objects.equals(body, "") ? "" : body;
     }
+
 }
