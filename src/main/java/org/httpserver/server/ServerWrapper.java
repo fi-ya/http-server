@@ -1,10 +1,15 @@
 package org.httpserver.server;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Date;
 
 public class ServerWrapper {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServerWrapper.class);
     private final ServerLogger serverLogger;
 
     public ServerWrapper(ServerLogger serverLogger) {
@@ -15,10 +20,12 @@ public class ServerWrapper {
         ServerSocket serverSocket = null;
         try {
             serverSocket = new ServerSocket(portNumber);
-            serverLogger.listeningForClientRequest(portNumber);
+            LOGGER.info("[+] Server socket connection created. Listening on port " + portNumber);
+//            serverLogger.listeningForClientRequest(portNumber);
         } catch (IOException ioException) {
             ioException.printStackTrace();
-            serverLogger.printFailedToCreateServerSocket(portNumber);
+            LOGGER.error("[-] Server connection failed, cannot listen for client request on port " + portNumber);
+//            serverLogger.printFailedToCreateServerSocket(portNumber);
             System.exit(1);
         }
         return serverSocket;
@@ -28,10 +35,12 @@ public class ServerWrapper {
         Socket clientSocket = null;
         try {
             clientSocket = serverSocket.accept();
-            serverLogger.printConnectedClientSocket(clientSocket.getPort());
+            LOGGER.info("[+] Client connection successful: new client socket port number is " + clientSocket.getPort());
+//            serverLogger.printConnectedClientSocket(clientSocket.getPort());
         } catch (IOException ioException) {
             ioException.printStackTrace();
-            serverLogger.printFailedClientSocketConnection();
+            LOGGER.error("[-] Connection unsuccessful: Server failed to accept client connection");
+//            serverLogger.printFailedClientSocketConnection();
         }
         return clientSocket;
     }

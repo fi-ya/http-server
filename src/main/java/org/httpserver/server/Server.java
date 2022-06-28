@@ -23,8 +23,6 @@ public class Server {
     }
 
     public void start() throws IOException {
-        LOGGER.info("This is an INFO level log message!");
-        LOGGER.error("This is an ERROR level log message!");
         StdOutServerLogger serverLogger = new StdOutServerLogger();
 
         ServerWrapper serverWrapper = new ServerWrapper(serverLogger);
@@ -44,7 +42,9 @@ public class Server {
 
             Router router = new Router();
             Handler handler = router.getHandler(request);
-            serverLogger.printHandlerBuildingResponse(handler);
+
+            LOGGER.info("[+] " + handler.getClass().getSimpleName() + ": building a response");
+//            serverLogger.printHandlerBuildingResponse(handler);
 
             Response response = handler.handleResponse(request);
 
