@@ -1,8 +1,8 @@
 package org.httpserver.response;
 
+import org.httpserver.App;
 import org.httpserver.server.HttpMethod;
-
-import static org.httpserver.server.Server.portNumber;
+import org.httpserver.server.Server;
 
 public class ResponseHeaderMaker {
 
@@ -36,6 +36,6 @@ public class ResponseHeaderMaker {
     }
 
     private static String newLocationAddress(String url) {
-        return "http://" + localIPAddress + ":" + portNumber + url;
+        return "http://" + localIPAddress + ":" + Server.portNumber + url;
     }
 }
