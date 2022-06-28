@@ -1,7 +1,6 @@
 package org.httpserver.handler;
 
 import org.httpserver.request.Request;
-import org.httpserver.response.BodyConstants;
 import org.httpserver.response.Response;
 import org.httpserver.response.ResponseBuilder;
 import org.httpserver.server.HttpMethod;

@@ -7,7 +7,7 @@ import org.httpserver.server.HttpMethod;
 
 import java.util.List;
 
-import static org.httpserver.response.BodyConstants.simple_get_body;
+import static org.httpserver.response.TextConstants.helloWorld;
 import static org.httpserver.response.ResponseHeaderMaker.contentLengthHeader;
 import static org.httpserver.response.ResponseHeaderMaker.plainTextHeader;
 import static org.httpserver.response.StatusCode.OK;
@@ -25,8 +25,8 @@ public class SimpleGetWithBodyHandler implements Handler {
         ResponseBuilder responseBuilder = new ResponseBuilder()
                 .withStatusCode(OK)
                 .withHeader(plainTextHeader())
-                .withHeader(contentLengthHeader(simple_get_body));
+                .withHeader(contentLengthHeader(helloWorld));
 
-        return (request.getHttpMethod() == HEAD) ? responseBuilder.build() : responseBuilder.withBody(simple_get_body).build();
+        return (request.getHttpMethod() == HEAD) ? responseBuilder.build() : responseBuilder.withBody(helloWorld).build();
     }
 }
