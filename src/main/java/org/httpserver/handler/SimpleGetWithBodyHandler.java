@@ -1,16 +1,15 @@
 package org.httpserver.handler;
 
 import org.httpserver.request.Request;
-import org.httpserver.response.ContentType;
 import org.httpserver.response.Response;
 import org.httpserver.response.ResponseBuilder;
-import org.httpserver.response.ResponseHeaderName;
 import org.httpserver.server.HttpMethod;
 
 import java.util.List;
 
-import static org.httpserver.response.ResponseHeaderName.CONTENT_LENGTH;
-import static org.httpserver.response.ResponseHeaderName.CONTENT_TYPE;
+import static org.httpserver.response.TextConstants.helloWorld;
+import static org.httpserver.response.ResponseHeaderMaker.contentLengthHeader;
+import static org.httpserver.response.ResponseHeaderMaker.plainTextHeader;
 import static org.httpserver.response.StatusCode.OK;
 import static org.httpserver.server.HttpMethod.GET;
 import static org.httpserver.server.HttpMethod.HEAD;
@@ -22,13 +21,12 @@ public class SimpleGetWithBodyHandler implements Handler {
     }
 
     public Response handleResponse(Request request) {
-        String body = "Hello world";
 
-        ResponseBuilder responseBuilder =  new ResponseBuilder()
+        ResponseBuilder responseBuilder = new ResponseBuilder()
                 .withStatusCode(OK)
-                .withHeader(CONTENT_TYPE, ContentType.TEXT.getValue())
-                .withHeader(CONTENT_LENGTH, String.valueOf(body.length()));
+                .withHeader(plainTextHeader())
+                .withHeader(contentLengthHeader(helloWorld));
 
-        return (request.getHttpMethod() == HEAD) ? responseBuilder.build() : responseBuilder.withBody(body).build();
+        return (request.getHttpMethod() == HEAD) ? responseBuilder.build() : responseBuilder.withBody(helloWorld).build();
     }
 }

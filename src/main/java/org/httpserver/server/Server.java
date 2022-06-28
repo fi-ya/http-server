@@ -6,14 +6,13 @@ import org.httpserver.request.Request;
 import org.httpserver.request.RequestParser;
 import org.httpserver.response.Response;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
-    private final int portNumber;
+    public static int portNumber = 5000;
 
     public Server(int portNumber) {
         this.portNumber = portNumber;

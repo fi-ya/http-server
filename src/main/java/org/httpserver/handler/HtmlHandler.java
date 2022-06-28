@@ -1,15 +1,16 @@
 package org.httpserver.handler;
 
 import org.httpserver.request.Request;
-import org.httpserver.response.ContentType;
 import org.httpserver.response.Response;
 import org.httpserver.response.ResponseBuilder;
 import org.httpserver.server.HttpMethod;
 
 import java.util.List;
 
-import static org.httpserver.response.ResponseHeaderName.CONTENT_TYPE;
+import static org.httpserver.response.ResponseHeaderMaker.contentLengthHeader;
+import static org.httpserver.response.ResponseHeaderMaker.htmlTextHeader;
 import static org.httpserver.response.StatusCode.OK;
+import static org.httpserver.response.TextConstants.htmlResponse;
 import static org.httpserver.server.HttpMethod.GET;
 
 public class HtmlHandler implements Handler {
@@ -22,8 +23,9 @@ public class HtmlHandler implements Handler {
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(OK)
-                .withHeader(CONTENT_TYPE, ContentType.HTML.getValue())
-                .withBody("<html><body><p>HTML Response</p></body></html>")
+                .withHeader(htmlTextHeader())
+                .withHeader(contentLengthHeader(htmlResponse))
+                .withBody(htmlResponse)
                 .build();
     }
 }
