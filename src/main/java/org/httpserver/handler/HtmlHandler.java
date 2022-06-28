@@ -7,9 +7,10 @@ import org.httpserver.server.HttpMethod;
 
 import java.util.List;
 
-import static org.httpserver.response.TextConstants.html_response_body;
-import static org.httpserver.response.ResponseHeaderMaker.*;
+import static org.httpserver.response.ResponseHeaderMaker.contentLengthHeader;
+import static org.httpserver.response.ResponseHeaderMaker.htmlTextHeader;
 import static org.httpserver.response.StatusCode.OK;
+import static org.httpserver.response.TextConstants.htmlResponse;
 import static org.httpserver.server.HttpMethod.GET;
 
 public class HtmlHandler implements Handler {
@@ -23,8 +24,8 @@ public class HtmlHandler implements Handler {
         return new ResponseBuilder()
                 .withStatusCode(OK)
                 .withHeader(htmlTextHeader())
-                .withHeader(contentLengthHeader(html_response_body))
-                .withBody(html_response_body)
+                .withHeader(contentLengthHeader(htmlResponse))
+                .withBody(htmlResponse)
                 .build();
     }
 }
