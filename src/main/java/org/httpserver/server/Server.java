@@ -6,20 +6,25 @@ import org.httpserver.request.Request;
 import org.httpserver.request.RequestParser;
 import org.httpserver.response.Response;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Server {
     private final int portNumber;
+    private static final Logger LOGGER = LoggerFactory.getLogger(Server.class);
 
     public Server(int portNumber) {
         this.portNumber = portNumber;
     }
 
     public void start() throws IOException {
+        LOGGER.info("This is an INFO level log message!");
+        LOGGER.error("This is an ERROR level log message!");
         StdOutServerLogger serverLogger = new StdOutServerLogger();
 
         ServerWrapper serverWrapper = new ServerWrapper(serverLogger);
