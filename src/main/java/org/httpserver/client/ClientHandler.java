@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ClientHandler {
-    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private final Socket clientSocket;
     public int clientConnectionCounter;
     PrintWriter clientResponseWriter;
@@ -25,14 +25,14 @@ public class ClientHandler {
 
     public void updateClientConnectionLogger() {
         clientConnectionCounter++;
-        LOGGER.info("Number of clients connected: " + clientConnectionCounter);
-        LOGGER.info("Reading client request");
+        logger.info("Number of clients connected: " + clientConnectionCounter);
+        logger.info("Reading client request");
     }
 
 
     public void processSendResponse(Response response) throws IOException {
         clientResponseWriter = createClientResponseWriter();
-        LOGGER.info("Sending client response");
+        logger.info("Sending client response");
         sendResponse(response, clientResponseWriter);
     }
 
@@ -42,14 +42,14 @@ public class ClientHandler {
 
     public void sendResponse(Response response, PrintWriter clientResponseWriter) {
         clientResponseWriter.write(response.stringFormatResponse());
-        LOGGER.info("\n[+] Response start: \n" + response.stringFormatResponse() + "\n[+] Response end");
+        logger.info("\nResponse start: \n" + response.stringFormatResponse() + "\nResponse end");
         clientResponseWriter.close();
     }
 
     public void closeClientConnection() throws IOException {
         clientSocket.close();
-        LOGGER.info("Client request reader, response writer & socket closed on port number: " + clientSocket.getPort());
+        logger.info("Client request reader, response writer & socket closed on port number: " + clientSocket.getPort());
         clientConnectionCounter--;
-        LOGGER.info("Number of clients connected: " + clientConnectionCounter);
+        logger.info("Number of clients connected: " + clientConnectionCounter);
     }
 }
