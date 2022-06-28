@@ -1,14 +1,13 @@
 package org.httpserver.handler;
 
 import org.httpserver.request.Request;
-import org.httpserver.response.BodyConstants;
 import org.httpserver.response.Response;
 import org.httpserver.response.ResponseBuilder;
 import org.httpserver.server.HttpMethod;
 
 import java.util.List;
 
-import static org.httpserver.response.BodyConstants.text_response_body;
+import static org.httpserver.response.TextConstants.textResponse;
 import static org.httpserver.response.ResponseHeaderMaker.contentLengthHeader;
 import static org.httpserver.response.ResponseHeaderMaker.plainTextHeader;
 import static org.httpserver.response.StatusCode.OK;
@@ -23,8 +22,8 @@ public class TextHandler implements Handler {
         return new ResponseBuilder()
                 .withStatusCode(OK)
                 .withHeader(plainTextHeader())
-                .withHeader(contentLengthHeader(text_response_body))
-                .withBody(text_response_body)
+                .withHeader(contentLengthHeader(textResponse))
+                .withBody(textResponse)
                 .build();
     }
 }
