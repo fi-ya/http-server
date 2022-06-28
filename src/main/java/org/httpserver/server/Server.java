@@ -14,7 +14,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
-
     public static int portNumber = 5000;
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
