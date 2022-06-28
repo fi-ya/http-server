@@ -15,7 +15,7 @@ import java.net.Socket;
 
 public class Server {
     private final int portNumber;
-    private static final Logger LOGGER = LoggerFactory.getLogger(Server.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     public Server(int portNumber) {
         this.portNumber = portNumber;
@@ -40,7 +40,7 @@ public class Server {
             Router router = new Router();
             Handler handler = router.getHandler(request);
 
-            LOGGER.info("[+] " + handler.getClass().getSimpleName() + ": building a response");
+            LOGGER.info(handler.getClass().getSimpleName() + ": building a response");
 
             Response response = handler.handleResponse(request);
 

@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ClientHandler {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ClientHandler.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
     private final Socket clientSocket;
     public int clientConnectionCounter;
     PrintWriter clientResponseWriter;
@@ -25,14 +25,14 @@ public class ClientHandler {
 
     public void updateClientConnectionLogger() {
         clientConnectionCounter++;
-        LOGGER.info("[+] Number of clients connected: " + clientConnectionCounter);
-        LOGGER.info("[+] Reading client request");
+        LOGGER.info("Number of clients connected: " + clientConnectionCounter);
+        LOGGER.info("Reading client request");
     }
 
 
     public void processSendResponse(Response response) throws IOException {
         clientResponseWriter = createClientResponseWriter();
-        LOGGER.info("[+] Sending client response");
+        LOGGER.info("Sending client response");
         sendResponse(response, clientResponseWriter);
     }
 
@@ -42,14 +42,14 @@ public class ClientHandler {
 
     public void sendResponse(Response response, PrintWriter clientResponseWriter) {
         clientResponseWriter.write(response.stringFormatResponse());
-        LOGGER.info("[+] Response start: \n" + response.stringFormatResponse() + "[+] Response end");
+        LOGGER.info("\n[+] Response start: \n" + response.stringFormatResponse() + "\n[+] Response end");
         clientResponseWriter.close();
     }
 
     public void closeClientConnection() throws IOException {
         clientSocket.close();
-        LOGGER.info("[+] Client request reader, response writer & socket closed on port number: " + clientSocket.getPort());
+        LOGGER.info("Client request reader, response writer & socket closed on port number: " + clientSocket.getPort());
         clientConnectionCounter--;
-        LOGGER.info("[+] Number of clients connected: " + clientConnectionCounter);
+        LOGGER.info("Number of clients connected: " + clientConnectionCounter);
     }
 }
