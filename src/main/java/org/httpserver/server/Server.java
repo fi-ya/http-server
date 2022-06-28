@@ -5,14 +5,13 @@ import org.httpserver.handler.Handler;
 import org.httpserver.request.Request;
 import org.httpserver.request.RequestParser;
 import org.httpserver.response.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class Server {
     private final int portNumber;
@@ -23,16 +22,14 @@ public class Server {
     }
 
     public void start() throws IOException {
-        StdOutServerLogger serverLogger = new StdOutServerLogger();
-
-        ServerWrapper serverWrapper = new ServerWrapper(serverLogger);
+        ServerWrapper serverWrapper = new ServerWrapper();
         ServerSocket serverSocket = serverWrapper.createServerSocket(portNumber);
 
         while (!serverSocket.isClosed()) {
 
             Socket clientSocket = serverWrapper.createClientSocket(serverSocket);
 
-            ClientHandler clientHandler = new ClientHandler(clientSocket, serverLogger);
+            ClientHandler clientHandler = new ClientHandler(clientSocket);
             InputStream clientRequestInputStream = clientHandler.clientRequestInputStream();
             clientHandler.updateClientConnectionLogger();
 
@@ -44,7 +41,6 @@ public class Server {
             Handler handler = router.getHandler(request);
 
             LOGGER.info("[+] " + handler.getClass().getSimpleName() + ": building a response");
-//            serverLogger.printHandlerBuildingResponse(handler);
 
             Response response = handler.handleResponse(request);
 

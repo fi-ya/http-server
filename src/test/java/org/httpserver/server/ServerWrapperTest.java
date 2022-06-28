@@ -14,26 +14,23 @@ class ServerWrapperTest {
 
     @Test
     void serverSocketOpensConnectionOnPort5000() throws IOException {
-        StdOutServerLogger serverLogger = new StdOutServerLogger();
-        ServerWrapper serverWrapper = new ServerWrapper(serverLogger);
+        ServerWrapper serverWrapper = new ServerWrapper();
 
-        ServerSocket newServerSocket =  serverWrapper.createServerSocket(5000);
+        ServerSocket newServerSocket = serverWrapper.createServerSocket(5000);
 
         assertNotNull(newServerSocket);
     }
 
     @Test
     void serverSocketFailsToConnectToInvalidPort() throws IOException {
-        StdOutServerLogger serverLogger = new StdOutServerLogger();
-        ServerWrapper serverWrapper = new ServerWrapper(serverLogger);
+        ServerWrapper serverWrapper = new ServerWrapper();
 
         assertThrows(IllegalArgumentException.class, () -> serverWrapper.createServerSocket(-1));
     }
 
     @Test
     void clientSocketConnectsToServerSocket() throws IOException {
-        StdOutServerLogger serverLogger = new StdOutServerLogger();
-        ServerWrapper serverWrapper = new ServerWrapper(serverLogger);
+        ServerWrapper serverWrapper = new ServerWrapper();
         ServerSocket mockServerSocket = mock(ServerSocket.class);
         Socket mockClientSocket = mock(Socket.class);
         when(mockServerSocket.accept()).thenReturn(mockClientSocket);
@@ -41,18 +38,6 @@ class ServerWrapperTest {
         serverWrapper.createClientSocket(mockServerSocket);
 
         verify(mockServerSocket, times(1)).accept();
-    }
-
-    @Test
-    void clientSocketFailedToConnectToClientSocket() throws IOException {
-        StdOutServerLogger mockServerLogger = mock(StdOutServerLogger.class);
-        ServerWrapper serverWrapper = new ServerWrapper(mockServerLogger);
-        ServerSocket mockServerSocket = mock(ServerSocket.class);
-        when(mockServerSocket.accept()).thenThrow(IOException.class);
-
-        serverWrapper.createClientSocket(mockServerSocket);
-
-        verify(mockServerLogger, times(1)).printFailedClientSocketConnection();
     }
 
 }
