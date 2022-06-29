@@ -38,4 +38,24 @@ public class ResponseHeaderMaker {
     private static String newLocationAddress(String url) {
         return "http://" + localIPAddress + ":" + Server.portNumber + url;
     }
+
+    public static String[] imageHeader(String type){
+        return switch (type) {
+            case "jpg" -> imageJpgHeader();
+            case "png" -> imagePngHeader();
+            case "gif" -> imageGifHeader();
+            default -> new String[0];
+        };
+    }
+
+    public static String[] imageJpgHeader() {
+        return new String[]{ResponseHeaderName.CONTENT_TYPE, ContentType.JPG.getValue()};
+    }
+
+    public static String[] imagePngHeader() {
+        return new String[]{ResponseHeaderName.CONTENT_TYPE, ContentType.PNG.getValue()};
+    }
+    public static String[] imageGifHeader() {
+        return new String[]{ResponseHeaderName.CONTENT_TYPE, ContentType.GIF.getValue()};
+    }
 }
