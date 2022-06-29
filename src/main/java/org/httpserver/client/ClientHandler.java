@@ -1,7 +1,8 @@
 package org.httpserver.client;
 
 import org.httpserver.response.Response;
-import org.httpserver.server.ServerLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,16 +10,13 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ClientHandler {
-
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private final Socket clientSocket;
-    private final ServerLogger serverLogger;
-
     public int clientConnectionCounter;
     PrintWriter clientResponseWriter;
 
-    public ClientHandler(Socket clientSocket, ServerLogger serverLogger) {
+    public ClientHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
-        this.serverLogger = serverLogger;
     }
 
     public InputStream clientRequestInputStream() throws IOException {
@@ -27,14 +25,14 @@ public class ClientHandler {
 
     public void updateClientConnectionLogger() {
         clientConnectionCounter++;
-        serverLogger.printNumberOfClientsConnected(clientConnectionCounter);
-        serverLogger.printReadingClientRequest();
+        logger.info("Number of clients connected: " + clientConnectionCounter);
+        logger.info("Reading client request");
     }
 
 
     public void processSendResponse(Response response) throws IOException {
         clientResponseWriter = createClientResponseWriter();
-        serverLogger.printSendingClientResponse();
+        logger.info("Sending client response");
         sendResponse(response, clientResponseWriter);
     }
 
@@ -44,14 +42,13 @@ public class ClientHandler {
 
     public void sendResponse(Response response, PrintWriter clientResponseWriter) {
         clientResponseWriter.write(response.stringFormatResponse());
-        serverLogger.printResponse(response.stringFormatResponse());
         clientResponseWriter.close();
     }
 
     public void closeClientConnection() throws IOException {
         clientSocket.close();
-        serverLogger.printClosedClientConnection(clientSocket.getPort());
+        logger.info("Client request reader, response writer & socket closed on port number: " + clientSocket.getPort());
         clientConnectionCounter--;
-        serverLogger.printNumberOfClientsConnected(clientConnectionCounter);
+        logger.info("Number of clients connected: " + clientConnectionCounter);
     }
 }
