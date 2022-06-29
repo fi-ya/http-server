@@ -42,7 +42,6 @@ public class ClientHandler {
 
     public void sendResponse(Response response, PrintWriter clientResponseWriter) {
         clientResponseWriter.write(response.stringFormatResponse());
-        logger.info("\nResponse start: \n" + response.stringFormatResponse() + "\nResponse end");
         clientResponseWriter.close();
     }
 
