@@ -41,7 +41,6 @@ public class ClientHandler {
     }
 
     public void sendResponse(Response response, PrintWriter clientResponseWriter) {
-
         clientResponseWriter.write(response.stringFormatResponse());
         clientResponseWriter.close();
     }
