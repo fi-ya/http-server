@@ -27,6 +27,8 @@ public class Router {
             put("/html_response", new HtmlHandler());
             put("/health-check.html", new HealthCheckHandler());
             put("/kitteh.jpg", new ImagesHandler());
+            put("/doggo.png", new ImagesHandler());
+            put("/kisses.gif", new ImagesHandler());
         }};
     }
 
