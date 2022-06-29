@@ -5,15 +5,12 @@ import org.httpserver.request.RequestLine;
 import org.httpserver.response.Response;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.IOException;
 import java.util.LinkedHashMap;
 
 import static org.httpserver.server.HttpMethod.GET;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HealthCheckHandlerTest {
 
