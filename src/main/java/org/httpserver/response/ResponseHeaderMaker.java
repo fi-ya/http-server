@@ -49,7 +49,7 @@ public class ResponseHeaderMaker {
     }
 
     public static String[] imageJpgHeader() {
-        return new String[]{ResponseHeaderName.CONTENT_TYPE, ContentType.JPG.getValue()};
+        return new String[]{ResponseHeaderName.CONTENT_TYPE, ContentType.JPEG.getValue()};
     }
 
     public static String[] imagePngHeader() {

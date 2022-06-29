@@ -30,8 +30,7 @@ class ImagesHandlerTest {
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().contains("Content-Type"));
-        assertTrue(actualResponse.getResponseHeaders().contains("image/jpg"));
-//        assertTrue(actualResponse.getResponseBody().contains("<strong>Status:</strong> pass"));
+        assertTrue(actualResponse.getResponseHeaders().contains("image/jpeg"));
     }
 
     @Test
@@ -44,7 +43,6 @@ class ImagesHandlerTest {
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().contains("Content-Type"));
         assertTrue(actualResponse.getResponseHeaders().contains("image/png"));
-//        assertTrue(actualResponse.getResponseBody().contains("<strong>Status:</strong> pass"));
     }
 
     @Test
@@ -57,6 +55,5 @@ class ImagesHandlerTest {
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().contains("Content-Type"));
         assertTrue(actualResponse.getResponseHeaders().contains("image/gif"));
-//        assertTrue(actualResponse.getResponseBody().contains("<strong>Status:</strong> pass"));
     }
 }

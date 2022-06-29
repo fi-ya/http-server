@@ -1,5 +1,6 @@
 package org.httpserver.response;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -12,6 +13,8 @@ public class ResponseBuilder {
     private StatusCode statusCode;
     private final HashMap<String, String> headers = new HashMap<>();
     private String body = "";
+
+    private byte[] bodyByte;
 
     public ResponseBuilder withStatusCode(StatusCode statusCode) {
         this.statusCode = statusCode;
@@ -28,6 +31,10 @@ public class ResponseBuilder {
         return this;
     }
 
+    public ResponseBuilder withBodyByte(byte[] bodyByte) {
+        this.bodyByte = bodyByte;
+        return this;
+    }
     public Response build() {
         return new Response(handleStatusLine(), handleHeaders(), handleBody());
     }

@@ -52,6 +52,4 @@ public class Server {
             clientHandler.closeClientConnection();
         }
     }
-
-
 }
