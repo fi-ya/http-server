@@ -115,7 +115,7 @@ class RouterTest {
     }
 
     @Test
-    void returnHtmlHandler_whenHtmlResponseRoute(){
+    void returnHtmlHandler_whenHtmlResponseRoute() {
         mockRequestLine = new RequestLine(GET, "/html_response", "HTTP/1.1");
 
         Handler actualHandler = getActualHandler();
@@ -124,7 +124,7 @@ class RouterTest {
     }
 
     @Test
-    void returnHealthCheckHandler_whenHealthCheckHtmlRoute(){
+    void returnHealthCheckHandler_whenHealthCheckHtmlRoute() {
         mockRequestLine = new RequestLine(GET, "/health-check.html", "HTTP/1.1");
 
         Handler actualHandler = getActualHandler();
@@ -133,7 +133,7 @@ class RouterTest {
     }
 
     @Test
-    void returnImagesHandler_whenKittehJpgRoute(){
+    void returnImagesHandler_whenKittehJpgRoute() {
         mockRequestLine = new RequestLine(GET, "/kitteh.jpg", "HTTP/1.1");
 
         Handler actualHandler = getActualHandler();
@@ -142,7 +142,7 @@ class RouterTest {
     }
 
     @Test
-    void returnImagesHandler_whenDoggoPngRoute(){
+    void returnImagesHandler_whenDoggoPngRoute() {
         mockRequestLine = new RequestLine(GET, "/doggo.png", "HTTP/1.1");
 
         Handler actualHandler = getActualHandler();
@@ -151,13 +151,14 @@ class RouterTest {
     }
 
     @Test
-    void returnImagesHandler_whenKissesGifRoute(){
+    void returnImagesHandler_whenKissesGifRoute() {
         mockRequestLine = new RequestLine(GET, "/kisses.gif", "HTTP/1.1");
 
         Handler actualHandler = getActualHandler();
 
         assertEquals(ImagesHandler.class, actualHandler.getClass());
     }
+
     private Handler getActualHandler() {
         Request requestMock = new Request(mockRequestLine, requestHeadersStub, requestBodyStub);
         Router router = new Router();
