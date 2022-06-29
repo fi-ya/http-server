@@ -132,6 +132,15 @@ class RouterTest {
         assertEquals(HealthCheckHandler.class, actualHandler.getClass());
     }
 
+    @Test
+    void returnImagesHandler_whenKittehJpgRoute(){
+        mockRequestLine = new RequestLine(GET, "/kitteh.jpg", "HTTP/1.1");
+
+        Handler actualHandler = getActualHandler();
+
+        assertEquals(ImagesHandler.class, actualHandler.getClass());
+    }
+
     private Handler getActualHandler() {
         Request requestMock = new Request(mockRequestLine, requestHeadersStub, requestBodyStub);
         Router router = new Router();
