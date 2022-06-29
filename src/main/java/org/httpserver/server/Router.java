@@ -25,6 +25,7 @@ public class Router {
             put("/redirect", new RedirectHandler());
             put("/text_response", new TextHandler());
             put("/html_response", new HtmlHandler());
+            put("/health-check.html", new HealthCheckHandler());
         }};
     }
 
