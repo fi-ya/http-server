@@ -141,6 +141,23 @@ class RouterTest {
         assertEquals(ImagesHandler.class, actualHandler.getClass());
     }
 
+    @Test
+    void returnImagesHandler_whenDoggoPngRoute(){
+        mockRequestLine = new RequestLine(GET, "/doggo.png", "HTTP/1.1");
+
+        Handler actualHandler = getActualHandler();
+
+        assertEquals(ImagesHandler.class, actualHandler.getClass());
+    }
+
+    @Test
+    void returnImagesHandler_whenKissesGifRoute(){
+        mockRequestLine = new RequestLine(GET, "/kisses.gif", "HTTP/1.1");
+
+        Handler actualHandler = getActualHandler();
+
+        assertEquals(ImagesHandler.class, actualHandler.getClass());
+    }
     private Handler getActualHandler() {
         Request requestMock = new Request(mockRequestLine, requestHeadersStub, requestBodyStub);
         Router router = new Router();

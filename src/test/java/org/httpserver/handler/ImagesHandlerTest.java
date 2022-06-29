@@ -34,4 +34,29 @@ class ImagesHandlerTest {
 //        assertTrue(actualResponse.getResponseBody().contains("<strong>Status:</strong> pass"));
     }
 
+    @Test
+    void returnsResponse_withStatusLineAndBody_PngFile() throws IOException {
+        RequestLine mockRequestLine = new RequestLine(GET, "/doggo.png", "HTTP/1.1");
+        ImagesHandler imagesHandler = new ImagesHandler();
+
+        Response actualResponse = imagesHandler.handleResponse(new Request(mockRequestLine, new LinkedHashMap<>(), ""));
+
+        assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
+        assertTrue(actualResponse.getResponseHeaders().contains("Content-Type"));
+        assertTrue(actualResponse.getResponseHeaders().contains("image/png"));
+//        assertTrue(actualResponse.getResponseBody().contains("<strong>Status:</strong> pass"));
+    }
+
+    @Test
+    void returnsResponse_withStatusLineAndBody_GifFile() throws IOException {
+        RequestLine mockRequestLine = new RequestLine(GET, "/kisses.gif", "HTTP/1.1");
+        ImagesHandler imagesHandler = new ImagesHandler();
+
+        Response actualResponse = imagesHandler.handleResponse(new Request(mockRequestLine, new LinkedHashMap<>(), ""));
+
+        assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
+        assertTrue(actualResponse.getResponseHeaders().contains("Content-Type"));
+        assertTrue(actualResponse.getResponseHeaders().contains("image/gif"));
+//        assertTrue(actualResponse.getResponseBody().contains("<strong>Status:</strong> pass"));
+    }
 }
