@@ -16,6 +16,7 @@ import java.net.Socket;
 public class Server {
     public static int portNumber = 5000;
     private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger loggerReqRes = LoggerFactory.getLogger("loggerReqRes");
 
     public Server(int portNumber) {
         this.portNumber = portNumber;
@@ -36,6 +37,7 @@ public class Server {
             RequestParser requestParser = new RequestParser();
 
             Request request = requestParser.parseRequest(clientRequestInputStream);
+            loggerReqRes.info(request.stringFormatRequest());
 
             Router router = new Router();
             Handler handler = router.getHandler(request);
@@ -43,8 +45,10 @@ public class Server {
             logger.info(handler.getClass().getSimpleName() + ": building a response");
 
             Response response = handler.handleResponse(request);
+            loggerReqRes.info(response.stringFormatResponse());
 
             clientHandler.processSendResponse(response);
+
             clientHandler.closeClientConnection();
         }
     }
