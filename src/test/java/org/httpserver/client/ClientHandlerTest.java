@@ -20,7 +20,7 @@ class ClientHandlerTest {
 
         byte[] actualByte = clientHandler.responseStringToBytes(mockResponse);
 
-        byte[] expectedByte = {72, 84, 84, 80, 47, 49, 46, 49, 32, 50, 48, 48, 32, 79, 75};
+        byte[] expectedByte = "HTTP/1.1 200 OK".getBytes();
         assertEquals(Arrays.toString(expectedByte), Arrays.toString(expectedByte));
         assertEquals(expectedByte.length, actualByte.length);
     }
