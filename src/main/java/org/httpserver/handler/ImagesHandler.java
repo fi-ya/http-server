@@ -27,21 +27,19 @@ public class ImagesHandler implements Handler{
     public Response handleResponse(Request request) throws IOException {
         String type = request.getRequestTarget().split("\\.")[1];
         String imageResource = request.getRequestTarget();
-        byte[] bodyByte = getResponseBody(imageResource);
-//        System.out.println("body " + Arrays.toString(bodyByte));
-//        String body = "image/jpeg";
+        String body = getResponseBody(imageResource);
 
         return new ResponseBuilder()
                 .withStatusCode(OK)
                 .withHeader(imageHeader(type))
-                .withHeader(contentLengthHeader(Arrays.toString(bodyByte)))
-                .withBodyByte(bodyByte)
+                .withHeader(contentLengthHeader(body))
+                .withBody(body)
                 .build();
     }
 
-    private byte[] getResponseBody(String imageResource) throws IOException {
+    private String getResponseBody(String imageResource) throws IOException {
         InputStream inputStream = getClass().getResourceAsStream(imageResource);
-        return inputStream.readAllBytes();
+        return Arrays.toString(inputStream.readAllBytes());
     }
 
 }
