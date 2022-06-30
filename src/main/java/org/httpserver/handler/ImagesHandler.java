@@ -41,5 +41,4 @@ public class ImagesHandler implements Handler{
         InputStream inputStream = getClass().getResourceAsStream(imageResource);
         return Arrays.toString(inputStream.readAllBytes());
     }
-
 }
