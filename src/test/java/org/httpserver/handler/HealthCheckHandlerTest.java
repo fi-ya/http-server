@@ -5,6 +5,11 @@ import org.httpserver.request.RequestLine;
 import org.httpserver.response.Response;
 import org.junit.jupiter.api.Test;
 
+import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 
 import static org.httpserver.server.HttpMethod.GET;
@@ -21,7 +26,7 @@ class HealthCheckHandlerTest {
     }
 
     @Test
-    void returnsResponse_withStatusLineAndBody_containingHtmlFile() {
+    void returnsResponse_withStatusLineAndBody_containingHtmlFile() throws IOException {
         RequestLine mockRequestLine = new RequestLine(GET, "/health-check.html", "HTTP/1.1");
         HealthCheckHandler healthCheckHandler = new HealthCheckHandler();
 
@@ -30,6 +35,6 @@ class HealthCheckHandlerTest {
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().contains("Content-Type"));
         assertTrue(actualResponse.getResponseHeaders().contains("text/html;charset=utf-8"));
-        assertEquals("<strong>Status:</strong> pass", actualResponse.getResponseBody());
+        assertTrue(actualResponse.getResponseBody().contains("<strong>Status:</strong> pass"));
     }
 }
