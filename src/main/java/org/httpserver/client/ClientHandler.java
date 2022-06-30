@@ -37,18 +37,21 @@ public class ClientHandler {
 
     public byte[] responseStringToBytes(Response response) throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        outputStream.write(response.setStatusLineBytes());
-        outputStream.write(response.setHeaderBytes());
-        outputStream.write(response.setBodyBytes());
+        outputStream.write(response.statusLineBytes());
+        outputStream.write(response.headerBytes());
+        outputStream.write(response.bodyBytes());
 
         return outputStream.toByteArray();
     }
 
     public void sendResponse(byte[] responseByte) throws IOException {
-        OutputStream clientOutputStream = clientSocket.getOutputStream();
-        clientOutputStream.write(responseByte);
-        clientOutputStream.flush();
-        clientOutputStream.close();
+        try (OutputStream clientOutputStream = clientSocket.getOutputStream();) {
+            clientOutputStream.write(responseByte);
+            clientOutputStream.flush();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+            logger.error("Failed to send response to client");
+        }
     }
 
     public void closeClientConnection() throws IOException {

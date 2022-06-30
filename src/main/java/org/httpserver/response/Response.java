@@ -43,17 +43,17 @@ public class Response {
         return getResponseStatusLine() + getResponseHeaders() + getResponseBody();
     }
 
-    public byte[] setStatusLineBytes() {
+    public byte[] statusLineBytes() {
         statusLineBytes = responseStatusLine.getBytes();
         return statusLineBytes;
     }
 
-    public byte[] setHeaderBytes() {
+    public byte[] headerBytes() {
         headersBytes = responseHeaders.getBytes();
         return headersBytes;
     }
 
-    public byte[] setBodyBytes() {
+    public byte[] bodyBytes() {
         bodyBytes = responseBody.getBytes();
         return bodyBytes;
     }
