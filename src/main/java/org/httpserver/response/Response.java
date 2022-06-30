@@ -1,8 +1,5 @@
 package org.httpserver.response;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
 public class Response {
 
     String responseStatusLine;
