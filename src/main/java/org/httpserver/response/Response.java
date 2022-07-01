@@ -1,5 +1,7 @@
 package org.httpserver.response;
 
+import java.util.Arrays;
+
 public class Response {
 
     String responseStatusLine;
@@ -9,10 +11,15 @@ public class Response {
     byte[] headersBytes;
     byte[] bodyBytes;
 
-    public Response(String responseStatusLine, String responseHeaders, String responseBody) {
+    public Response(String responseStatusLine, String responseHeaders, byte[] bodyBytes) {
         this.responseStatusLine = responseStatusLine;
         this.responseHeaders = responseHeaders;
-        this.responseBody = responseBody;
+        this.bodyBytes = bodyBytes;
+    }
+
+    public String body(byte[] bodyBytes) {
+        this.responseBody = Arrays.toString(bodyBytes);
+        return responseBody;
     }
 
     public String getResponseStatusLine() {
@@ -40,7 +47,7 @@ public class Response {
     }
 
     public String stringFormatResponse() {
-        return getResponseStatusLine() + getResponseHeaders() + getResponseBody();
+        return getResponseStatusLine() + getResponseHeaders() + body(bodyBytes);
     }
 
     public byte[] statusLineBytes() {
@@ -52,7 +59,6 @@ public class Response {
         headersBytes = responseHeaders.getBytes();
         return headersBytes;
     }
-
     public byte[] bodyBytes() {
         bodyBytes = responseBody.getBytes();
         return bodyBytes;

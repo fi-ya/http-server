@@ -26,11 +26,12 @@ public class ImagesHandler implements Handler {
         String type = request.getRequestTarget().split("\\.")[1];
         String imageResource = request.getRequestTarget();
         byte[] bodyByte = getResponseBody(imageResource);
+        String body = Arrays.toString(bodyByte);
 
         return new ResponseBuilder()
                 .withStatusCode(OK)
                 .withHeader(imageHeader(type))
-                .withHeader(contentLengthHeader(Arrays.toString(bodyByte)))
+                .withHeader(contentLengthHeader(body))
                 .withBodyByte(bodyByte)
                 .build();
     }
@@ -39,5 +40,4 @@ public class ImagesHandler implements Handler {
         InputStream inputStream = getClass().getResourceAsStream(imageResource);
         return inputStream.readAllBytes();
     }
-
 }

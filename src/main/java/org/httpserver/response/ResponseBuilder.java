@@ -13,8 +13,7 @@ public class ResponseBuilder {
     private StatusCode statusCode;
     private final HashMap<String, String> headers = new HashMap<>();
     private String body = "";
-
-    private byte[] bodyByte;
+    public byte[] bodyByte;
 
     public ResponseBuilder withStatusCode(StatusCode statusCode) {
         this.statusCode = statusCode;
@@ -58,7 +57,8 @@ public class ResponseBuilder {
         return allHeaders + CRLF;
     }
 
-    private String buildBody() {
-        return Objects.equals(body, "") ? "" : body;
+    private byte[] buildBody() {
+        return bodyByte;
+//        return Objects.equals(bodyByte, "") ? "" : bodyByte;
     }
 }

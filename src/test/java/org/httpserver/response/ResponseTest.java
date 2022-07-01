@@ -16,7 +16,7 @@ class ResponseTest {
     void setup() {
         String responseStatusLine = "HTTP/1.1 200 OK";
         String responseHeaders = "";
-        String requestBody = "";
+        byte[] requestBody = "".getBytes();
 
        actualResponse = new Response(responseStatusLine, responseHeaders, requestBody);
     }
