@@ -32,6 +32,6 @@ class OptionsHandlerTest {
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertEquals("Allow: GET, HEAD, OPTIONS\r\n\r\n", actualResponse.getResponseHeaders());
-        assertTrue(actualResponse.getResponseBody().isEmpty());
+        assertTrue(new String(actualResponse.getBodyBytes()).isEmpty());
     }
 }

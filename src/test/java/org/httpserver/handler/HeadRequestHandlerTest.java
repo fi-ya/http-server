@@ -30,6 +30,6 @@ class HeadRequestHandlerTest {
 
         assertEquals("HTTP/1.1 200 OK\r\n", actual.getResponseStatusLine());
         assertTrue(actual.getResponseHeaders().isBlank());
-        assertTrue(actual.getResponseBody().isEmpty());
+        assertTrue(new String(actual.getBodyBytes()).isEmpty());
     }
 }

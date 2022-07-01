@@ -5,10 +5,8 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class Response {
-
     String responseStatusLine;
     String responseHeaders;
-    String responseBody;
     byte[] statusLineBytes;
     byte[] headersBytes;
     byte[] bodyBytes;
@@ -34,18 +32,6 @@ public class Response {
 
     public String getResponseHeaders() {
         return responseHeaders;
-    }
-
-    public String getResponseBody() {
-        return responseBody;
-    }
-
-    public byte[] getStatusLineBytes() {
-        return statusLineBytes;
-    }
-
-    public byte[] getHeadersBytes() {
-        return headersBytes;
     }
 
     public byte[] getBodyBytes() {

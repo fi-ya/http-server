@@ -32,6 +32,6 @@ class HealthCheckHandlerTest {
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().contains("Content-Type"));
         assertTrue(actualResponse.getResponseHeaders().contains("text/html;charset=utf-8"));
-        assertTrue(actualResponse.getResponseBody().contains("<strong>Status:</strong> pass"));
+        assertTrue(new String(actualResponse.getBodyBytes()).contains("<strong>Status:</strong> pass"));
     }
 }

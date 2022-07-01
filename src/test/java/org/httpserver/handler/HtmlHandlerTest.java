@@ -31,7 +31,7 @@ class HtmlHandlerTest {
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().contains("Content-Type"));
         assertTrue(actualResponse.getResponseHeaders().contains("text/html;charset=utf-8"));
-        assertEquals("<html><body><p>HTML Response</p></body></html>", actualResponse.getResponseBody());
+        assertEquals("<html><body><p>HTML Response</p></body></html>", new String(actualResponse.getBodyBytes()));
     }
 
 
