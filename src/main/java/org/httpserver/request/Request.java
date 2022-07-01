@@ -8,7 +8,6 @@ import java.util.Map;
 import static org.httpserver.Constant.CRLF;
 
 public class Request {
-
     private final HttpMethod httpMethod;
     private final String requestTarget;
     private final String httpVersion;
@@ -60,6 +59,5 @@ public class Request {
     public String stringFormatRequest() {
         return String.format("%s %s %s\n%s%s", getHttpMethod(),getRequestTarget(),getHttpVersion(), headersStringFormat(), getRequestBody());
     }
-
 
 }

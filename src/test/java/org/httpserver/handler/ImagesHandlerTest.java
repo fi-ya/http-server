@@ -9,8 +9,7 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 
 import static org.httpserver.server.HttpMethod.GET;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ImagesHandlerTest {
 
@@ -45,7 +44,7 @@ class ImagesHandlerTest {
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().contains("Content-Type"));
         assertTrue(actualResponse.getResponseHeaders().contains("image/png"));
-        assertTrue(new String(actualResponse.getBodyBytes()).length() > 0);
+        assertFalse(new String(actualResponse.getBodyBytes()).isEmpty());
     }
 
     @Test

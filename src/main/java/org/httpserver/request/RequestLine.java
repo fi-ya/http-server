@@ -3,7 +3,6 @@ package org.httpserver.request;
 import org.httpserver.server.HttpMethod;
 
 public class RequestLine {
-
     private final HttpMethod httpMethod;
     private final String requestTarget;
     private final String httpVersion;

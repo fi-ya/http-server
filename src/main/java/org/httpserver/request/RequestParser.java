@@ -11,7 +11,6 @@ import java.util.LinkedHashMap;
 import static org.httpserver.response.ResponseHeaderName.CONTENT_LENGTH;
 
 public class RequestParser {
-
     public Request parseRequest(InputStream clientRequestInputStream) throws IOException {
         BufferedReader requestReader = new BufferedReader(new InputStreamReader(clientRequestInputStream));
         String requestLineRead = requestReader.readLine();

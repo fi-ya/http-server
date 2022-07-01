@@ -2,7 +2,6 @@ package org.httpserver.response;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
 
 public class Response {
     String responseStatusLine;
@@ -16,6 +15,7 @@ public class Response {
         this.responseHeaders = responseHeaders;
         this.bodyBytes = bodyBytes;
     }
+
     public byte[] statusLineBytes() {
         statusLineBytes = responseStatusLine.getBytes();
         return statusLineBytes;

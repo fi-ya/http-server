@@ -33,7 +33,7 @@ public class ClientHandler {
         sendResponse(response.byteFormatResponse());
     }
 
-    public void sendResponse(byte[] responseByte) throws IOException {
+    private void sendResponse(byte[] responseByte){
         try (OutputStream clientOutputStream = clientSocket.getOutputStream();) {
             clientOutputStream.write(responseByte);
             clientOutputStream.flush();

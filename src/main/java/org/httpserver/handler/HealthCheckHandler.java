@@ -50,6 +50,4 @@ public class HealthCheckHandler implements Handler {
         }
         return htmlStringBuilder.toString().trim();
     }
-
-
 }

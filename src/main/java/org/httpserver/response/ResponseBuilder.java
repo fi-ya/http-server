@@ -10,7 +10,6 @@ public class ResponseBuilder {
     private final String httpVersion = HTTP_VERSION_NUMBER;
     private StatusCode statusCode;
     private final HashMap<String, String> headers = new HashMap<>();
-//    private String bodyString = "";
     public byte[] bodyByte = "".getBytes();
 
     public ResponseBuilder withStatusCode(StatusCode statusCode) {
@@ -23,24 +22,10 @@ public class ResponseBuilder {
         return this;
     }
 
-//    public ResponseBuilder withBody(String body) {
-//        this.body = body;
-//        return this;
-//    }
-
     public ResponseBuilder withBodyByte(byte[] bodyByte) {
         this.bodyByte = bodyByte;
         return this;
     }
-
-//    public String setBodyString(byte[] bodyByte) {
-////        if (bodyBytes != null){
-////            this.responseBody = new String(bodyBytes);
-////        }
-//        this.bodyString = new String(bodyByte);
-//        System.out.println("res body: "+ bodyString);
-//        return bodyString;
-//    }
 
     public Response build() {
         return new Response(buildStatusLine(), buildHeaders(), buildBodyByte());

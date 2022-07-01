@@ -12,7 +12,6 @@ import static org.httpserver.response.StatusCode.OK;
 import static org.httpserver.server.HttpMethod.*;
 
 public class OptionsHandlerTwo implements Handler {
-
     public List<HttpMethod> allowedHttpMethods() {
         return List.of(GET, HEAD, OPTIONS, POST, PUT);
     }
