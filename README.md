@@ -6,7 +6,6 @@ This is an 8th Light apprenticeship project.
 - [x] To build an HTTP server which includes routes, requests, and responses. 
 - [x] The routes must be customizable with a URL, a verb, and an action to take when the route is called. 
 - [ ] The server will be able to return structured data in formats such as HTML, JSON, and XML, each with the appropriate MIME type.
-- [ ] The server is to serve content from a directory of files.
 ## Run project
 The following steps will allow you to run the server in your terminal.
 1. Clone repository and htt_server_spec submodule by running `git clone --recurse-submodules git@github.com:fi-ya/http-server.git`
@@ -65,8 +64,7 @@ A user should be able to interact with the HTTP server as follows:
 
 The HTTP server should have the following behavior:
 - [ ] It should be able to return structured data in a variety of formats including HTML, JSON, and XML.
-- [x] The HTTP response should have the appropriate content type headers to specify what type of data is being returned.
-- [x] A user should be able to retrieve a variety of files from an index directory via their HTTP server. The HTTP responses should be properly formatted with the correct MIME types for each file.
+- [ ] The HTTP response should have the appropriate content type headers to specify what type of data is being returned.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Implementation Requirements
@@ -76,5 +74,4 @@ The HTTP server should have the following behavior:
 - [x] The HTTP server should be covered by a robust suite of unit tests.
 - [x] The HTTP server should pass all the tests covered in [01_getting_started HTTP Server Spec](https://github.com/8thlight/http_server_spec/tree/master/features/01_getting_started).
 - [ ] The HTTP server should pass all the tests covered in [02_structured_data HTTP Server Spec](https://github.com/8thlight/http_server_spec/blob/master/features/02_structured_data/structured_data.feature).
-- [ ] The HTTP server should pass all of the tests covered in [03_file_server HTTP Server Spec](https://github.com/8thlight/http_server_spec/tree/master/features/03_file_server).
 <p align="right">(<a href="#top">back to top</a>)</p>
