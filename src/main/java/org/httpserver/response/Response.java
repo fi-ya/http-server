@@ -5,6 +5,9 @@ public class Response {
     String responseStatusLine;
     String responseHeaders;
     String responseBody;
+    byte[] statusLineBytes;
+    byte[] headersBytes;
+    byte[] bodyBytes;
 
     public Response(String responseStatusLine, String responseHeaders, String responseBody) {
         this.responseStatusLine = responseStatusLine;
@@ -24,7 +27,34 @@ public class Response {
         return responseBody;
     }
 
+    public byte[] getStatusLineBytes() {
+        return statusLineBytes;
+    }
+
+    public byte[] getHeadersBytes() {
+        return headersBytes;
+    }
+
+    public byte[] getBodyBytes() {
+        return bodyBytes;
+    }
+
     public String stringFormatResponse() {
         return getResponseStatusLine() + getResponseHeaders() + getResponseBody();
+    }
+
+    public byte[] statusLineBytes() {
+        statusLineBytes = responseStatusLine.getBytes();
+        return statusLineBytes;
+    }
+
+    public byte[] headerBytes() {
+        headersBytes = responseHeaders.getBytes();
+        return headersBytes;
+    }
+
+    public byte[] bodyBytes() {
+        bodyBytes = responseBody.getBytes();
+        return bodyBytes;
     }
 }

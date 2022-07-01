@@ -5,6 +5,7 @@ import org.httpserver.request.RequestLine;
 import org.httpserver.response.Response;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 
 import static org.httpserver.server.HttpMethod.GET;

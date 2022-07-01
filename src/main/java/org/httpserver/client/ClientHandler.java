@@ -4,16 +4,16 @@ import org.httpserver.response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
+import java.io.OutputStream;
 import java.net.Socket;
 
 public class ClientHandler {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final Socket clientSocket;
     public int clientConnectionCounter;
-    PrintWriter clientResponseWriter;
 
     public ClientHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
@@ -29,20 +29,29 @@ public class ClientHandler {
         logger.info("Reading client request");
     }
 
-
     public void processSendResponse(Response response) throws IOException {
-        clientResponseWriter = createClientResponseWriter();
+        byte[] responseStringToBytes = responseStringToBytes(response);
         logger.info("Sending client response");
-        sendResponse(response, clientResponseWriter);
+        sendResponse(responseStringToBytes);
     }
 
-    private PrintWriter createClientResponseWriter() throws IOException {
-        return new PrintWriter(clientSocket.getOutputStream(), true);
+    public byte[] responseStringToBytes(Response response) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        outputStream.write(response.statusLineBytes());
+        outputStream.write(response.headerBytes());
+        outputStream.write(response.bodyBytes());
+
+        return outputStream.toByteArray();
     }
 
-    public void sendResponse(Response response, PrintWriter clientResponseWriter) {
-        clientResponseWriter.write(response.stringFormatResponse());
-        clientResponseWriter.close();
+    public void sendResponse(byte[] responseByte) throws IOException {
+        try (OutputStream clientOutputStream = clientSocket.getOutputStream();) {
+            clientOutputStream.write(responseByte);
+            clientOutputStream.flush();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+            logger.error("Failed to send response to client");
+        }
     }
 
     public void closeClientConnection() throws IOException {

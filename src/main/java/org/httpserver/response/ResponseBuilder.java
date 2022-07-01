@@ -29,14 +29,14 @@ public class ResponseBuilder {
     }
 
     public Response build() {
-        return new Response(handleStatusLine(), handleHeaders(), handleBody());
+        return new Response(buildStatusLine(), buildHeaders(), buildBody());
     }
 
-    private String handleStatusLine() {
+    private String buildStatusLine() {
         return String.format("%s %s %s", httpVersion, statusCode.getStatusCodeNumber(), statusCode.getStatusCodeName()) + CRLF;
     }
 
-    private String handleHeaders() {
+    private String buildHeaders() {
         StringBuilder allHeaders = new StringBuilder();
 
         if (headers.isEmpty()) {
@@ -50,8 +50,7 @@ public class ResponseBuilder {
         return allHeaders + CRLF;
     }
 
-    private String handleBody() {
+    private String buildBody() {
         return Objects.equals(body, "") ? "" : body;
     }
-
 }

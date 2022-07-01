@@ -4,25 +4,24 @@ import org.httpserver.response.Response;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Arrays;
 
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
 class ClientHandlerTest {
 
     @Test
-    void sentClientResponseReadCorrectlyAndClosedClientSuccessfully() throws IOException {
+    void sentClientResponseReadCorrectlyAndConvertedToBytesSuccessfully() throws IOException {
+        Response mockResponse = new Response("HTTP/1.1 200 OK", "", "");
         Socket mockClientSocket = mock(Socket.class);
         ClientHandler clientHandler = new ClientHandler(mockClientSocket);
-        PrintWriter mockClientResponseWriter = mock(PrintWriter.class);
-        String mockResponseString = "HTTP/1.1 200 OK";
-        Response mockResponse = mock(Response.class);
-        when(mockResponse.stringFormatResponse()).thenReturn(mockResponseString);
 
-        clientHandler.sendResponse(mockResponse, mockClientResponseWriter);
+        byte[] actualByte = clientHandler.responseStringToBytes(mockResponse);
 
-        verify(mockClientResponseWriter).write("HTTP/1.1 200 OK");
-        verify(mockClientResponseWriter, times(1)).close();
+        byte[] expectedByte = "HTTP/1.1 200 OK".getBytes();
+        assertEquals(Arrays.toString(expectedByte), Arrays.toString(expectedByte));
+        assertEquals(expectedByte.length, actualByte.length);
     }
 }
