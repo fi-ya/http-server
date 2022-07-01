@@ -123,6 +123,15 @@ class RouterTest {
         assertEquals(HtmlHandler.class, actualHandler.getClass());
     }
 
+    @Test
+    void returnHealthCheckHandler_whenHealthCheckHtmlRoute(){
+        mockRequestLine = new RequestLine(GET, "/health-check.html", "HTTP/1.1");
+
+        Handler actualHandler = getActualHandler();
+
+        assertEquals(HealthCheckHandler.class, actualHandler.getClass());
+    }
+
     private Handler getActualHandler() {
         Request requestMock = new Request(mockRequestLine, requestHeadersStub, requestBodyStub);
         Router router = new Router();
