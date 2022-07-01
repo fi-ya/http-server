@@ -39,7 +39,7 @@ public class ClientHandler {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         outputStream.write(response.statusLineBytes());
         outputStream.write(response.headerBytes());
-        outputStream.write(response.bodyBytes());
+        outputStream.write(response.getBodyBytes());
 
         return outputStream.toByteArray();
     }

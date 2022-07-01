@@ -14,7 +14,7 @@ class ClientHandlerTest {
 
     @Test
     void sentClientResponseReadCorrectlyAndConvertedToBytesSuccessfully() throws IOException {
-        Response mockResponse = new Response("HTTP/1.1 200 OK", "", "");
+        Response mockResponse = new Response("HTTP/1.1 200 OK", "", "".getBytes());
         Socket mockClientSocket = mock(Socket.class);
         ClientHandler clientHandler = new ClientHandler(mockClientSocket);
 
