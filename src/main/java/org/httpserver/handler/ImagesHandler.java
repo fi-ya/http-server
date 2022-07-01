@@ -30,7 +30,7 @@ public class ImagesHandler implements Handler {
         String type = request.getRequestTarget().split("\\.")[1];
         String imageResource = request.getRequestTarget();
         byte[] bodyByte = getResponseBody(imageResource);
-        String body = Arrays.toString(bodyByte);
+        String body = new String(bodyByte);
 
         return new ResponseBuilder()
                 .withStatusCode(OK)
@@ -41,9 +41,10 @@ public class ImagesHandler implements Handler {
     }
 
     private byte[] getResponseBody(String imageResource) throws IOException {
-//        InputStream inputStream = getClass().getResourceAsStream(imageResource);
-//        return inputStream.readAllBytes();
-        String resource = Objects.requireNonNull(getClass().getResource(imageResource)).getPath();
-        return Files.readAllBytes(new File(resource).toPath());
+        InputStream inputStream = getClass().getResourceAsStream(imageResource);
+//        System.out.println("body byte : "+ inputStream.readAllBytes());
+        return inputStream.readAllBytes();
+//        String resource = Objects.requireNonNull(getClass().getResource(imageResource)).getPath();
+//        return Files.readAllBytes(new File(resource).toPath());
     }
 }

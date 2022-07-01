@@ -26,7 +26,7 @@ public class EchoBodyHandler implements Handler {
                 .withStatusCode(OK)
                 .withHeader(plainTextHeader())
                 .withHeader(contentLengthHeader(body))
-                .withBody(body)
+                .withBodyByte(body.getBytes())
                 .build();
     }
 }

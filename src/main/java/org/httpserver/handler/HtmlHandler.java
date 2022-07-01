@@ -25,7 +25,7 @@ public class HtmlHandler implements Handler {
                 .withStatusCode(OK)
                 .withHeader(htmlTextHeader())
                 .withHeader(contentLengthHeader(htmlResponse))
-                .withBody(htmlResponse)
+                .withBodyByte(htmlResponse.getBytes())
                 .build();
     }
 }

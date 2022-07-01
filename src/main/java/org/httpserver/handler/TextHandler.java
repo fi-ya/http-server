@@ -23,7 +23,7 @@ public class TextHandler implements Handler {
                 .withStatusCode(OK)
                 .withHeader(plainTextHeader())
                 .withHeader(contentLengthHeader(textResponse))
-                .withBody(textResponse)
+                .withBodyByte(textResponse.getBytes())
                 .build();
     }
 }

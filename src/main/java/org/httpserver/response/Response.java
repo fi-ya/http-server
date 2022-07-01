@@ -1,5 +1,7 @@
 package org.httpserver.response;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class Response {
@@ -16,10 +18,14 @@ public class Response {
         this.responseHeaders = responseHeaders;
         this.bodyBytes = bodyBytes;
     }
+    public byte[] statusLineBytes() {
+        statusLineBytes = responseStatusLine.getBytes();
+        return statusLineBytes;
+    }
 
-    public String body(byte[] bodyBytes) {
-        this.responseBody = Arrays.toString(bodyBytes);
-        return responseBody;
+    public byte[] headerBytes() {
+        headersBytes = responseHeaders.getBytes();
+        return headersBytes;
     }
 
     public String getResponseStatusLine() {
@@ -47,20 +53,15 @@ public class Response {
     }
 
     public String stringFormatResponse() {
-        return getResponseStatusLine() + getResponseHeaders() + body(bodyBytes);
+        return new String(statusLineBytes()) + new String(headerBytes()) + new String(getBodyBytes());
     }
 
-    public byte[] statusLineBytes() {
-        statusLineBytes = responseStatusLine.getBytes();
-        return statusLineBytes;
-    }
+    public byte[] byteFormatResponse() throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        outputStream.write(statusLineBytes());
+        outputStream.write(headerBytes());
+        outputStream.write(getBodyBytes());
 
-    public byte[] headerBytes() {
-        headersBytes = responseHeaders.getBytes();
-        return headersBytes;
-    }
-    public byte[] bodyBytes() {
-        bodyBytes = responseBody.getBytes();
-        return bodyBytes;
+        return outputStream.toByteArray();
     }
 }

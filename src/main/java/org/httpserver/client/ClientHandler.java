@@ -30,18 +30,8 @@ public class ClientHandler {
     }
 
     public void processSendResponse(Response response) throws IOException {
-        byte[] responseStringToBytes = responseStringToBytes(response);
         logger.info("Sending client response");
-        sendResponse(responseStringToBytes);
-    }
-
-    public byte[] responseStringToBytes(Response response) throws IOException {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        outputStream.write(response.statusLineBytes());
-        outputStream.write(response.headerBytes());
-        outputStream.write(response.getBodyBytes());
-
-        return outputStream.toByteArray();
+        sendResponse(response.byteFormatResponse());
     }
 
     public void sendResponse(byte[] responseByte) throws IOException {

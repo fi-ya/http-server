@@ -1,9 +1,7 @@
 package org.httpserver.response;
 
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import static org.httpserver.Constant.CRLF;
 import static org.httpserver.Constant.HTTP_VERSION_NUMBER;
@@ -12,8 +10,8 @@ public class ResponseBuilder {
     private final String httpVersion = HTTP_VERSION_NUMBER;
     private StatusCode statusCode;
     private final HashMap<String, String> headers = new HashMap<>();
-    private String body = "";
-    public byte[] bodyByte;
+//    private String bodyString = "";
+    public byte[] bodyByte = "".getBytes();
 
     public ResponseBuilder withStatusCode(StatusCode statusCode) {
         this.statusCode = statusCode;
@@ -25,17 +23,27 @@ public class ResponseBuilder {
         return this;
     }
 
-    public ResponseBuilder withBody(String body) {
-        this.body = body;
-        return this;
-    }
+//    public ResponseBuilder withBody(String body) {
+//        this.body = body;
+//        return this;
+//    }
 
     public ResponseBuilder withBodyByte(byte[] bodyByte) {
         this.bodyByte = bodyByte;
         return this;
     }
+
+//    public String setBodyString(byte[] bodyByte) {
+////        if (bodyBytes != null){
+////            this.responseBody = new String(bodyBytes);
+////        }
+//        this.bodyString = new String(bodyByte);
+//        System.out.println("res body: "+ bodyString);
+//        return bodyString;
+//    }
+
     public Response build() {
-        return new Response(buildStatusLine(), buildHeaders(), buildBody());
+        return new Response(buildStatusLine(), buildHeaders(), buildBodyByte());
     }
 
     private String buildStatusLine() {
@@ -56,8 +64,7 @@ public class ResponseBuilder {
         return allHeaders + CRLF;
     }
 
-    private byte[] buildBody() {
-        return bodyByte;
-//        return Objects.equals(bodyByte, "") ? "" : bodyByte;
+    private byte[] buildBodyByte() {
+        return new String(bodyByte).equals("") ? "".getBytes() : bodyByte;
     }
 }
