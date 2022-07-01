@@ -6,6 +6,8 @@ import org.httpserver.response.Response;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 
 import static org.httpserver.server.HttpMethod.GET;
@@ -32,6 +34,7 @@ class ImagesHandlerTest {
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().contains("Content-Type"));
         assertTrue(actualResponse.getResponseHeaders().contains("image/jpeg"));
+        assertTrue(new String(actualResponse.getBodyBytes()).length() > 0);
     }
 
     @Test
@@ -44,6 +47,7 @@ class ImagesHandlerTest {
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().contains("Content-Type"));
         assertTrue(actualResponse.getResponseHeaders().contains("image/png"));
+        assertTrue(new String(actualResponse.getBodyBytes()).length() > 0);
     }
 
     @Test
@@ -56,5 +60,6 @@ class ImagesHandlerTest {
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().contains("Content-Type"));
         assertTrue(actualResponse.getResponseHeaders().contains("image/gif"));
+        assertTrue(new String(actualResponse.getBodyBytes()).length() > 0);
     }
 }

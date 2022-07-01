@@ -31,7 +31,7 @@ public class HealthCheckHandler implements Handler {
                 .withStatusCode(OK)
                 .withHeader(htmlTextHeader())
                 .withHeader(contentLengthHeader(body))
-                .withBody(body)
+                .withBodyByte(body.getBytes())
                 .build();
     }
 

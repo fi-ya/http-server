@@ -7,7 +7,6 @@ import org.httpserver.server.HttpMethod;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.httpserver.response.ResponseHeaderMaker.contentLengthHeader;
@@ -26,7 +25,7 @@ public class ImagesHandler implements Handler {
         String type = request.getRequestTarget().split("\\.")[1];
         String imageResource = request.getRequestTarget();
         byte[] bodyByte = getResponseBody(imageResource);
-        String body = Arrays.toString(bodyByte);
+        String body = new String(bodyByte);
 
         return new ResponseBuilder()
                 .withStatusCode(OK)

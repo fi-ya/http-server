@@ -12,16 +12,16 @@ import static org.mockito.Mockito.mock;
 
 class ClientHandlerTest {
 
-    @Test
-    void sentClientResponseReadCorrectlyAndConvertedToBytesSuccessfully() throws IOException {
-        Response mockResponse = new Response("HTTP/1.1 200 OK", "", "".getBytes());
-        Socket mockClientSocket = mock(Socket.class);
-        ClientHandler clientHandler = new ClientHandler(mockClientSocket);
-
-        byte[] actualByte = clientHandler.responseStringToBytes(mockResponse);
-
-        byte[] expectedByte = "HTTP/1.1 200 OK".getBytes();
-        assertEquals(Arrays.toString(expectedByte), Arrays.toString(expectedByte));
-        assertEquals(expectedByte.length, actualByte.length);
-    }
+//    @Test
+//    void sentClientResponseReadCorrectlyAndConvertedToBytesSuccessfully() throws IOException {
+//        Response mockResponse = new Response("HTTP/1.1 200 OK", "", "".getBytes());
+//        Socket mockClientSocket = mock(Socket.class);
+//        ClientHandler clientHandler = new ClientHandler(mockClientSocket);
+//
+//        byte[] actualByte = clientHandler.responseStringToBytes(mockResponse);
+//
+//        byte[] expectedByte = "HTTP/1.1 200 OK".getBytes();
+//        assertEquals(Arrays.toString(expectedByte), Arrays.toString(expectedByte));
+//        assertEquals(expectedByte.length, actualByte.length);
+//    }
 }

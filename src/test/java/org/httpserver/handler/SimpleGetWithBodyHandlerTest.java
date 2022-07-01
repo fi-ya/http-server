@@ -34,7 +34,7 @@ class SimpleGetWithBodyHandlerTest {
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().contains("Content-Length"));
         assertTrue(actualResponse.getResponseHeaders().contains("11"));
-        assertEquals("Hello world", actualResponse.getResponseBody());
+        assertEquals("Hello world", new String(actualResponse.getBodyBytes()));
     }
 
     @Test

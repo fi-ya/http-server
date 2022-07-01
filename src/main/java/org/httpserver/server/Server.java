@@ -37,7 +37,7 @@ public class Server {
             RequestParser requestParser = new RequestParser();
 
             Request request = requestParser.parseRequest(clientRequestInputStream);
-            loggerReqRes.info(request.stringFormatRequest());
+            loggerReqRes.info("Request: " + request.stringFormatRequest());
 
             Router router = new Router();
             Handler handler = router.getHandler(request);
@@ -45,7 +45,7 @@ public class Server {
             logger.info(handler.getClass().getSimpleName() + ": building a response");
 
             Response response = handler.handleResponse(request);
-            loggerReqRes.info(response.stringFormatResponse());
+            loggerReqRes.info("Response: " + response.stringFormatResponse());
 
             clientHandler.processSendResponse(response);
 
