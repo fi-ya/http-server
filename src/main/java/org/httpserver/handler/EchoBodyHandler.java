@@ -13,10 +13,12 @@ import static org.httpserver.response.StatusCode.OK;
 import static org.httpserver.server.HttpMethod.POST;
 
 public class EchoBodyHandler implements Handler {
+    @Override
     public List<HttpMethod> allowedHttpMethods() {
         return List.of(POST);
     }
 
+    @Override
     public Response handleResponse(Request request) {
         String body = request.getRequestBody();
 

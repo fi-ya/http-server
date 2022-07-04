@@ -21,7 +21,7 @@ class XmlHandlerTest {
     }
 
     @Test
-    void returnsResponse_withStatusLineAndBody_withXml() {
+    void returnsResponse_withStatusLine_withHeaders_AndBody_withXml() {
         RequestLine mockRequestLine = new RequestLine(GET, "/xml_response", "HTTP/1.1");
         XmlHandler xmlHandler = new XmlHandler();
 

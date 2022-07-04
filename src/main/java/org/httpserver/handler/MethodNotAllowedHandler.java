@@ -13,6 +13,7 @@ import static org.httpserver.server.HttpMethod.HEAD;
 import static org.httpserver.server.HttpMethod.OPTIONS;
 
 public class MethodNotAllowedHandler implements Handler {
+    @Override
     public List<HttpMethod> allowedHttpMethods() {
         return List.of(HEAD, OPTIONS);
     }

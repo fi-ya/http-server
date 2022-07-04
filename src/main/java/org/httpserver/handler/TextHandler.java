@@ -14,10 +14,12 @@ import static org.httpserver.response.StatusCode.OK;
 import static org.httpserver.server.HttpMethod.GET;
 
 public class TextHandler implements Handler {
+    @Override
     public List<HttpMethod> allowedHttpMethods() {
         return List.of(GET);
     }
 
+    @Override
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(OK)

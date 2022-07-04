@@ -12,6 +12,7 @@ import static org.httpserver.response.StatusCode.MOVED_PERMANENTLY;
 import static org.httpserver.server.HttpMethod.GET;
 
 public class RedirectHandler implements Handler {
+    @Override
     public List<HttpMethod> allowedHttpMethods() {
         return List.of(GET);
     }

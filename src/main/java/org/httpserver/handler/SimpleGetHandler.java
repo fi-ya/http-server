@@ -12,11 +12,12 @@ import static org.httpserver.server.HttpMethod.GET;
 import static org.httpserver.server.HttpMethod.HEAD;
 
 public class SimpleGetHandler implements Handler {
-
+    @Override
     public List<HttpMethod> allowedHttpMethods() {
         return List.of(GET, HEAD);
     }
 
+    @Override
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(OK)
