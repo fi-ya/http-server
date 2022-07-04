@@ -1,5 +1,6 @@
 package org.httpserver.handler;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.httpserver.request.Request;
@@ -26,7 +27,7 @@ class JsonHandlerTest {
     }
 
     @Test
-    void returnsResponse_withStatusLineAndBody_withJson() throws IOException {
+    void returnsResponse_withStatusLine_withHeaders_AndBody_withJson() throws IOException {
         RequestLine mockRequestLine = new RequestLine(GET, "/json_response", "HTTP/1.1");
         JsonHandler jsonHandler = new JsonHandler();
 
