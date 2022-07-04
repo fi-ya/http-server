@@ -1,15 +1,17 @@
 package org.httpserver.handler;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.httpserver.request.Request;
-import org.httpserver.response.ContentType;
 import org.httpserver.response.Response;
 import org.httpserver.response.ResponseBuilder;
-import org.httpserver.response.ResponseHeaderMaker;
 import org.httpserver.server.HttpMethod;
 
+import java.util.HashMap;
 import java.util.List;
 
-import static org.httpserver.response.ResponseHeaderName.CONTENT_TYPE;
+import static org.httpserver.response.ResponseHeaderMaker.contentLengthHeader;
+import static org.httpserver.response.ResponseHeaderMaker.jsonHeader;
 import static org.httpserver.response.StatusCode.OK;
 import static org.httpserver.server.HttpMethod.GET;
 
@@ -20,11 +22,23 @@ public class JsonHandler implements Handler {
     }
 
     @Override
-    public Response handleResponse(Request request) {
+    public Response handleResponse(Request request) throws JsonProcessingException {
+        HashMap jsonMap = new HashMap() {{
+            put("key1", "value1");
+            put("key2", "value2");
+        }};
+        String body = convertMapToJsonString(jsonMap);
+//        byte[] bodyByte = convertMapToJsonString(jsonMap).getBytes();
+
         return new ResponseBuilder()
                 .withStatusCode(OK)
-//                .withHeader()
-                .withBody("{\"key1\":\"value1\",\"key2\":\"value2\"}")
+                .withHeader(jsonHeader())
+                .withHeader(contentLengthHeader(body))
+                .withBody(body)
                 .build();
+    }
+
+    private String convertMapToJsonString(HashMap jsonMap) throws JsonProcessingException {
+        return new ObjectMapper().writeValueAsString(jsonMap);
     }
 }

@@ -38,4 +38,8 @@ public class ResponseHeaderMaker {
     private static String newLocationAddress(String url) {
         return "http://" + localIPAddress + ":" + Server.portNumber + url;
     }
+
+    public static String[] jsonHeader(){
+        return new String[] {ResponseHeaderName.CONTENT_TYPE, ContentType.JSON.getValue()};
+    }
 }
