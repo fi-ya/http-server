@@ -22,7 +22,7 @@ class HtmlHandlerTest {
     }
 
     @Test
-    void returnsResponse_withStatusLineAndBody_withText() {
+    void returnsResponse_withStatusLine_withHeaders_AndBody_withText() {
         RequestLine mockRequestLine = new RequestLine(GET, "/html_response", "HTTP/1.1");
         HtmlHandler htmlHandler = new HtmlHandler();
 
@@ -33,6 +33,4 @@ class HtmlHandlerTest {
         assertTrue(actualResponse.getResponseHeaders().contains("text/html;charset=utf-8"));
         assertEquals("<html><body><p>HTML Response</p></body></html>", actualResponse.getResponseBody());
     }
-
-
 }
