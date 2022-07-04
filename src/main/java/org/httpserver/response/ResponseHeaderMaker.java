@@ -60,4 +60,8 @@ public class ResponseHeaderMaker {
     public static String[] imageGifHeader() {
         return new String[]{ResponseHeaderName.CONTENT_TYPE, ContentType.GIF.getValue()};
     }
+
+    public static String[] jsonHeader(){
+        return new String[] {ResponseHeaderName.CONTENT_TYPE, ContentType.JSON.getValue()};
+    }
 }
