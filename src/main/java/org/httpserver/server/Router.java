@@ -29,6 +29,7 @@ public class Router {
             put("/kitteh.jpg", new ImagesHandler());
             put("/doggo.png", new ImagesHandler());
             put("/kisses.gif", new ImagesHandler());
+            put("/json_response", new JsonHandler());
         }};
     }
 
