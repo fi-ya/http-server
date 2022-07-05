@@ -62,4 +62,8 @@ public class ResponseHeaderMaker {
     public static String[] jsonHeader() {
         return new String[]{ResponseHeaderName.CONTENT_TYPE, ContentType.JSON.getValue()};
     }
+
+    public static String[] xmlHeader(){
+        return new String[] {ResponseHeaderName.CONTENT_TYPE, ContentType.XML.getValue()};
+    }
 }

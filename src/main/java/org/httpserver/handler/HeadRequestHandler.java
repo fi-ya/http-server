@@ -11,10 +11,12 @@ import static org.httpserver.response.StatusCode.OK;
 import static org.httpserver.server.HttpMethod.HEAD;
 
 public class HeadRequestHandler implements Handler {
+    @Override
     public List<HttpMethod> allowedHttpMethods() {
         return List.of(HEAD);
     }
 
+    @Override
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(OK)

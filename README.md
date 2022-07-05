@@ -5,8 +5,8 @@ This is an 8th Light apprenticeship project.
 ## Project requirements
 - [x] To build an HTTP server which includes routes, requests, and responses. 
 - [x] The routes must be customizable with a URL, a verb, and an action to take when the route is called. 
-- [ ] The server will be able to return structured data in formats such as HTML, JSON, and XML, each with the appropriate MIME type.
-- [ ] The server is to serve content from a directory of files.
+- [x] The server will be able to return structured data in formats such as HTML, JSON, and XML, each with the appropriate MIME type.
+- [x] The server is to serve content from a directory of files.
 ## Run project
 The following steps will allow you to run the server in your terminal.
 1. Clone repository and htt_server_spec submodule by running `git clone --recurse-submodules git@github.com:fi-ya/http-server.git`
@@ -36,7 +36,8 @@ The following steps will allow you to run the server in your terminal.
 | GET         |       /redirect       |           | 301 Moved Permanently  | Location: http://127.0.0.1:5000/simple_get |             |
 | GET         |    /text_response     |           | 200 OK  |          Content-Type: text/plain          |  text response   |
 | GET         |    /html_response     |           | 200 OK  |          Content-Type: text/html           |  `<html><body><p>HTML Response</p></body></html>`   |
-
+| GET         |    /json_response     |           | 200 OK  |       Content-Type: application/json;charset=utf-8        |  `{ key1: 'value1', key2: 'value2' }`   |
+| GET         |     /xml_response     |           | 200 OK  |        Content-Type: application/xml;charset=utf-8        |  `<note><body>XML Response</body></note>`   |
 ## Run tests
 You can find all tests in `src/test/java` and run the test suite using either of the following steps.
 - Open a test file and either click on green play button next to the class name or run `Ctrl + Shift + R`
@@ -64,7 +65,7 @@ A user should be able to interact with the HTTP server as follows:
 - [x] The server should be able to handle 200, 300, and 400-level responses. Not every response code needs to be complete, but there should be a few representative response codes implemented for each level.
 
 The HTTP server should have the following behavior:
-- [ ] It should be able to return structured data in a variety of formats including HTML, JSON, and XML.
+- [x] It should be able to return structured data in a variety of formats including HTML, JSON, and XML.
 - [x] The HTTP response should have the appropriate content type headers to specify what type of data is being returned.
 - [x] A user should be able to retrieve a variety of files from an index directory via their HTTP server. The HTTP responses should be properly formatted with the correct MIME types for each file.
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -75,6 +76,6 @@ The HTTP server should have the following behavior:
 - [x] Although not strictly speaking necessary, the HTTP server is a good time to introduce statically typed languages like Java, C#, or Swift.
 - [x] The HTTP server should be covered by a robust suite of unit tests.
 - [x] The HTTP server should pass all the tests covered in [01_getting_started HTTP Server Spec](https://github.com/8thlight/http_server_spec/tree/master/features/01_getting_started).
-- [ ] The HTTP server should pass all the tests covered in [02_structured_data HTTP Server Spec](https://github.com/8thlight/http_server_spec/blob/master/features/02_structured_data/structured_data.feature).
+- [x] The HTTP server should pass all the tests covered in [02_structured_data HTTP Server Spec](https://github.com/8thlight/http_server_spec/blob/master/features/02_structured_data/structured_data.feature).
 - [ ] The HTTP server should pass all of the tests covered in [03_file_server HTTP Server Spec](https://github.com/8thlight/http_server_spec/tree/master/features/03_file_server).
 <p align="right">(<a href="#top">back to top</a>)</p>

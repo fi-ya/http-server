@@ -7,20 +7,27 @@ import org.httpserver.server.HttpMethod;
 
 import java.util.List;
 
+import static org.httpserver.response.ResponseHeaderMaker.contentLengthHeader;
+import static org.httpserver.response.ResponseHeaderMaker.xmlHeader;
 import static org.httpserver.response.StatusCode.OK;
 import static org.httpserver.server.HttpMethod.GET;
-import static org.httpserver.server.HttpMethod.HEAD;
 
-public class SimpleGetHandler implements Handler {
+public class XmlHandler implements Handler {
     @Override
     public List<HttpMethod> allowedHttpMethods() {
-        return List.of(GET, HEAD);
+        return List.of(GET);
     }
 
     @Override
     public Response handleResponse(Request request) {
+        String body = "<note><body>XML Response</body></note>";
+        byte[] bodyByte = body.getBytes();
+
         return new ResponseBuilder()
                 .withStatusCode(OK)
+                .withHeader(xmlHeader())
+                .withHeader(contentLengthHeader(body))
+                .withBodyByte(bodyByte)
                 .build();
     }
 }
