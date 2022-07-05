@@ -1,10 +1,7 @@
 package org.httpserver.response;
 
-import org.httpserver.App;
 import org.httpserver.server.HttpMethod;
 import org.httpserver.server.Server;
-
-import java.util.Arrays;
 
 public class ResponseHeaderMaker {
 
@@ -41,7 +38,7 @@ public class ResponseHeaderMaker {
         return "http://" + localIPAddress + ":" + Server.portNumber + url;
     }
 
-    public static String[] imageHeader(String type){
+    public static String[] imageHeader(String type) {
         return switch (type) {
             case "jpg", "jpeg" -> imageJpgHeader();
             case "png" -> imagePngHeader();
@@ -57,11 +54,12 @@ public class ResponseHeaderMaker {
     public static String[] imagePngHeader() {
         return new String[]{ResponseHeaderName.CONTENT_TYPE, ContentType.PNG.getValue()};
     }
+
     public static String[] imageGifHeader() {
         return new String[]{ResponseHeaderName.CONTENT_TYPE, ContentType.GIF.getValue()};
     }
 
-    public static String[] jsonHeader(){
-        return new String[] {ResponseHeaderName.CONTENT_TYPE, ContentType.JSON.getValue()};
+    public static String[] jsonHeader() {
+        return new String[]{ResponseHeaderName.CONTENT_TYPE, ContentType.JSON.getValue()};
     }
 }

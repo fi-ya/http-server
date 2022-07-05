@@ -7,7 +7,9 @@ import org.httpserver.server.HttpMethod;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
 import static org.httpserver.response.ResponseHeaderMaker.contentLengthHeader;
