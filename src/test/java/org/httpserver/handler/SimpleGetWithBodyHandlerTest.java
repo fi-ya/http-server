@@ -5,7 +5,6 @@ import org.httpserver.request.RequestLine;
 import org.httpserver.response.Response;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import static org.httpserver.server.HttpMethod.GET;
@@ -34,7 +33,7 @@ class SimpleGetWithBodyHandlerTest {
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().contains("Content-Length"));
         assertTrue(actualResponse.getResponseHeaders().contains("11"));
-        assertEquals("Hello world", actualResponse.getResponseBody());
+        assertEquals("Hello world", new String(actualResponse.getBodyBytes()));
     }
 
     @Test
@@ -47,7 +46,7 @@ class SimpleGetWithBodyHandlerTest {
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().contains("Content-Length"));
         assertTrue(actualResponse.getResponseHeaders().contains("11"));
-        assertTrue(actualResponse.getResponseBody().isEmpty());
+        assertTrue(new String(actualResponse.getBodyBytes()).isEmpty());
     }
 
 }

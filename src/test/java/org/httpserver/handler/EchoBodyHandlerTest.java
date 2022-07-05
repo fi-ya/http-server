@@ -31,6 +31,6 @@ class EchoBodyHandlerTest {
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().contains("Content-Length"));
         assertTrue(actualResponse.getResponseHeaders().contains("9"));
-        assertEquals("some body", actualResponse.getResponseBody());
+        assertEquals("some body", new String(actualResponse.getBodyBytes()));
     }
 }

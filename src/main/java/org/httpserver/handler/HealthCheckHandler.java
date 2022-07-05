@@ -31,7 +31,7 @@ public class HealthCheckHandler implements Handler {
                 .withStatusCode(OK)
                 .withHeader(htmlTextHeader())
                 .withHeader(contentLengthHeader(body))
-                .withBody(body)
+                .withBodyByte(body.getBytes())
                 .build();
     }
 
@@ -50,6 +50,4 @@ public class HealthCheckHandler implements Handler {
         }
         return htmlStringBuilder.toString().trim();
     }
-
-
 }

@@ -5,7 +5,6 @@ import org.httpserver.request.RequestLine;
 import org.httpserver.response.Response;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 
 import static org.httpserver.server.HttpMethod.GET;
@@ -32,6 +31,6 @@ class SimpleGetHandlerTest {
 
         assertEquals("HTTP/1.1 200 OK\r\n", actualResponse.getResponseStatusLine());
         assertTrue(actualResponse.getResponseHeaders().isBlank());
-        assertTrue(actualResponse.getResponseBody().isEmpty());
+        assertTrue(new String(actualResponse.getBodyBytes()).isEmpty());
     }
 }

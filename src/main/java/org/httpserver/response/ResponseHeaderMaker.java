@@ -4,6 +4,8 @@ import org.httpserver.App;
 import org.httpserver.server.HttpMethod;
 import org.httpserver.server.Server;
 
+import java.util.Arrays;
+
 public class ResponseHeaderMaker {
 
     public static final String localIPAddress = "127.0.0.1";
@@ -37,5 +39,25 @@ public class ResponseHeaderMaker {
 
     private static String newLocationAddress(String url) {
         return "http://" + localIPAddress + ":" + Server.portNumber + url;
+    }
+
+    public static String[] imageHeader(String type){
+        return switch (type) {
+            case "jpg", "jpeg" -> imageJpgHeader();
+            case "png" -> imagePngHeader();
+            case "gif" -> imageGifHeader();
+            default -> new String[0];
+        };
+    }
+
+    public static String[] imageJpgHeader() {
+        return new String[]{ResponseHeaderName.CONTENT_TYPE, ContentType.JPEG.getValue()};
+    }
+
+    public static String[] imagePngHeader() {
+        return new String[]{ResponseHeaderName.CONTENT_TYPE, ContentType.PNG.getValue()};
+    }
+    public static String[] imageGifHeader() {
+        return new String[]{ResponseHeaderName.CONTENT_TYPE, ContentType.GIF.getValue()};
     }
 }

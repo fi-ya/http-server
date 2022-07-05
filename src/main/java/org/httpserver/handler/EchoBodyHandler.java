@@ -13,11 +13,9 @@ import static org.httpserver.response.StatusCode.OK;
 import static org.httpserver.server.HttpMethod.POST;
 
 public class EchoBodyHandler implements Handler {
-
     public List<HttpMethod> allowedHttpMethods() {
         return List.of(POST);
     }
-
 
     public Response handleResponse(Request request) {
         String body = request.getRequestBody();
@@ -26,7 +24,7 @@ public class EchoBodyHandler implements Handler {
                 .withStatusCode(OK)
                 .withHeader(plainTextHeader())
                 .withHeader(contentLengthHeader(body))
-                .withBody(body)
+                .withBodyByte(body.getBytes())
                 .build();
     }
 }

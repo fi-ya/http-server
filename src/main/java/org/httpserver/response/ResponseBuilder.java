@@ -2,7 +2,6 @@ package org.httpserver.response;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import static org.httpserver.Constant.CRLF;
 import static org.httpserver.Constant.HTTP_VERSION_NUMBER;
@@ -11,7 +10,7 @@ public class ResponseBuilder {
     private final String httpVersion = HTTP_VERSION_NUMBER;
     private StatusCode statusCode;
     private final HashMap<String, String> headers = new HashMap<>();
-    private String body = "";
+    public byte[] bodyByte = "".getBytes();
 
     public ResponseBuilder withStatusCode(StatusCode statusCode) {
         this.statusCode = statusCode;
@@ -23,13 +22,13 @@ public class ResponseBuilder {
         return this;
     }
 
-    public ResponseBuilder withBody(String body) {
-        this.body = body;
+    public ResponseBuilder withBodyByte(byte[] bodyByte) {
+        this.bodyByte = bodyByte;
         return this;
     }
 
     public Response build() {
-        return new Response(buildStatusLine(), buildHeaders(), buildBody());
+        return new Response(buildStatusLine(), buildHeaders(), buildBodyByte());
     }
 
     private String buildStatusLine() {
@@ -50,7 +49,7 @@ public class ResponseBuilder {
         return allHeaders + CRLF;
     }
 
-    private String buildBody() {
-        return Objects.equals(body, "") ? "" : body;
+    private byte[] buildBodyByte() {
+        return new String(bodyByte).equals("") ? "".getBytes() : bodyByte;
     }
 }

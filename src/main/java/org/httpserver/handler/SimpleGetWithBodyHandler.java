@@ -27,6 +27,6 @@ public class SimpleGetWithBodyHandler implements Handler {
                 .withHeader(plainTextHeader())
                 .withHeader(contentLengthHeader(helloWorld));
 
-        return (request.getHttpMethod() == HEAD) ? responseBuilder.build() : responseBuilder.withBody(helloWorld).build();
+        return (request.getHttpMethod() == HEAD) ? responseBuilder.build() : responseBuilder.withBodyByte(helloWorld.getBytes()).build();
     }
 }

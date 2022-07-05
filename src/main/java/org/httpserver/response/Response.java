@@ -1,46 +1,19 @@
 package org.httpserver.response;
 
-public class Response {
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
+public class Response {
     String responseStatusLine;
     String responseHeaders;
-    String responseBody;
     byte[] statusLineBytes;
     byte[] headersBytes;
     byte[] bodyBytes;
 
-    public Response(String responseStatusLine, String responseHeaders, String responseBody) {
+    public Response(String responseStatusLine, String responseHeaders, byte[] bodyBytes) {
         this.responseStatusLine = responseStatusLine;
         this.responseHeaders = responseHeaders;
-        this.responseBody = responseBody;
-    }
-
-    public String getResponseStatusLine() {
-        return responseStatusLine;
-    }
-
-    public String getResponseHeaders() {
-        return responseHeaders;
-    }
-
-    public String getResponseBody() {
-        return responseBody;
-    }
-
-    public byte[] getStatusLineBytes() {
-        return statusLineBytes;
-    }
-
-    public byte[] getHeadersBytes() {
-        return headersBytes;
-    }
-
-    public byte[] getBodyBytes() {
-        return bodyBytes;
-    }
-
-    public String stringFormatResponse() {
-        return getResponseStatusLine() + getResponseHeaders() + getResponseBody();
+        this.bodyBytes = bodyBytes;
     }
 
     public byte[] statusLineBytes() {
@@ -53,8 +26,28 @@ public class Response {
         return headersBytes;
     }
 
-    public byte[] bodyBytes() {
-        bodyBytes = responseBody.getBytes();
+    public String getResponseStatusLine() {
+        return responseStatusLine;
+    }
+
+    public String getResponseHeaders() {
+        return responseHeaders;
+    }
+
+    public byte[] getBodyBytes() {
         return bodyBytes;
+    }
+
+    public String stringFormatResponse() {
+        return new String(statusLineBytes()) + new String(headerBytes()) + new String(getBodyBytes());
+    }
+
+    public byte[] byteFormatResponse() throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        outputStream.write(statusLineBytes());
+        outputStream.write(headerBytes());
+        outputStream.write(getBodyBytes());
+
+        return outputStream.toByteArray();
     }
 }

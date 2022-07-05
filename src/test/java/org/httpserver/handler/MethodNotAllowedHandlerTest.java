@@ -31,6 +31,6 @@ class MethodNotAllowedHandlerTest {
 
         assertEquals("HTTP/1.1 405 Method Not Allowed\r\n", actual.getResponseStatusLine());
         assertEquals("Allow: HEAD, OPTIONS\r\n\r\n", actual.getResponseHeaders());
-        assertTrue(actual.getResponseBody().isEmpty());
+        assertTrue(new String(actual.getBodyBytes()).isEmpty());
     }
 }

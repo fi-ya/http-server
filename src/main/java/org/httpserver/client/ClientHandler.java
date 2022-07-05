@@ -4,7 +4,6 @@ import org.httpserver.response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -30,21 +29,11 @@ public class ClientHandler {
     }
 
     public void processSendResponse(Response response) throws IOException {
-        byte[] responseStringToBytes = responseStringToBytes(response);
         logger.info("Sending client response");
-        sendResponse(responseStringToBytes);
+        sendResponse(response.byteFormatResponse());
     }
 
-    public byte[] responseStringToBytes(Response response) throws IOException {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        outputStream.write(response.statusLineBytes());
-        outputStream.write(response.headerBytes());
-        outputStream.write(response.bodyBytes());
-
-        return outputStream.toByteArray();
-    }
-
-    public void sendResponse(byte[] responseByte) throws IOException {
+    private void sendResponse(byte[] responseByte){
         try (OutputStream clientOutputStream = clientSocket.getOutputStream();) {
             clientOutputStream.write(responseByte);
             clientOutputStream.flush();

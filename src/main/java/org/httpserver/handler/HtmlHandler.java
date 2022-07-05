@@ -14,7 +14,7 @@ import static org.httpserver.response.TextConstants.htmlResponse;
 import static org.httpserver.server.HttpMethod.GET;
 
 public class HtmlHandler implements Handler {
-
+    @Override
     public List<HttpMethod> allowedHttpMethods() {
         return List.of(GET);
     }
@@ -25,7 +25,7 @@ public class HtmlHandler implements Handler {
                 .withStatusCode(OK)
                 .withHeader(htmlTextHeader())
                 .withHeader(contentLengthHeader(htmlResponse))
-                .withBody(htmlResponse)
+                .withBodyByte(htmlResponse.getBytes())
                 .build();
     }
 }
