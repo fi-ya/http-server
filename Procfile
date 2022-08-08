@@ -1,1 +1,1 @@
-web: java -jar target/httpserver.jar
+web: java target/httpserver.jar
