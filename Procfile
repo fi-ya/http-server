@@ -1,1 +1,1 @@
-web: java  -jar build/libs/httpserver-1.0-SNAPSHOT.jar
+web: java -cp app.jar org/httpserver/App.java
