@@ -30,7 +30,7 @@ test {
     testLogging {
         events "passed", "skipped", "failed"
     }
-    finalizedBy jacocoTestReport
+//    finalizedBy jacocoTestReport
 }
 
 jacoco {
@@ -49,12 +49,12 @@ jacocoTestCoverageVerification {
 }
 jacocoTestReport {
     reports {
-        xml.enabled true
+        xml.enabled false
         html.enabled true
         csv.enabled false
     }
 }
-check.dependsOn jacocoTestReport
+//check.dependsOn jacocoTestReport
 task stage {
     dependsOn build
 }
