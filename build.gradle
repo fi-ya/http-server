@@ -7,10 +7,6 @@ plugins {
 group 'org.httpserver'
 version '1.0-SNAPSHOT'
 
-run {
-    jvmArgs(['--enable-preview'])
-}
-
 repositories {
     mavenCentral()
 }
@@ -29,17 +25,12 @@ application {
     mainClass = 'org.httpserver.App'
 }
 
-tasks.withType(JavaCompile).each {
-    it.options.compilerArgs.add('--enable-preview')
-}
-
 test {
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed"
     }
     finalizedBy jacocoTestReport
-    jvmArgs(['--enable-preview'])
 }
 
 jacoco {
