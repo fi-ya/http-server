@@ -31,6 +31,18 @@ application {
     mainClass = 'org.httpserver.App'
 }
 
+task stage {
+    dependsOn build
+}
+build.mustRunAfter clean
+
+gradle.taskGraph.whenReady {
+    taskGraph ->
+        if (taskGraph.hasTask(stage)) {
+            test.enabled = false
+        }
+}
+
 test {
     useJUnitPlatform()
     testLogging {
@@ -53,6 +65,7 @@ jacocoTestCoverageVerification {
         }
     }
 }
+
 jacocoTestReport {
     reports {
         xml.enabled false
@@ -61,13 +74,3 @@ jacocoTestReport {
     }
 }
 //check.dependsOn jacocoTestReport
-gradle.taskGraph.whenReady {
-    taskGraph ->
-        if (taskGraph.hasTask(stage)) {
-            test.enabled = false
-        }
-}
-task stage {
-    dependsOn build
-}
-build.mustRunAfter clean
