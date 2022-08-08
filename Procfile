@@ -1,1 +1,1 @@
-web: java target/httpserver.jar
+web: java src/main/java/org.httpserver/App.java
