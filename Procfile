@@ -1,1 +1,1 @@
-web: java App.java
+web: ./build/install/app/bin/app
