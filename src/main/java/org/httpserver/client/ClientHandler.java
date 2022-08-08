@@ -46,7 +46,7 @@ public class ClientHandler {
     public void closeClientConnection() throws IOException {
         clientSocket.close();
 //        logger.info("Client request reader, response writer & socket closed on port number: " + clientSocket.getPort());
-//        clientConnectionCounter--;
+        clientConnectionCounter--;
 //        logger.info("Number of clients connected: " + clientConnectionCounter);
     }
 }
