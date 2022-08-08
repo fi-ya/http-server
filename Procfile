@@ -1,1 +1,1 @@
-web: java  -jar org.httpserver.App
+web: java -jar org.httpserver.App.jar
