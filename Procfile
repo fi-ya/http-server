@@ -1,1 +1,1 @@
-web: ./build/classes/java/org/httpserver/App
+web: ./gradlew build
