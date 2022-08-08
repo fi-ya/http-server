@@ -3,6 +3,8 @@ package org.httpserver.response;
 import org.httpserver.server.HttpMethod;
 import org.httpserver.server.Server;
 
+import java.util.Objects;
+
 public class ResponseHeaderMaker {
 
     public static final String localIPAddress = "127.0.0.1";
@@ -39,26 +41,16 @@ public class ResponseHeaderMaker {
     }
 
     public static String[] imageHeader(String type) {
-        String[] imageHeader;
-        switch (type) {
-            case "jpg", "jpeg": {
-                imageHeader = imageJpgHeader();
-                break;
-            }
-            case "png" : {
-                imageHeader = imagePngHeader();
-                break;
-            }
-            case "gif": {
-                imageHeader = imageGifHeader();
-                break;
-            }
-            default: {
-                imageHeader = new String[0];
-                break;
-            }
-        };
-        return imageHeader;
+        if (Objects.equals(type, "jpg") || Objects.equals(type, "jpeg")) {
+            return imageJpgHeader();
+        }
+        if (Objects.equals(type, "png")) {
+            return imagePngHeader();
+        }
+        if (Objects.equals(type, "gif")) {
+            return imageGifHeader();
+        }
+        return new String[0];
     }
 
     public static String[] imageJpgHeader() {
