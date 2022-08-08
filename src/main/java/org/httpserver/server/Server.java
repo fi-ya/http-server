@@ -8,14 +8,18 @@ import org.httpserver.response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+//import java.io.IOException;
+//import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.lang.System;
+
 
 public class Server {
     public static int portNumber = 5000;
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger("org.httpserver.server.Server");
+
     private final Logger loggerReqRes = LoggerFactory.getLogger("loggerReqRes");
 
     public Server(int portNumber) {

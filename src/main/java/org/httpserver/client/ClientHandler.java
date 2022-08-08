@@ -10,7 +10,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 public class ClientHandler {
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger("org.httpserver.client.ClientHandler");
     private final Socket clientSocket;
     public int clientConnectionCounter;
 
