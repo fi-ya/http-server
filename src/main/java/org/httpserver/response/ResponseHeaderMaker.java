@@ -39,12 +39,22 @@ public class ResponseHeaderMaker {
     }
 
     public static String[] imageHeader(String type) {
-        return switch (type) {
-            case "jpg", "jpeg" -> imageJpgHeader();
-            case "png" -> imagePngHeader();
-            case "gif" -> imageGifHeader();
-            default -> new String[0];
+        String[] imageHeader;
+        switch (type) {
+            case "jpg", "jpeg" -> {
+                imageHeader = imageJpgHeader();
+            }
+            case "png" -> {
+                imageHeader = imagePngHeader();
+            }
+            case "gif" -> {
+                imageHeader = imageGifHeader();
+            }
+            default -> {
+                imageHeader = new String[0];
+            }
         };
+        return imageHeader;
     }
 
     public static String[] imageJpgHeader() {
