@@ -12,14 +12,14 @@ jobs:
       - run:
           name: Run build
           command: |
-            PORT=5000
-            REDIRECT_URL="http://127.0.0.1:5000/simple_get"
+#            PORT=5000
+#            REDIRECT_URL="http://127.0.0.1:5000/simple_get"
             ./gradlew clean build
       - run:
           name: Run test
           command: |
-            PORT=5000
-            REDIRECT_URL="http://127.0.0.1:5000/simple_get"
+#            PORT=5000
+#            REDIRECT_URL="http://127.0.0.1:5000/simple_get"
             ./gradlew test
 
 
