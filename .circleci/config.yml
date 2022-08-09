@@ -20,26 +20,7 @@ jobs:
           name: coverage
           command: bash <(curl -s https://codecov.io/bash)
 
-#  upload-to-codecov:
-#    docker:
-#      - image: cimg/openjdk:17.0.3
-#    environment:
-#        PORT: 5000
-#        REDIRECT_URL: 'http://127.0.0.1:5000/simple_get'
-#    steps:
-#      - checkout
-#      - run:
-#          name: Run test
-#          command: ./gradlew test
-#      - codecov/upload
-#      - run:
-#          name: coverage
-#          command: bash <(curl -s https://codecov.io/bash)
-
 workflows:
   build-test-workflow:
     jobs:
       - build-test
-#  upload-to-codecov-workflow:
-#    jobs:
-#      - upload-to-codecov

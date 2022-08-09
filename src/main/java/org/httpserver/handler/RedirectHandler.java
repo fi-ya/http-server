@@ -21,7 +21,6 @@ public class RedirectHandler implements Handler {
     public Response handleResponse(Request request) {
 
         final String REDIRECT_URL = System.getenv("REDIRECT_URL");
-        System.out.println("re " + REDIRECT_URL);
 
         return new ResponseBuilder()
                 .withStatusCode(MOVED_PERMANENTLY)

@@ -1,18 +1,10 @@
 package org.httpserver.response;
 
-import org.httpserver.App;
 import org.httpserver.server.HttpMethod;
-import org.httpserver.server.Server;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 public class ResponseHeaderMaker {
-
-//    public static final String localIPAddress = "127.0.0.1";
-
-
-
     public static String[] plainTextHeader() {
         return new String[]{ResponseHeaderName.CONTENT_TYPE, ContentType.TEXT.getValue()};
     }
@@ -33,8 +25,6 @@ public class ResponseHeaderMaker {
     }
 
     public static String[] locationHeader(String locationURL) {
-        System.out.println("env" + Arrays.toString(new String[]{ResponseHeaderName.LOCATION, System.getenv("REDIRECT_URL")}));
-        System.out.println("url "+ locationURL);
         return new String[]{ResponseHeaderName.LOCATION, locationURL};
     }
 
