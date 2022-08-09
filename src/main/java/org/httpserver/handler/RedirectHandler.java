@@ -21,7 +21,7 @@ public class RedirectHandler implements Handler {
     public Response handleResponse(Request request) {
         return new ResponseBuilder()
                 .withStatusCode(MOVED_PERMANENTLY)
-                .withHeader(locationHeader("/simple_get"))
+                .withHeader(locationHeader())
                 .build();
     }
 

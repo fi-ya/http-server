@@ -4,6 +4,7 @@ import org.httpserver.App;
 import org.httpserver.server.HttpMethod;
 import org.httpserver.server.Server;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class ResponseHeaderMaker {
@@ -31,18 +32,14 @@ public class ResponseHeaderMaker {
         return new String[]{ResponseHeaderName.ALLOW, String.valueOf(finalAllowedHeaders)};
     }
 
-    public static String[] locationHeader(String newLocationUrl) {
+    public static String[] locationHeader() {
+        System.out.println(Arrays.toString(new String[]{ResponseHeaderName.LOCATION, REDIRECT_URL}));
         return new String[]{ResponseHeaderName.LOCATION, REDIRECT_URL};
     }
 
     public static String[] htmlTextHeader() {
         return new String[]{ResponseHeaderName.CONTENT_TYPE, ContentType.HTML.getValue()};
     }
-
-//    private static String newLocationAddress(String url) {
-//        String portNumber = String.valueOf(App.portNumber);
-//        return "http://" + localIPAddress + ":" + portNumber + url;
-//    }
 
     public static String[] imageHeader(String type) {
         if (Objects.equals(type, "jpg") || Objects.equals(type, "jpeg")) {
