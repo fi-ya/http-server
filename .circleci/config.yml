@@ -7,33 +7,26 @@ jobs:
   build-test:
     docker:
       - image: cimg/openjdk:17.0.3
+    environment:
+      PORT: 5000
+      REDIRECT_URL: 'http://127.0.0.1:5000/simple_get'
     steps:
       - checkout
       - run:
           name: Run build
           command: ./gradlew clean build
-#          |
-#            PORT=5000
-#            REDIRECT_URL="http://127.0.0.1:5000/simple_get"
-
       - run:
           name: Run test
           command: ./gradlew test
-#          |
-#            PORT=5000
-#            REDIRECT_URL="http://127.0.0.1:5000/simple_get"
 
   upload-to-codecov:
     docker:
       - image: cimg/openjdk:17.0.3
+    environment:
+        PORT: 5000
+        REDIRECT_URL: 'http://127.0.0.1:5000/simple_get'
     steps:
       - checkout
-#      - run:
-#          name: port
-#          command: export PORT=5000
-#      - run:
-#          name: redirect url
-#          command: export REDIRECT_URL="http://127.0.0.1:5000/simple_get"
       - run:
           name: Run test
           command: ./gradlew test
