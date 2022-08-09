@@ -10,17 +10,18 @@ jobs:
     steps:
       - checkout
       - run:
-          name: port
-          command: export PORT=5000
-      - run:
-         name: redirect url
-         command: export REDIRECT_URL="http://127.0.0.1:5000/simple_get"
-      - run:
           name: Run build
-          command: ./gradlew clean build
+          command: |
+            PORT=5000
+            REDIRECT_URL="http://127.0.0.1:5000/simple_get"
+            ./gradlew clean build
       - run:
           name: Run test
-          command: ./gradlew test
+          command: |
+            PORT=5000
+            REDIRECT_URL="http://127.0.0.1:5000/simple_get"
+            ./gradlew test
+
 
   upload-to-codecov:
     docker:
