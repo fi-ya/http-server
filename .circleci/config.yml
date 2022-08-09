@@ -11,16 +11,18 @@ jobs:
       - checkout
       - run:
           name: Run build
-          command: |
+          command: ./gradlew clean build
+#          |
 #            PORT=5000
 #            REDIRECT_URL="http://127.0.0.1:5000/simple_get"
-            ./gradlew clean build
+
       - run:
           name: Run test
-          command: |
+          command: ./gradlew test
+#          |
 #            PORT=5000
 #            REDIRECT_URL="http://127.0.0.1:5000/simple_get"
-            ./gradlew test
+
 
 
   upload-to-codecov:
