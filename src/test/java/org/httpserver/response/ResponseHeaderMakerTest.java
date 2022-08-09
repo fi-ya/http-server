@@ -54,14 +54,16 @@ class ResponseHeaderMakerTest {
         assertExpectedHeaderNameAndValueEqualsActual(expectedHeader, actualHeader);
     }
 
-//    @Test
-//    void returnsLocationHeader(){
-//        String[] expectedHeader = new String[] {"Location", "http://127.0.0.1:5000/simple_get"};
-//
-//        String[] actualHeader = ResponseHeaderMaker.locationHeader();
-//
-//        assertExpectedHeaderNameAndValueEqualsActual(expectedHeader, actualHeader);
-//    }
+    @Test
+    void returnsLocationHeader(){
+        String[] expectedHeader = new String[] {"Location", "http://127.0.0.1:5000/simple_get"};
+
+        String[] actualHeader = ResponseHeaderMaker.locationHeader(System.getenv("REDIRECT_URL"));
+        System.out.println("e " + Arrays.toString(expectedHeader));
+        System.out.println("a " + Arrays.toString(actualHeader));
+        System.out.println(System.getenv("REDIRECT_URL"));
+        assertExpectedHeaderNameAndValueEqualsActual(expectedHeader, actualHeader);
+    }
 
     @Test
     void returnsHtmlTextHeaderStringArray(){

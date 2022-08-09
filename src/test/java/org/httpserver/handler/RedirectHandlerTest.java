@@ -21,15 +21,16 @@ class RedirectHandlerTest {
         assertEquals(1, redirectHandler.allowedHttpMethods().size());
     }
 
-//    @Test
-//    void returnsResponseWithStatusLineAndHeaderOnly() {
-//        RequestLine mockRequestLine = new RequestLine(GET, "/redirect", "HTTP/1.1");
-//        RedirectHandler redirectHandler = new RedirectHandler();
-//
-//        Response actualResponse = redirectHandler.handleResponse(new Request(mockRequestLine, new LinkedHashMap<>(), ""));
-//
-//        assertEquals("HTTP/1.1 301 Moved Permanently\r\n", actualResponse.getResponseStatusLine());
-//        assertEquals("Location: http://127.0.0.1:5000/simple_get\r\n\r\n", actualResponse.getResponseHeaders());
-//        assertTrue(new String(actualResponse.getBodyBytes()).isEmpty());
-//    }
+    @Test
+    void returnsResponseWithStatusLineAndHeaderOnly() {
+        RequestLine mockRequestLine = new RequestLine(GET, "/redirect", "HTTP/1.1");
+        RedirectHandler redirectHandler = new RedirectHandler();
+
+        Response actualResponse = redirectHandler.handleResponse(new Request(mockRequestLine, new LinkedHashMap<>(), ""));
+        System.out.println("ac " + actualResponse.getResponseHeaders());
+
+        assertEquals("HTTP/1.1 301 Moved Permanently\r\n", actualResponse.getResponseStatusLine());
+        assertEquals("Location: " + System.getenv("REDIRECT_URL") + "\r\n\r\n", actualResponse.getResponseHeaders());
+        assertTrue(new String(actualResponse.getBodyBytes()).isEmpty());
+    }
 }

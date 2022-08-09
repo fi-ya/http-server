@@ -19,9 +19,13 @@ public class RedirectHandler implements Handler {
 
     @Override
     public Response handleResponse(Request request) {
+
+        final String REDIRECT_URL = System.getenv("REDIRECT_URL");
+        System.out.println("re " + REDIRECT_URL);
+
         return new ResponseBuilder()
                 .withStatusCode(MOVED_PERMANENTLY)
-                .withHeader(locationHeader())
+                .withHeader(locationHeader(REDIRECT_URL))
                 .build();
     }
 
