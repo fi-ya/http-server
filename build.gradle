@@ -30,10 +30,16 @@ jar {
     manifest {
         attributes 'Main-Class': 'org.httpserver.App'
     }
+}
 
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+task customFatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'org.httpserver.App'
     }
+    baseName = 'all-in-one-jar'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
 
 task stage {
