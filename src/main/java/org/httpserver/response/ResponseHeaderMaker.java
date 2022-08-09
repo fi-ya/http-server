@@ -1,5 +1,6 @@
 package org.httpserver.response;
 
+import org.httpserver.App;
 import org.httpserver.server.HttpMethod;
 import org.httpserver.server.Server;
 
@@ -7,7 +8,9 @@ import java.util.Objects;
 
 public class ResponseHeaderMaker {
 
-    public static final String localIPAddress = "127.0.0.1";
+//    public static final String localIPAddress = "127.0.0.1";
+
+    private static final String REDIRECT_URL = System.getenv("REDIRECT_URL");
 
     public static String[] plainTextHeader() {
         return new String[]{ResponseHeaderName.CONTENT_TYPE, ContentType.TEXT.getValue()};
@@ -29,16 +32,17 @@ public class ResponseHeaderMaker {
     }
 
     public static String[] locationHeader(String newLocationUrl) {
-        return new String[]{ResponseHeaderName.LOCATION, newLocationAddress(newLocationUrl)};
+        return new String[]{ResponseHeaderName.LOCATION, REDIRECT_URL};
     }
 
     public static String[] htmlTextHeader() {
         return new String[]{ResponseHeaderName.CONTENT_TYPE, ContentType.HTML.getValue()};
     }
 
-    private static String newLocationAddress(String url) {
-        return "http://" + localIPAddress + ":" + Server.portNumber + url;
-    }
+//    private static String newLocationAddress(String url) {
+//        String portNumber = String.valueOf(App.portNumber);
+//        return "http://" + localIPAddress + ":" + portNumber + url;
+//    }
 
     public static String[] imageHeader(String type) {
         if (Objects.equals(type, "jpg") || Objects.equals(type, "jpeg")) {

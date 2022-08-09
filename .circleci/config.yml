@@ -10,6 +10,12 @@ jobs:
     steps:
       - checkout
       - run:
+          name: port
+          command: export PORT=5000
+      - run:
+         name: redirect url
+         command: REDIRECT_URL="http://127.0.0.1:5000/simple_get"
+      - run:
           name: Run build
           command: ./gradlew build
       - run:
@@ -21,6 +27,12 @@ jobs:
       - image: cimg/openjdk:17.0.3
     steps:
       - checkout
+      - run:
+          name: port
+          command: export PORT=5000
+      - run:
+          name: redirect url
+          command: REDIRECT_URL="http://127.0.0.1:5000/simple_get"
       - run:
           name: Run test
           command: ./gradlew test

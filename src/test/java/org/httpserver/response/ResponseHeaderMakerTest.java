@@ -2,6 +2,8 @@ package org.httpserver.response;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.httpserver.server.HttpMethod.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -57,7 +59,8 @@ class ResponseHeaderMakerTest {
         String[] expectedHeader = new String[] {"Location", "http://127.0.0.1:5000/simple_get"};
 
         String[] actualHeader = ResponseHeaderMaker.locationHeader("/simple_get");
-
+        System.out.println(Arrays.toString(expectedHeader));
+        System.out.println(Arrays.toString(actualHeader));
         assertExpectedHeaderNameAndValueEqualsActual(expectedHeader, actualHeader);
     }
 

@@ -7,17 +7,20 @@ This is an 8th Light apprenticeship project.
 - [x] The routes must be customizable with a URL, a verb, and an action to take when the route is called. 
 - [x] The server will be able to return structured data in formats such as HTML, JSON, and XML, each with the appropriate MIME type.
 - [x] The server is to serve content from a directory of files.
+## Prerequisites
+1. Run `java --version` and ignore next step if java 17.0.4 already installed. 
+2. Install [Java (17.0.4)](https://www.oracle.com/java/technologies/downloads/#java17)
 ## Run project
 The following steps will allow you to run the server in your terminal.
 1. Clone repository and htt_server_spec submodule by running `git clone --recurse-submodules git@github.com:fi-ya/http-server.git`
-2. Check to see if you have the correct version of Java (17) installed `java --version`
-   - Choose to open build/run the server socket either with an IDE or in the terminal (CLI) using the following steps:
-     - IntelliJ/VS Code: open `src/main/java/org.httpserver/App` and pressing green `play` button next to `main()` or click `Ctrl + Shift + R`.
-     - Terminal: cd into project folder and run the command `./gradlew run`
-3. Send client request to request URL listed in [project features](#project-features)
+2. `cd` into the project folder `http-server` and run shell script with `bash setup.sh`
+3. Build the application and run unit test using this command `./gradlew clean build`
+4. Start http server with this command `gradlew run`
+5. Send client request to request URL listed in [project features](#project-features)
    - using netcat by running `nc localhost 5000` followed by the client request, ie. `GET /simple_get HTTP/1.1` and wait for server response.
    - using [postman](https://www.postman.com/) 
    - using `cURL` in the terminal
+6. Stop server with this command `CTRL + c`
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Project features
@@ -77,5 +80,5 @@ The HTTP server should have the following behavior:
 - [x] The HTTP server should be covered by a robust suite of unit tests.
 - [x] The HTTP server should pass all the tests covered in [01_getting_started HTTP Server Spec](https://github.com/8thlight/http_server_spec/tree/master/features/01_getting_started).
 - [x] The HTTP server should pass all the tests covered in [02_structured_data HTTP Server Spec](https://github.com/8thlight/http_server_spec/blob/master/features/02_structured_data/structured_data.feature).
-- [ ] The HTTP server should pass all of the tests covered in [03_file_server HTTP Server Spec](https://github.com/8thlight/http_server_spec/tree/master/features/03_file_server).
+- [x] The HTTP server should pass all of the tests covered in [03_file_server HTTP Server Spec](https://github.com/8thlight/http_server_spec/tree/master/features/03_file_server).
 <p align="right">(<a href="#top">back to top</a>)</p>

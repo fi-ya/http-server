@@ -4,14 +4,12 @@ plugins {
     id 'jacoco'
 }
 
+application {
+    mainClass = 'org.httpserver.App'
+}
+
 group 'org.httpserver'
 version '1.0-SNAPSHOT'
-
-jar {
-    manifest {
-        attributes 'Main-Class': 'org.httpserver.App'
-    }
-}
 
 repositories {
     mavenCentral()
@@ -27,8 +25,11 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
 }
 
-application {
-    mainClass = 'org.httpserver.App'
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.httpserver.App'
+    }
 }
 
 task stage {

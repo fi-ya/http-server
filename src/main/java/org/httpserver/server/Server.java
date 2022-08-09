@@ -15,18 +15,19 @@ import java.net.Socket;
 
 
 public class Server {
-    public static int portNumber = 5000;
+//    public static int portNumber = 5000;
 //    private final Logger logger = LoggerFactory.getLogger("org.httpserver.server.Server");
 //
 //    private final Logger loggerReqRes = LoggerFactory.getLogger("loggerReqRes");
 
-    public Server(int portNumber) {
-        this.portNumber = portNumber;
-    }
+//    public Server(int portNumber) {
+//        this.portNumber = portNumber;
+//    }
 
-    public void start() throws IOException {
+    public void start(int portNumber) throws IOException {
         ServerWrapper serverWrapper = new ServerWrapper();
         ServerSocket serverSocket = serverWrapper.createServerSocket(portNumber);
+        System.out.println(serverSocket);
 
         while (!serverSocket.isClosed()) {
 
@@ -40,6 +41,7 @@ public class Server {
 
             Request request = requestParser.parseRequest(clientRequestInputStream);
 //            loggerReqRes.info("Request: " + request.stringFormatRequest());
+            System.out.println(request);
 
             Router router = new Router();
             Handler handler = router.getHandler(request);
@@ -48,6 +50,7 @@ public class Server {
 
             Response response = handler.handleResponse(request);
 //            loggerReqRes.info("Response: " + response.stringFormatResponse());
+            System.out.println(response);
 
             clientHandler.processSendResponse(response);
 
