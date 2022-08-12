@@ -19,8 +19,23 @@ jobs:
       - run:
           name: coverage
           command: bash <(curl -s https://codecov.io/bash)
+  deploy-ec2:
+    docker:
+      - image: cimg/openjdk:17.0.3
+    steps:
+      - checkout
+      - run:
+          name: build jar
+          command: ./gradlew clean build jar
+      - run:
+          name: copy jar to ec2 instance
+          command: scp $JAR_PATH ec2-user@$IP
 
 workflows:
   build-test-workflow:
     jobs:
       - build-test
+      - deploy-ec2:
+          filters:
+            branches:
+              only: test-deploy
