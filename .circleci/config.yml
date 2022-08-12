@@ -22,6 +22,9 @@ jobs:
   deploy-ec2:
     docker:
       - image: cimg/openjdk:17.0.3
+      environment:
+        PORT: 5000
+        REDIRECT_URL: 'http://127.0.0.1:5000/simple_get'
     steps:
       - checkout
       - run:
@@ -29,7 +32,7 @@ jobs:
           command: ./gradlew clean build jar
       - run:
           name: copy jar to ec2 instance
-          command: scp $JAR_PATH ec2-user@$IP
+          command: scp $JAR_PATH ec2-user@$EC2_IP
 
 workflows:
   build-test-workflow:
