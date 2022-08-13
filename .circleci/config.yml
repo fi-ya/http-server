@@ -30,10 +30,9 @@ jobs:
       - run:
           name: build jar
           command: ./gradlew clean build jar
-      - run:
-          name: copy jar to ec2 instance
-          command: |
-          scp $JAR_PATH ec2-user@$EC2_IP "yes"
+      - run: |
+          scp $JAR_PATH ec2-user@$EC2_IP 
+          "yes"
 
 workflows:
   build-test-workflow:
