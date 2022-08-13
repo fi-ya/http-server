@@ -33,8 +33,7 @@ jobs:
       - run:
           name: copy jar to ec2 instance
           command: |
-          scp $JAR_PATH ec2-user@$EC2_IP
-          yes
+          scp $JAR_PATH ec2-user@$EC2_IP "yes"
 
 workflows:
   build-test-workflow:
